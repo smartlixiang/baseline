@@ -1,57 +1,16 @@
-# ===== system / editor =====
-.DS_Store
-Thumbs.db
-*.swp
-*.swo
-.vscode/
-.idea/
+# datasets and caches
+data/
+
+# experiment outputs / checkpoints
+exps/
+exps_formal/
+
+# logs
+logs/
+
+# python cache
 __pycache__/
 *.pyc
-*.pyo
 
-# ===== python env =====
-.venv/
-venv/
-env/
-*.egg-info/
-dist/
-build/
-
-# ===== datasets / caches =====
-**/data/
-**/datasets/
-**/downloads/
-**/manual/
-**/tensorflow_datasets/
-**/.cache/
-
-# ===== training artifacts (DO NOT UPLOAD) =====
-**/exps/
-**/exps_formal/
-**/ckpts/
-**/checkpoint*/
-**/*.ckpt
-**/*.pth
-**/*.pt
-**/*.pkl
-**/*.npz
-**/wandb/
-**/tb_logs/
-**/tensorboard/
-**/logs/ 
-
-# ===== large binaries =====
-*.zip
-*.tar
-*.tar.gz
-*.tgz
-*.7z
-*.whl
-
-# ===== allow masks =====
-!**/masks/
-!**/masks_formal/
-!**/masks/**/*.npy
-!**/masks_formal/**/*.npy
-!**/masks/**/*.txt
-!**/masks_formal/**/*.txt
+# internal backups
+.git_backup/

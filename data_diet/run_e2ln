@@ -1,0 +1,148 @@
+#!/usr/bin/env bash
+export XLA_FLAGS="--xla_gpu_strict_conv_algorithm_picker=false --xla_gpu_autotune_level=0"
+export XLA_PYTHON_CLIENT_ALLOCATOR=platform
+export TF_CPP_MIN_LOG_LEVEL=3
+export ABSL_LOGGING=0
+export PYTHONWARNINGS="ignore"
+export JAX_LOG_COMPILES=0
+
+set -euo pipefail
+
+ROOT="$(cd "$(dirname "$0")" && pwd)"
+EXP="quick_e2ln_cifar10_rn18"
+RUN=0
+
+# CIFAR-10: 50000 train, batch=128 => steps/epoch≈390 (官方脚本也写死 EP_STEPS=390)
+EP_STEPS=390
+EPOCHS=3
+STEP=$((EP_STEPS * EPOCHS))
+BATCH_SZ=100
+SUBSET_SIZE=25000  # 50%
+
+# GPU runtime (你的环境需要这个才能加载 CUDA 动态库)
+export LD_LIBRARY_PATH="$CONDA_PREFIX/lib"
+export XLA_PYTHON_CLIENT_PREALLOCATE=false
+export CUDA_VISIBLE_DEVICES="${CUDA_VISIBLE_DEVICES:-0}"
+export TF_VISIBLE_DEVICES=""
+
+mkdir -p "$ROOT/data" "$ROOT/exps"
+
+echo "[1/4] Train full data for ${EPOCHS} epochs (step=${STEP}) ..."
+python - <<PY
+from data_diet.train import train
+from types import SimpleNamespace
+
+ROOT = r"$ROOT"
+EXP  = r"$EXP"
+RUN  = int(r"$RUN")
+
+META_MODEL_SEED, META_TRAIN_SEED, SEED_INCR = 42, 4242, 424242
+EP_STEPS = $EP_STEPS
+
+args = SimpleNamespace()
+# data
+args.data_dir = ROOT + "/data"
+args.dataset = "cifar10"
+# subsets
+args.subset = None
+args.subset_size = None
+args.scores_path = None
+args.subset_offset = None
+args.random_subset_seed = None
+# model
+args.model = "resnet18_lowres"
+args.model_seed = META_MODEL_SEED + RUN * SEED_INCR
+args.load_dir = None
+args.ckpt = 0
+# optimizer
+args.lr = 0.1
+args.beta = 0.9
+args.weight_decay = 0.0005
+args.nesterov = True
+args.lr_vitaly = False
+args.decay_factor = 0.2
+# 对齐官方脚本，只是把总步数缩短到 3 epochs
+args.decay_steps = [60*EP_STEPS, 120*EP_STEPS, 160*EP_STEPS]
+# training
+args.num_steps = $STEP
+args.train_seed = META_TRAIN_SEED + RUN * SEED_INCR
+args.train_batch_size = 32
+args.test_batch_size = 128
+args.augment = True
+args.track_forgetting = False  # quick 测试不需要
+# checkpoints
+args.save_dir = ROOT + f"/exps/{EXP}/run_{RUN}"
+args.log_steps = EP_STEPS
+args.early_step = 0
+args.early_save_steps = None
+args.save_steps = EP_STEPS
+
+train(args)
+PY
+
+echo "[2/4] Compute EL2N (l2_error) at step=${STEP} ..."
+python scripts/get_run_score.py "$ROOT" "$EXP" "$RUN" "$STEP" "$BATCH_SZ" l2_error
+
+SCORE_PATH="$ROOT/exps/$EXP/run_$RUN/error_l2_norm_scores/ckpt_${STEP}.npy"
+if [ ! -f "$SCORE_PATH" ]; then
+  echo "ERROR: score file not found: $SCORE_PATH"
+  exit 1
+fi
+
+echo "[3/4] Train 50% subset (keep max EL2N) for ${EPOCHS} epochs ..."
+python - <<PY
+from data_diet.train import train
+from types import SimpleNamespace
+
+ROOT = r"$ROOT"
+EXP  = r"$EXP"
+RUN  = int(r"$RUN")
+SCORE_PATH = r"$SCORE_PATH"
+SIZE = int(r"$SUBSET_SIZE")
+
+META_MODEL_SEED, META_TRAIN_SEED, SEED_INCR = 42, 4242, 424242
+EP_STEPS = $EP_STEPS
+
+args = SimpleNamespace()
+# data
+args.data_dir = ROOT + "/data"
+args.dataset = "cifar10"
+# subsets
+args.subset = "keep_max_scores"
+args.subset_size = SIZE
+args.scores_path = SCORE_PATH
+args.subset_offset = None
+args.random_subset_seed = None
+# model
+args.model = "resnet18_lowres"
+args.model_seed = META_MODEL_SEED + RUN * SEED_INCR
+args.load_dir = None
+args.ckpt = 0
+# optimizer
+args.lr = 0.1
+args.beta = 0.9
+args.weight_decay = 0.0005
+args.nesterov = True
+args.lr_vitaly = False
+args.decay_factor = 0.2
+args.decay_steps = [60*EP_STEPS, 120*EP_STEPS, 160*EP_STEPS]
+# training
+args.num_steps = $STEP
+args.train_seed = META_TRAIN_SEED + RUN * SEED_INCR
+args.train_batch_size = 32
+args.test_batch_size = 128
+args.augment = True
+args.track_forgetting = False
+# checkpoints
+args.save_dir = ROOT + f"/exps/{EXP}/size_{SIZE}/run_{RUN}"
+args.log_steps = EP_STEPS
+args.early_step = 0
+args.early_save_steps = None
+args.save_steps = EP_STEPS
+
+train(args)
+PY
+
+echo "[4/4] Done."
+echo "Full run dir:   $ROOT/exps/$EXP/run_$RUN"
+echo "Subset run dir: $ROOT/exps/$EXP/size_${SUBSET_SIZE}/run_$RUN"

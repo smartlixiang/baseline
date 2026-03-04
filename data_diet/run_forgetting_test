@@ -1,0 +1,84 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+ROOT="$(cd "$(dirname "$0")" && pwd)"
+EXP="quick_forgetting_cifar10_rn18"
+RUN=0
+
+EP_STEPS=390
+EPOCHS=3
+STEP=$((EP_STEPS * EPOCHS))
+
+# 稳定性设置（与你之前跑通训练一致）
+export LD_LIBRARY_PATH="$CONDA_PREFIX/lib"
+export XLA_PYTHON_CLIENT_PREALLOCATE=false
+export XLA_PYTHON_CLIENT_ALLOCATOR=platform
+export XLA_FLAGS="--xla_gpu_strict_conv_algorithm_picker=false --xla_gpu_autotune_level=0"
+export CUDA_VISIBLE_DEVICES="${CUDA_VISIBLE_DEVICES:-0}"
+
+# 降低刷屏（可选）
+export TF_CPP_MIN_LOG_LEVEL=3
+export PYTHONWARNINGS="ignore::FutureWarning,ignore::DeprecationWarning"
+
+mkdir -p "$ROOT/data" "$ROOT/exps"
+
+echo "[1/2] Train with forgetting tracking for ${EPOCHS} epochs (step=${STEP}) ..."
+python - <<PY
+from data_diet.train import train
+from types import SimpleNamespace
+
+ROOT = r"$ROOT"
+EXP  = r"$EXP"
+RUN  = int(r"$RUN")
+
+META_MODEL_SEED, META_TRAIN_SEED, SEED_INCR = 42, 4242, 424242
+EP_STEPS = $EP_STEPS
+
+args = SimpleNamespace()
+args.data_dir = ROOT + "/data"
+args.dataset = "cifar10"
+
+args.subset = None
+args.subset_size = None
+args.scores_path = None
+args.subset_offset = None
+args.random_subset_seed = None
+
+args.model = "resnet18_lowres"
+args.model_seed = META_MODEL_SEED + RUN * SEED_INCR
+args.load_dir = None
+args.ckpt = 0
+
+args.lr = 0.1
+args.beta = 0.9
+args.weight_decay = 0.0005
+args.nesterov = True
+args.lr_vitaly = False
+args.decay_factor = 0.2
+args.decay_steps = [60*EP_STEPS, 120*EP_STEPS, 160*EP_STEPS]
+
+args.num_steps = $STEP
+args.train_seed = META_TRAIN_SEED + RUN * SEED_INCR
+args.train_batch_size = 32
+args.test_batch_size = 128
+args.augment = True
+
+# 关键：开启 forgetting 追踪
+args.track_forgetting = True
+
+args.save_dir = ROOT + f"/exps/{EXP}/run_{RUN}"
+args.log_steps = EP_STEPS
+args.early_step = 0
+args.early_save_steps = None
+args.save_steps = EP_STEPS
+
+train(args)
+PY
+
+echo "[2/2] Check forgetting artifacts ..."
+OUT="$ROOT/exps/$EXP/run_$RUN"
+echo "Output dir: $OUT"
+echo "Looking for files containing 'forget' ..."
+find "$OUT" -maxdepth 3 -type f -iname "*forget*" -print || true
+
+echo "If you see forgetting-related files above (or run completes without error), forgetting tracking is working."
