@@ -1,0 +1,19 @@
+============================================================
+[GraNd] dataset=cifar10 base_seed=22  N_AVG=4  step=3900
+============================================================
+[LAUNCH] run_id=0 gpu=0 run_seed=22
+[LAUNCH] run_id=1 gpu=1 run_seed=1000025
+[LAUNCH] run_id=2 gpu=2 run_seed=2000028
+[LAUNCH] run_id=3 gpu=3 run_seed=3000031
+Traceback (most recent call last):
+  File "<stdin>", line 29, in <module>
+NameError: name 'true' is not defined
+Traceback (most recent call last):
+  File "<stdin>", line 29, in <module>
+NameError: name 'true' is not defined
+Traceback (most recent call last):
+  File "<stdin>", line 29, in <module>
+NameError: name 'true' is not defined
+Traceback (most recent call last):
+  File "<stdin>", line 29, in <module>
+NameError: name 'true' is not defined
