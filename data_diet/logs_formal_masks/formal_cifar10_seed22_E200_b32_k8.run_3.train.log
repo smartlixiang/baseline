@@ -124,4 +124,48 @@ train net...
  34.00% | time:  90.0s (101.1m) | step: 106284 | lr: 0.0200 | train acc: 0.906 | test acc: 0.835
  34.50% | time:  82.5s (102.4m) | step: 107847 | lr: 0.0200 | train acc: 0.969 | test acc: 0.868
  35.00% | time:  90.7s (104.0m) | step: 109410 | lr: 0.0200 | train acc: 0.969 | test acc: 0.861
- 35.50% | time:  91.0s (105.5m) | step: 110973 |
+ 35.50% | time:  91.0s (105.5m) | step: 110973 |./run_formal_masks.sh: 行 84: 13682 已杀死               python -  <<PY
+from data_diet.train import train
+from types import SimpleNamespace
+
+ROOT=r"$ROOT"
+args=SimpleNamespace()
+args.data_dir = ROOT + "/data"
+args.dataset = r"$dataset"
+
+args.subset=None
+args.subset_size=None
+args.scores_path=None
+args.subset_offset=None
+args.random_subset_seed=None
+
+args.model=r"$MODEL"
+args.model_seed=int($run_seed)
+args.load_dir=None
+args.ckpt=0
+
+args.lr=float($LR)
+args.beta=float($BETA)
+args.weight_decay=float($WEIGHT_DECAY)
+args.nesterov=True
+args.lr_vitaly=False
+args.decay_factor=0.2
+args.decay_steps=[60*int($spe), 120*int($spe), 160*int($spe)]
+
+args.num_steps=int($num_steps)
+args.train_seed=int($run_seed)
+args.train_batch_size=int($TRAIN_BATCH)
+args.test_batch_size=int($TEST_BATCH)
+args.augment=True
+
+args.track_forgetting=True
+
+args.save_dir=r"$save_dir"
+args.log_steps=int($spe)
+args.early_step=0
+args.early_save_steps=None
+args.save_steps=int($spe)
+
+train(args)
+PY
+
