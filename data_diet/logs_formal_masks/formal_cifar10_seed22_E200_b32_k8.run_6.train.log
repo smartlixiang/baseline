@@ -1,0 +1,48 @@
+WARNING:tensorflow:From /home/lixiang/miniconda3_old/envs/data_diet/lib/python3.7/site-packages/tensorflow_datasets/core/dataset_builder.py:622: get_single_element (from tensorflow.python.data.experimental.ops.get_single_element) is deprecated and will be removed in a future version.
+Instructions for updating:
+Use `tf.data.Dataset.get_single_element()`.
+./run_formal_masks.sh: 行 76: 29434 已杀死               python -  <<PY
+from data_diet.train import train
+from types import SimpleNamespace
+
+ROOT=r"$ROOT"
+args=SimpleNamespace()
+args.data_dir = ROOT + "/data"
+args.dataset = r"$dataset"
+
+args.subset=None
+args.subset_size=None
+args.scores_path=None
+args.subset_offset=None
+args.random_subset_seed=None
+
+args.model=r"$MODEL"
+args.model_seed=int($run_seed)
+args.load_dir=None
+args.ckpt=0
+
+args.lr=float($LR)
+args.beta=float($BETA)
+args.weight_decay=float($WEIGHT_DECAY)
+args.nesterov=True
+args.lr_vitaly=False
+args.decay_factor=0.2
+args.decay_steps=[60*int($spe), 120*int($spe), 160*int($spe)]
+
+args.num_steps=int($num_steps)
+args.train_seed=int($run_seed)
+args.train_batch_size=int($TRAIN_BATCH)
+args.test_batch_size=int($TEST_BATCH)
+args.augment=True
+
+args.track_forgetting=True
+
+args.save_dir=r"$save_dir"
+args.log_steps=int($spe)
+args.early_step=0
+args.early_save_steps=None
+args.save_steps=int($spe)
+
+train(args)
+PY
+
