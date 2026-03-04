@@ -25,6 +25,14 @@ if [ "$K_RUNS" -lt 1 ] || [ "$K_RUNS" -gt "$MAX_GPUS" ]; then
   exit 1
 fi
 
+# Host RAM can be the bottleneck before VRAM when each worker loads JAX/TFDS.
+# Use train waves to avoid Linux OOM-killer taking down random workers.
+TRAIN_PARALLEL="${TRAIN_PARALLEL:-4}"
+if [ "$TRAIN_PARALLEL" -lt 1 ] || [ "$TRAIN_PARALLEL" -gt "$K_RUNS" ]; then
+  echo "[ERR] TRAIN_PARALLEL must be in [1, ${K_RUNS}], got ${TRAIN_PARALLEL}"
+  exit 1
+fi
+
 # NOTE: Batch sizes are intentionally conservative due to 2080Ti VRAM limits;
 #       they are expected to differ from paper defaults to avoid OOM.
 TRAIN_BATCH="${TRAIN_BATCH:-32}"
@@ -149,6 +157,7 @@ wait_for_pids () {
 
 echo "[INFO] Multi-GPU progress note: to avoid tqdm bars being garbled by parallel workers,"
 echo "       worker stdout/stderr is redirected to per-run log files under: $LOG_ROOT"
+echo "[INFO] train worker parallelism per wave: TRAIN_PARALLEL=$TRAIN_PARALLEL (K_RUNS=$K_RUNS)"
 
 for dataset in "${DATASETS[@]}"; do
   ntrain="$(num_train_examples "$dataset")"
@@ -182,6 +191,7 @@ for dataset in "${DATASETS[@]}"; do
     echo "===================================================="
 
     pids=()
+    launched_in_wave=0
     for run_id in $(seq 0 $((K_RUNS-1))); do
       run_seed=$((base_seed * (run_id + 1)))
       run_dir="$exp_dir/run_${run_id}"
@@ -197,12 +207,21 @@ for dataset in "${DATASETS[@]}"; do
         train_one "$dataset" "$run_seed" "$run_dir" "$spe" "$total_steps"
       ) >"$log_file" 2>&1 &
       pids+=($!)
+      launched_in_wave=$((launched_in_wave + 1))
       echo "[TRAIN] launched run=$run_id gpu=$run_id seed=$run_seed log=$log_file"
+
+      if [ "$launched_in_wave" -ge "$TRAIN_PARALLEL" ]; then
+        wait_for_pids pids
+        echo "[TRAIN] finished one wave of $launched_in_wave workers"
+        pids=()
+        launched_in_wave=0
+      fi
     done
     if [ "${#pids[@]}" -gt 0 ]; then
       wait_for_pids pids
-      echo "[TRAIN] all training workers finished"
+      echo "[TRAIN] finished final wave of $launched_in_wave workers"
     fi
+    echo "[TRAIN] all training workers finished"
 
     for e in "${SCORE_EPOCHS[@]}"; do
       score_step=$((e * spe))
