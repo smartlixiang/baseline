@@ -1,0 +1,257 @@
+WARNING:tensorflow:From /home/lixiang/miniconda3_old/envs/data_diet/lib/python3.7/site-packages/tensorflow_datasets/core/dataset_builder.py:622: get_single_element (from tensorflow.python.data.experimental.ops.get_single_element) is deprecated and will be removed in a future version.
+Instructions for updating:
+Use `tf.data.Dataset.get_single_element()`.
+load cifar100... 10s
+get train state... 13s
+train args:
+{
+    "data_dir": "/home/lixiang/baseline/data_diet/data",
+    "dataset": "cifar100",
+    "subset": null,
+    "subset_size": null,
+    "scores_path": null,
+    "subset_offset": null,
+    "random_subset_seed": null,
+    "model": "resnet18_lowres",
+    "model_seed": 44,
+    "load_dir": null,
+    "ckpt": 0,
+    "lr": 0.1,
+    "beta": 0.9,
+    "weight_decay": 0.0005,
+    "nesterov": true,
+    "lr_vitaly": false,
+    "decay_factor": 0.2,
+    "decay_steps": [
+        93780,
+        187560,
+        250080
+    ],
+    "num_steps": 312600,
+    "train_seed": 44,
+    "train_batch_size": 32,
+    "test_batch_size": 128,
+    "augment": true,
+    "track_forgetting": true,
+    "save_dir": "/home/lixiang/baseline/data_diet/exps/formal_cifar100_seed22_E200_b32_k6/run_1",
+    "log_steps": 1563,
+    "early_step": 0,
+    "early_save_steps": null,
+    "save_steps": 1563,
+    "image_shape": [
+        32,
+        32,
+        3
+    ],
+    "num_classes": 100,
+    "num_train_examples": 50000,
+    "num_test_examples": 10000,
+    "steps_per_epoch": 1562,
+    "steps_per_test": 79,
+    "random_label_fraction": 0,
+    "num_params": 11220132
+}
+Save args to /home/lixiang/baseline/data_diet/exps/formal_cifar100_seed22_E200_b32_k6/run_1/args.json
+train net...
+  0.00% | time:  14.8s (  0.2m) | step:      0 | lr:   init | train acc:  init | test acc: 0.011
+  0.50% | time: 111.9s (  2.1m) | step:   1563 | lr: 0.1000 | train acc: 0.219 | test acc: 0.155
+  1.00% | time:  97.5s (  3.7m) | step:   3126 | lr: 0.1000 | train acc: 0.281 | test acc: 0.205
+  1.50% | time:  98.4s (  5.4m) | step:   4689 | lr: 0.1000 | train acc: 0.344 | test acc: 0.267
+  2.00% | time:  98.6s (  7.0m) | step:   6252 | lr: 0.1000 | train acc: 0.344 | test acc: 0.299
+  2.50% | time:  87.0s (  8.5m) | step:   7815 | lr: 0.1000 | train acc: 0.438 | test acc: 0.360
+  3.00% | time:  96.8s ( 10.1m) | step:   9378 | lr: 0.1000 | train acc: 0.375 | test acc: 0.365
+  3.50% | time:  98.2s ( 11.7m) | step:  10941 | lr: 0.1000 | train acc: 0.375 | test acc: 0.384
+  4.00% | time:  97.5s ( 13.3m) | step:  12504 | lr: 0.1000 | train acc: 0.469 | test acc: 0.394
+  4.50% | time:  98.7s ( 15.0m) | step:  14067 | lr: 0.1000 | train acc: 0.250 | test acc: 0.438
+  5.00% | time:  87.6s ( 16.4m) | step:  15630 | lr: 0.1000 | train acc: 0.250 | test acc: 0.420
+  5.50% | time:  99.2s ( 18.1m) | step:  17193 | lr: 0.1000 | train acc: 0.438 | test acc: 0.419
+  6.00% | time:  97.6s ( 19.7m) | step:  18756 | lr: 0.1000 | train acc: 0.375 | test acc: 0.432
+  6.50% | time:  97.4s ( 21.4m) | step:  20319 | lr: 0.1000 | train acc: 0.469 | test acc: 0.440
+  7.00% | time:  97.0s ( 23.0m) | step:  21882 | lr: 0.1000 | train acc: 0.469 | test acc: 0.386
+  7.50% | time:  88.7s ( 24.4m) | step:  23445 | lr: 0.1000 | train acc: 0.469 | test acc: 0.481
+  8.00% | time:  97.8s ( 26.1m) | step:  25008 | lr: 0.1000 | train acc: 0.438 | test acc: 0.413
+  8.50% | time:  97.9s ( 27.7m) | step:  26571 | lr: 0.1000 | train acc: 0.531 | test acc: 0.447
+  9.00% | time:  97.9s ( 29.3m) | step:  28134 | lr: 0.1000 | train acc: 0.375 | test acc: 0.421
+  9.50% | time:  97.4s ( 31.0m) | step:  29697 | lr: 0.1000 | train acc: 0.438 | test acc: 0.422
+ 10.00% | time:  87.9s ( 32.4m) | step:  31260 | lr: 0.1000 | train acc: 0.500 | test acc: 0.454
+ 10.50% | time:  99.1s ( 34.1m) | step:  32823 | lr: 0.1000 | train acc: 0.531 | test acc: 0.445
+ 11.00% | time:  98.1s ( 35.7m) | step:  34386 | lr: 0.1000 | train acc: 0.406 | test acc: 0.441
+ 11.50% | time:  99.0s ( 37.4m) | step:  35949 | lr: 0.1000 | train acc: 0.625 | test acc: 0.450
+ 12.00% | time:  99.8s ( 39.0m) | step:  37512 | lr: 0.1000 | train acc: 0.625 | test acc: 0.454
+ 12.50% | time:  98.0s ( 40.7m) | step:  39075 | lr: 0.1000 | train acc: 0.469 | test acc: 0.448
+ 13.00% | time:  88.3s ( 42.1m) | step:  40638 | lr: 0.1000 | train acc: 0.562 | test acc: 0.462
+ 13.50% | time:  97.6s ( 43.8m) | step:  42201 | lr: 0.1000 | train acc: 0.375 | test acc: 0.402
+ 14.00% | time:  97.4s ( 45.4m) | step:  43764 | lr: 0.1000 | train acc: 0.406 | test acc: 0.453
+ 14.50% | time:  97.9s ( 47.0m) | step:  45327 | lr: 0.1000 | train acc: 0.375 | test acc: 0.457
+ 15.00% | time:  91.4s ( 48.5m) | step:  46890 | lr: 0.1000 | train acc: 0.500 | test acc: 0.409
+ 15.50% | time:  92.5s ( 50.1m) | step:  48453 | lr: 0.1000 | train acc: 0.594 | test acc: 0.442
+ 16.00% | time:  97.3s ( 51.7m) | step:  50016 | lr: 0.1000 | train acc: 0.500 | test acc: 0.461
+ 16.50% | time:  98.1s ( 53.3m) | step:  51579 | lr: 0.1000 | train acc: 0.562 | test acc: 0.464
+ 17.00% | time:  98.7s ( 55.0m) | step:  53142 | lr: 0.1000 | train acc: 0.500 | test acc: 0.454
+ 17.50% | time:  86.9s ( 56.4m) | step:  54705 | lr: 0.1000 | train acc: 0.438 | test acc: 0.470
+ 18.00% | time:  98.5s ( 58.1m) | step:  56268 | lr: 0.1000 | train acc: 0.375 | test acc: 0.409
+ 18.50% | time:  98.3s ( 59.7m) | step:  57831 | lr: 0.1000 | train acc: 0.500 | test acc: 0.469
+ 19.00% | time:  99.3s ( 61.4m) | step:  59394 | lr: 0.1000 | train acc: 0.531 | test acc: 0.430
+ 19.50% | time:  98.4s ( 63.0m) | step:  60957 | lr: 0.1000 | train acc: 0.594 | test acc: 0.447
+ 20.00% | time:  93.4s ( 64.6m) | step:  62520 | lr: 0.1000 | train acc: 0.438 | test acc: 0.456
+ 20.50% | time:  92.9s ( 66.1m) | step:  64083 | lr: 0.1000 | train acc: 0.719 | test acc: 0.461
+ 21.00% | time:  98.0s ( 67.7m) | step:  65646 | lr: 0.1000 | train acc: 0.469 | test acc: 0.476
+ 21.50% | time:  98.8s ( 69.4m) | step:  67209 | lr: 0.1000 | train acc: 0.531 | test acc: 0.469
+ 22.00% | time:  98.8s ( 71.0m) | step:  68772 | lr: 0.1000 | train acc: 0.688 | test acc: 0.426
+ 22.50% | time:  97.4s ( 72.7m) | step:  70335 | lr: 0.1000 | train acc: 0.562 | test acc: 0.461
+ 23.00% | time:  89.1s ( 74.2m) | step:  71898 | lr: 0.1000 | train acc: 0.406 | test acc: 0.446
+ 23.50% | time:  98.9s ( 75.8m) | step:  73461 | lr: 0.1000 | train acc: 0.406 | test acc: 0.461
+ 24.00% | time:  99.4s ( 77.5m) | step:  75024 | lr: 0.1000 | train acc: 0.562 | test acc: 0.456
+ 24.50% | time:  99.0s ( 79.1m) | step:  76587 | lr: 0.1000 | train acc: 0.406 | test acc: 0.422
+ 25.00% | time:  98.8s ( 80.8m) | step:  78150 | lr: 0.1000 | train acc: 0.500 | test acc: 0.447
+ 25.50% | time:  87.8s ( 82.2m) | step:  79713 | lr: 0.1000 | train acc: 0.469 | test acc: 0.451
+ 26.00% | time:  97.7s ( 83.8m) | step:  81276 | lr: 0.1000 | train acc: 0.406 | test acc: 0.434
+ 26.50% | time:  97.6s ( 85.5m) | step:  82839 | lr: 0.1000 | train acc: 0.469 | test acc: 0.391
+ 27.00% | time: 100.3s ( 87.1m) | step:  84402 | lr: 0.1000 | train acc: 0.469 | test acc: 0.403
+ 27.50% | time:  99.3s ( 88.8m) | step:  85965 | lr: 0.1000 | train acc: 0.656 | test acc: 0.426
+ 28.00% | time:  87.6s ( 90.3m) | step:  87528 | lr: 0.1000 | train acc: 0.594 | test acc: 0.434
+ 28.50% | time:  99.3s ( 91.9m) | step:  89091 | lr: 0.1000 | train acc: 0.594 | test acc: 0.472
+ 29.00% | time:  99.3s ( 93.6m) | step:  90654 | lr: 0.1000 | train acc: 0.469 | test acc: 0.478
+ 29.50% | time:  97.5s ( 95.2m) | step:  92217 | lr: 0.1000 | train acc: 0.469 | test acc: 0.385
+ 30.00% | time:  99.1s ( 96.8m) | step:  93780 | lr: 0.1000 | train acc: 0.344 | test acc: 0.457
+ 30.50% | time:  87.7s ( 98.3m) | step:  95343 | lr: 0.0200 | train acc: 0.656 | test acc: 0.635
+ 31.00% | time:  98.5s ( 99.9m) | step:  96906 | lr: 0.0200 | train acc: 0.625 | test acc: 0.649
+ 31.50% | time:  98.4s (101.6m) | step:  98469 | lr: 0.0200 | train acc: 0.688 | test acc: 0.640
+ 32.00% | time:  97.8s (103.2m) | step: 100032 | lr: 0.0200 | train acc: 0.656 | test acc: 0.631
+ 32.50% | time:  99.9s (104.9m) | step: 101595 | lr: 0.0200 | train acc: 0.781 | test acc: 0.644
+ 33.00% | time:  88.7s (106.4m) | step: 103158 | lr: 0.0200 | train acc: 0.719 | test acc: 0.650
+ 33.50% | time:  99.9s (108.0m) | step: 104721 | lr: 0.0200 | train acc: 0.750 | test acc: 0.646
+ 34.00% | time:  99.2s (109.7m) | step: 106284 | lr: 0.0200 | train acc: 0.750 | test acc: 0.621
+ 34.50% | time:  98.5s (111.3m) | step: 107847 | lr: 0.0200 | train acc: 0.781 | test acc: 0.643
+ 35.00% | time:  98.7s (113.0m) | step: 109410 | lr: 0.0200 | train acc: 0.750 | test acc: 0.642
+ 35.50% | time:  88.7s (114.4m) | step: 110973 | lr: 0.0200 | train acc: 0.750 | test acc: 0.640
+ 36.00% | time:  99.7s (116.1m) | step: 112536 | lr: 0.0200 | train acc: 0.812 | test acc: 0.643
+ 36.50% | time:  98.4s (117.7m) | step: 114099 | lr: 0.0200 | train acc: 0.656 | test acc: 0.645
+ 37.00% | time:  99.4s (119.4m) | step: 115662 | lr: 0.0200 | train acc: 0.719 | test acc: 0.645
+ 37.50% | time:  99.1s (121.1m) | step: 117225 | lr: 0.0200 | train acc: 0.812 | test acc: 0.648
+ 38.00% | time:  97.8s (122.7m) | step: 118788 | lr: 0.0200 | train acc: 0.656 | test acc: 0.640
+ 38.50% | time:  88.2s (124.2m) | step: 120351 | lr: 0.0200 | train acc: 0.688 | test acc: 0.655
+ 39.00% | time:  99.8s (125.8m) | step: 121914 | lr: 0.0200 | train acc: 0.562 | test acc: 0.643
+ 39.50% | time:  99.7s (127.5m) | step: 123477 | lr: 0.0200 | train acc: 0.719 | test acc: 0.650
+ 40.00% | time:  99.9s (129.1m) | step: 125040 | lr: 0.0200 | train acc: 0.781 | test acc: 0.632
+ 40.50% | time:  99.6s (130.8m) | step: 126603 | lr: 0.0200 | train acc: 0.781 | test acc: 0.644
+ 41.00% | time:  87.9s (132.3m) | step: 128166 | lr: 0.0200 | train acc: 0.500 | test acc: 0.629
+ 41.50% | time:  99.5s (133.9m) | step: 129729 | lr: 0.0200 | train acc: 0.719 | test acc: 0.649
+ 42.00% | time: 100.3s (135.6m) | step: 131292 | lr: 0.0200 | train acc: 0.781 | test acc: 0.655
+ 42.50% | time: 100.5s (137.3m) | step: 132855 | lr: 0.0200 | train acc: 0.812 | test acc: 0.657
+ 43.00% | time: 100.8s (139.0m) | step: 134418 | lr: 0.0200 | train acc: 0.719 | test acc: 0.658
+ 43.50% | time:  89.3s (140.4m) | step: 135981 | lr: 0.0200 | train acc: 0.781 | test acc: 0.655
+ 44.00% | time:  98.7s (142.1m) | step: 137544 | lr: 0.0200 | train acc: 0.656 | test acc: 0.657
+ 44.50% | time:  97.8s (143.7m) | step: 139107 | lr: 0.0200 | train acc: 0.406 | test acc: 0.651
+ 45.00% | time: 100.7s (145.4m) | step: 140670 | lr: 0.0200 | train acc: 0.750 | test acc: 0.645
+ 45.50% | time:  98.1s (147.0m) | step: 142233 | lr: 0.0200 | train acc: 0.688 | test acc: 0.647
+ 46.00% | time: 100.8s (148.7m) | step: 143796 | lr: 0.0200 | train acc: 0.844 | test acc: 0.650
+ 46.50% | time:  89.2s (150.2m) | step: 145359 | lr: 0.0200 | train acc: 0.812 | test acc: 0.652
+ 47.00% | time: 101.6s (151.9m) | step: 146922 | lr: 0.0200 | train acc: 0.750 | test acc: 0.652
+ 47.50% | time:  99.0s (153.5m) | step: 148485 | lr: 0.0200 | train acc: 0.844 | test acc: 0.650
+ 48.00% | time:  99.4s (155.2m) | step: 150048 | lr: 0.0200 | train acc: 0.719 | test acc: 0.621
+ 48.50% | time:  99.0s (156.8m) | step: 151611 | lr: 0.0200 | train acc: 0.688 | test acc: 0.639
+ 49.00% | time:  89.5s (158.3m) | step: 153174 | lr: 0.0200 | train acc: 0.656 | test acc: 0.654
+ 49.50% | time:  99.7s (160.0m) | step: 154737 | lr: 0.0200 | train acc: 0.812 | test acc: 0.646
+ 50.00% | time:  98.7s (161.6m) | step: 156300 | lr: 0.0200 | train acc: 0.875 | test acc: 0.644
+ 50.50% | time: 100.5s (163.3m) | step: 157863 | lr: 0.0200 | train acc: 0.688 | test acc: 0.643
+ 51.00% | time: 101.1s (165.0m) | step: 159426 | lr: 0.0200 | train acc: 0.781 | test acc: 0.632
+ 51.50% | time:  99.4s (166.7m) | step: 160989 | lr: 0.0200 | train acc: 0.688 | test acc: 0.655
+ 52.00% | time:  89.7s (168.2m) | step: 162552 | lr: 0.0200 | train acc: 0.781 | test acc: 0.644
+ 52.50% | time:  99.2s (169.8m) | step: 164115 | lr: 0.0200 | train acc: 0.719 | test acc: 0.655
+ 53.00% | time: 101.8s (171.5m) | step: 165678 | lr: 0.0200 | train acc: 0.656 | test acc: 0.662
+ 53.50% | time:  99.3s (173.2m) | step: 167241 | lr: 0.0200 | train acc: 0.750 | test acc: 0.646
+ 54.00% | time: 101.5s (174.9m) | step: 168804 | lr: 0.0200 | train acc: 0.875 | test acc: 0.656
+ 54.50% | time:  92.0s (176.4m) | step: 170367 | lr: 0.0200 | train acc: 0.844 | test acc: 0.665
+ 55.00% | time: 102.1s (178.1m) | step: 171930 | lr: 0.0200 | train acc: 0.875 | test acc: 0.654
+ 55.50% | time:  98.5s (179.7m) | step: 173493 | lr: 0.0200 | train acc: 0.500 | test acc: 0.643
+ 56.00% | time:  97.5s (181.4m) | step: 175056 | lr: 0.0200 | train acc: 0.781 | test acc: 0.652
+ 56.50% | time:  99.8s (183.0m) | step: 176619 | lr: 0.0200 | train acc: 0.812 | test acc: 0.645
+ 57.00% | time: 100.8s (184.7m) | step: 178182 | lr: 0.0200 | train acc: 0.781 | test acc: 0.647
+ 57.50% | time:  89.1s (186.2m) | step: 179745 | lr: 0.0200 | train acc: 0.719 | test acc: 0.649
+ 58.00% | time: 100.5s (187.9m) | step: 181308 | lr: 0.0200 | train acc: 0.844 | test acc: 0.647
+ 58.50% | time:  99.8s (189.5m) | step: 182871 | lr: 0.0200 | train acc: 0.750 | test acc: 0.648
+ 59.00% | time:  99.7s (191.2m) | step: 184434 | lr: 0.0200 | train acc: 0.719 | test acc: 0.647
+ 59.50% | time: 101.3s (192.9m) | step: 185997 | lr: 0.0200 | train acc: 0.844 | test acc: 0.652
+ 60.00% | time:  88.8s (194.3m) | step: 187560 | lr: 0.0200 | train acc: 0.656 | test acc: 0.653
+ 60.50% | time:  98.7s (196.0m) | step: 189123 | lr: 0.0040 | train acc: 0.844 | test acc: 0.738
+ 61.00% | time: 100.6s (197.7m) | step: 190686 | lr: 0.0040 | train acc: 0.938 | test acc: 0.748
+ 61.50% | time: 100.0s (199.3m) | step: 192249 | lr: 0.0040 | train acc: 0.969 | test acc: 0.748
+ 62.00% | time: 100.4s (201.0m) | step: 193812 | lr: 0.0040 | train acc: 0.875 | test acc: 0.744
+ 62.50% | time: 100.4s (202.7m) | step: 195375 | lr: 0.0040 | train acc: 0.969 | test acc: 0.751
+ 63.00% | time:  89.0s (204.2m) | step: 196938 | lr: 0.0040 | train acc: 0.938 | test acc: 0.751
+ 63.50% | time:  99.4s (205.8m) | step: 198501 | lr: 0.0040 | train acc: 0.938 | test acc: 0.747
+ 64.00% | time:  98.8s (207.5m) | step: 200064 | lr: 0.0040 | train acc: 1.000 | test acc: 0.740
+ 64.50% | time: 102.5s (209.2m) | step: 201627 | lr: 0.0040 | train acc: 0.969 | test acc: 0.745
+ 65.00% | time:  99.7s (210.8m) | step: 203190 | lr: 0.0040 | train acc: 1.000 | test acc: 0.741
+ 65.50% | time:  89.6s (212.3m) | step: 204753 | lr: 0.0040 | train acc: 0.969 | test acc: 0.740
+ 66.00% | time: 101.7s (214.0m) | step: 206316 | lr: 0.0040 | train acc: 0.875 | test acc: 0.734
+ 66.50% | time:  98.7s (215.7m) | step: 207879 | lr: 0.0040 | train acc: 0.969 | test acc: 0.739
+ 67.00% | time: 102.5s (217.4m) | step: 209442 | lr: 0.0040 | train acc: 1.000 | test acc: 0.732
+ 67.50% | time:  99.6s (219.0m) | step: 211005 | lr: 0.0040 | train acc: 0.875 | test acc: 0.738
+ 68.00% | time:  99.9s (220.7m) | step: 212568 | lr: 0.0040 | train acc: 1.000 | test acc: 0.733
+ 68.50% | time:  91.5s (222.2m) | step: 214131 | lr: 0.0040 | train acc: 0.938 | test acc: 0.728
+ 69.00% | time: 100.5s (223.9m) | step: 215694 | lr: 0.0040 | train acc: 0.938 | test acc: 0.731
+ 69.50% | time:  99.1s (225.6m) | step: 217257 | lr: 0.0040 | train acc: 0.938 | test acc: 0.720
+ 70.00% | time: 101.2s (227.2m) | step: 218820 | lr: 0.0040 | train acc: 1.000 | test acc: 0.731
+ 70.50% | time: 100.7s (228.9m) | step: 220383 | lr: 0.0040 | train acc: 0.906 | test acc: 0.720
+ 71.00% | time:  89.5s (230.4m) | step: 221946 | lr: 0.0040 | train acc: 0.875 | test acc: 0.722
+ 71.50% | time: 101.8s (232.1m) | step: 223509 | lr: 0.0040 | train acc: 1.000 | test acc: 0.726
+ 72.00% | time: 100.9s (233.8m) | step: 225072 | lr: 0.0040 | train acc: 1.000 | test acc: 0.724
+ 72.50% | time: 101.3s (235.5m) | step: 226635 | lr: 0.0040 | train acc: 0.938 | test acc: 0.721
+ 73.00% | time:  99.9s (237.1m) | step: 228198 | lr: 0.0040 | train acc: 0.969 | test acc: 0.716
+ 73.50% | time: 100.3s (238.8m) | step: 229761 | lr: 0.0040 | train acc: 0.938 | test acc: 0.717
+ 74.00% | time:  89.0s (240.3m) | step: 231324 | lr: 0.0040 | train acc: 0.938 | test acc: 0.725
+ 74.50% | time:  99.7s (242.0m) | step: 232887 | lr: 0.0040 | train acc: 0.938 | test acc: 0.716
+ 75.00% | time:  97.8s (243.6m) | step: 234450 | lr: 0.0040 | train acc: 0.938 | test acc: 0.721
+ 75.50% | time: 102.3s (245.3m) | step: 236013 | lr: 0.0040 | train acc: 0.969 | test acc: 0.716
+ 76.00% | time: 101.9s (247.0m) | step: 237576 | lr: 0.0040 | train acc: 0.906 | test acc: 0.716
+ 76.50% | time:  99.7s (248.7m) | step: 239139 | lr: 0.0040 | train acc: 0.969 | test acc: 0.711
+ 77.00% | time:  89.8s (250.2m) | step: 240702 | lr: 0.0040 | train acc: 0.906 | test acc: 0.728
+ 77.50% | time: 101.7s (251.9m) | step: 242265 | lr: 0.0040 | train acc: 0.906 | test acc: 0.722
+ 78.00% | time: 100.5s (253.5m) | step: 243828 | lr: 0.0040 | train acc: 0.906 | test acc: 0.720
+ 78.50% | time: 100.5s (255.2m) | step: 245391 | lr: 0.0040 | train acc: 0.938 | test acc: 0.718
+ 79.00% | time:  98.6s (256.8m) | step: 246954 | lr: 0.0040 | train acc: 0.906 | test acc: 0.715
+ 79.50% | time:  91.8s (258.4m) | step: 248517 | lr: 0.0040 | train acc: 0.969 | test acc: 0.722
+ 80.00% | time: 100.9s (260.1m) | step: 250080 | lr: 0.0040 | train acc: 1.000 | test acc: 0.715
+ 80.50% | time: 101.1s (261.7m) | step: 251643 | lr: 0.0008 | train acc: 1.000 | test acc: 0.752
+ 81.00% | time:  99.4s (263.4m) | step: 253206 | lr: 0.0008 | train acc: 1.000 | test acc: 0.760
+ 81.50% | time: 101.4s (265.1m) | step: 254769 | lr: 0.0008 | train acc: 0.938 | test acc: 0.757
+ 82.00% | time:  98.4s (266.7m) | step: 256332 | lr: 0.0008 | train acc: 1.000 | test acc: 0.762
+ 82.50% | time:  91.5s (268.3m) | step: 257895 | lr: 0.0008 | train acc: 1.000 | test acc: 0.762
+ 83.00% | time: 102.3s (270.0m) | step: 259458 | lr: 0.0008 | train acc: 1.000 | test acc: 0.762
+ 83.50% | time: 101.4s (271.7m) | step: 261021 | lr: 0.0008 | train acc: 1.000 | test acc: 0.762
+ 84.00% | time: 103.3s (273.4m) | step: 262584 | lr: 0.0008 | train acc: 1.000 | test acc: 0.764
+ 84.50% | time: 102.7s (275.1m) | step: 264147 | lr: 0.0008 | train acc: 1.000 | test acc: 0.762
+ 85.00% | time: 101.3s (276.8m) | step: 265710 | lr: 0.0008 | train acc: 1.000 | test acc: 0.761
+ 85.50% | time:  93.0s (278.3m) | step: 267273 | lr: 0.0008 | train acc: 1.000 | test acc: 0.763
+ 86.00% | time: 105.4s (280.1m) | step: 268836 | lr: 0.0008 | train acc: 1.000 | test acc: 0.765
+ 86.50% | time: 104.5s (281.8m) | step: 270399 | lr: 0.0008 | train acc: 0.969 | test acc: 0.768
+ 87.00% | time: 106.2s (283.6m) | step: 271962 | lr: 0.0008 | train acc: 1.000 | test acc: 0.766
+ 87.50% | time: 105.7s (285.4m) | step: 273525 | lr: 0.0008 | train acc: 1.000 | test acc: 0.766
+ 88.00% | time: 109.5s (287.2m) | step: 275088 | lr: 0.0008 | train acc: 1.000 | test acc: 0.767
+ 88.50% | time: 110.3s (289.0m) | step: 276651 | lr: 0.0008 | train acc: 1.000 | test acc: 0.766
+ 89.00% | time: 111.3s (290.9m) | step: 278214 | lr: 0.0008 | train acc: 1.000 | test acc: 0.764
+ 89.50% | time: 111.8s (292.7m) | step: 279777 | lr: 0.0008 | train acc: 1.000 | test acc: 0.768
+ 90.00% | time:  98.7s (294.4m) | step: 281340 | lr: 0.0008 | train acc: 1.000 | test acc: 0.766
+ 90.50% | time: 111.8s (296.2m) | step: 282903 | lr: 0.0008 | train acc: 1.000 | test acc: 0.767
+ 91.00% | time: 108.0s (298.0m) | step: 284466 | lr: 0.0008 | train acc: 1.000 | test acc: 0.767
+ 91.50% | time: 110.1s (299.9m) | step: 286029 | lr: 0.0008 | train acc: 1.000 | test acc: 0.770
+ 92.00% | time: 108.6s (301.7m) | step: 287592 | lr: 0.0008 | train acc: 1.000 | test acc: 0.772
+ 92.50% | time: 109.1s (303.5m) | step: 289155 | lr: 0.0008 | train acc: 1.000 | test acc: 0.769
+ 93.00% | time: 106.7s (305.3m) | step: 290718 | lr: 0.0008 | train acc: 1.000 | test acc: 0.768
+ 93.50% | time: 109.1s (307.1m) | step: 292281 | lr: 0.0008 | train acc: 1.000 | test acc: 0.770
+ 94.00% | time: 109.6s (308.9m) | step: 293844 | lr: 0.0008 | train acc: 1.000 | test acc: 0.771
+ 94.50% | time: 109.7s (310.8m) | step: 295407 | lr: 0.0008 | train acc: 1.000 | test acc: 0.773
+ 95.00% | time:  97.0s (312.4m) | step: 296970 | lr: 0.0008 | train acc: 1.000 | test acc: 0.769
+ 95.50% | time: 110.8s (314.2m) | step: 298533 | lr: 0.0008 | train acc: 1.000 | test acc: 0.772
+ 96.00% | time: 109.5s (316.0m) | step: 300096 | lr: 0.0008 | train acc: 1.000 | test acc: 0.772
+ 96.50% | time: 109.3s (317.9m) | step: 301659 | lr: 0.0008 | train acc: 1.000 | test acc: 0.775
+ 97.00% | time: 110.0s (319.7m) | step: 303222 | lr: 0.0008 | train acc: 1.000 | test acc: 0.772
+ 97.50% | time: 108.9s (321.5m) | step: 304785 | lr: 0.0008 | train acc: 1.000 | test acc: 0.774
+ 98.00% | time: 108.0s (323.3m) | step: 306348 | lr: 0.0008 | train acc: 1.000 | test acc: 0.772
+ 98.50% | time: 109.9s (325.2m) | step: 307911 | lr: 0.0008 | train acc: 1.000 | test acc: 0.770
+ 99.00% | time: 111.3s (327.0m) | step: 309474 | lr: 0.0008 | train acc: 1.000 | test acc: 0.771
+ 99.50% | time: 109.6s (328.8m) | step: 311037 | lr: 0.0008 | train acc: 1.000 | test acc: 0.771
+100.00% | time:  96.0s (330.4m) | step: 312600 | lr: 0.0008 | train acc: 1.000 | test acc: 0.772
+Save record to /home/lixiang/baseline/data_diet/exps/formal_cifar100_seed22_E200_b32_k6/run_1/recorder.pkl

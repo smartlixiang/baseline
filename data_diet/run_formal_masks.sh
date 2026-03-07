@@ -17,19 +17,31 @@ MODEL="resnet18_lowres"
 TRAIN_EPOCHS="${TRAIN_EPOCHS:-200}"
 SCORE_EPOCHS=(${SCORE_EPOCHS:-20})
 
-# Paper uses 10 independent runs; here default k=8 for 8 GPUs.
-K_RUNS="${K_RUNS:-8}"
-MAX_GPUS=8
-if [ "$K_RUNS" -lt 1 ] || [ "$K_RUNS" -gt "$MAX_GPUS" ]; then
-  echo "[ERR] K_RUNS must be in [1, ${MAX_GPUS}], got ${K_RUNS}"
+# Default to 6 independent runs.
+K_RUNS="${K_RUNS:-6}"
+if [ "$K_RUNS" -lt 1 ]; then
+  echo "[ERR] K_RUNS must be >= 1, got ${K_RUNS}"
+  exit 1
+fi
+
+# Parallelize with 2 physical GPUs and reuse them across runs.
+GPU_COUNT="${GPU_COUNT:-2}"
+if [ "$GPU_COUNT" -lt 1 ]; then
+  echo "[ERR] GPU_COUNT must be >= 1, got ${GPU_COUNT}"
   exit 1
 fi
 
 # Host RAM can be the bottleneck before VRAM when each worker loads JAX/TFDS.
 # Use train waves to avoid Linux OOM-killer taking down random workers.
-TRAIN_PARALLEL="${TRAIN_PARALLEL:-4}"
-if [ "$TRAIN_PARALLEL" -lt 1 ] || [ "$TRAIN_PARALLEL" -gt "$K_RUNS" ]; then
-  echo "[ERR] TRAIN_PARALLEL must be in [1, ${K_RUNS}], got ${TRAIN_PARALLEL}"
+TRAIN_PARALLEL="${TRAIN_PARALLEL:-$GPU_COUNT}"
+if [ "$TRAIN_PARALLEL" -lt 1 ] || [ "$TRAIN_PARALLEL" -gt "$GPU_COUNT" ]; then
+  echo "[ERR] TRAIN_PARALLEL must be in [1, ${GPU_COUNT}], got ${TRAIN_PARALLEL}"
+  exit 1
+fi
+
+SCORE_PARALLEL="${SCORE_PARALLEL:-$GPU_COUNT}"
+if [ "$SCORE_PARALLEL" -lt 1 ] || [ "$SCORE_PARALLEL" -gt "$GPU_COUNT" ]; then
+  echo "[ERR] SCORE_PARALLEL must be in [1, ${GPU_COUNT}], got ${SCORE_PARALLEL}"
   exit 1
 fi
 
@@ -157,7 +169,8 @@ wait_for_pids () {
 
 echo "[INFO] Multi-GPU progress note: to avoid tqdm bars being garbled by parallel workers,"
 echo "       worker stdout/stderr is redirected to per-run log files under: $LOG_ROOT"
-echo "[INFO] train worker parallelism per wave: TRAIN_PARALLEL=$TRAIN_PARALLEL (K_RUNS=$K_RUNS)"
+echo "[INFO] train worker parallelism per wave: TRAIN_PARALLEL=$TRAIN_PARALLEL (GPU_COUNT=$GPU_COUNT, K_RUNS=$K_RUNS)"
+echo "[INFO] score worker parallelism per wave: SCORE_PARALLEL=$SCORE_PARALLEL"
 
 for dataset in "${DATASETS[@]}"; do
   ntrain="$(num_train_examples "$dataset")"
@@ -193,6 +206,7 @@ for dataset in "${DATASETS[@]}"; do
     pids=()
     launched_in_wave=0
     for run_id in $(seq 0 $((K_RUNS-1))); do
+      gpu_id=$((run_id % GPU_COUNT))
       run_seed=$((base_seed * (run_id + 1)))
       run_dir="$exp_dir/run_${run_id}"
       log_file="$LOG_ROOT/${exp_name}.run_${run_id}.train.log"
@@ -203,12 +217,12 @@ for dataset in "${DATASETS[@]}"; do
       fi
 
       (
-        export CUDA_VISIBLE_DEVICES="$run_id"
+        export CUDA_VISIBLE_DEVICES="$gpu_id"
         train_one "$dataset" "$run_seed" "$run_dir" "$spe" "$total_steps"
       ) >"$log_file" 2>&1 &
       pids+=($!)
       launched_in_wave=$((launched_in_wave + 1))
-      echo "[TRAIN] launched run=$run_id gpu=$run_id seed=$run_seed log=$log_file"
+      echo "[TRAIN] launched run=$run_id gpu=$gpu_id seed=$run_seed log=$log_file"
 
       if [ "$launched_in_wave" -ge "$TRAIN_PARALLEL" ]; then
         wait_for_pids pids
@@ -229,28 +243,50 @@ for dataset in "${DATASETS[@]}"; do
 
       # Parallel over runs for EL2N.
       pids=()
+      launched_in_wave=0
       for run_id in $(seq 0 $((K_RUNS-1))); do
+        gpu_id=$((run_id % GPU_COUNT))
         log_file="$LOG_ROOT/${exp_name}.run_${run_id}.el2n.step_${score_step}.log"
         (
-          export CUDA_VISIBLE_DEVICES="$run_id"
+          export CUDA_VISIBLE_DEVICES="$gpu_id"
           python "$ROOT/scripts/get_run_score.py" "$ROOT" "$exp_name" "$run_id" "$score_step" "$EL2N_SCORE_BATCH" "l2_error"
         ) >"$log_file" 2>&1 &
         pids+=($!)
+        launched_in_wave=$((launched_in_wave + 1))
+
+        if [ "$launched_in_wave" -ge "$SCORE_PARALLEL" ]; then
+          wait_for_pids pids
+          pids=()
+          launched_in_wave=0
+        fi
       done
-      wait_for_pids pids
+      if [ "${#pids[@]}" -gt 0 ]; then
+        wait_for_pids pids
+      fi
       echo "[SCORE] EL2N per-run finished"
 
       # Parallel over runs for GraNd.
       pids=()
+      launched_in_wave=0
       for run_id in $(seq 0 $((K_RUNS-1))); do
+        gpu_id=$((run_id % GPU_COUNT))
         log_file="$LOG_ROOT/${exp_name}.run_${run_id}.grand.step_${score_step}.log"
         (
-          export CUDA_VISIBLE_DEVICES="$run_id"
+          export CUDA_VISIBLE_DEVICES="$gpu_id"
           python "$ROOT/scripts/get_run_score.py" "$ROOT" "$exp_name" "$run_id" "$score_step" "$GRAND_SCORE_BATCH" "grad_norm"
         ) >"$log_file" 2>&1 &
         pids+=($!)
+        launched_in_wave=$((launched_in_wave + 1))
+
+        if [ "$launched_in_wave" -ge "$SCORE_PARALLEL" ]; then
+          wait_for_pids pids
+          pids=()
+          launched_in_wave=0
+        fi
       done
-      wait_for_pids pids
+      if [ "${#pids[@]}" -gt 0 ]; then
+        wait_for_pids pids
+      fi
       echo "[SCORE] GraNd per-run finished"
 
       # Mean aggregation is lightweight; run serially for determinism.
