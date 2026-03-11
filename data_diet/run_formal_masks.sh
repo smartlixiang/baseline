@@ -10,6 +10,16 @@ DATASETS=("cifar10" "cifar100")
 BASE_SEEDS=(22 42 96)
 KEEP_RATIOS=(0.9 0.8 0.7 0.6 0.5 0.4 0.3 0.2)
 
+if [ -n "${DATASETS_FILTER:-}" ]; then
+  # shellcheck disable=SC2206
+  DATASETS=(${DATASETS_FILTER})
+fi
+
+if [ -n "${BASE_SEEDS_FILTER:-}" ]; then
+  # shellcheck disable=SC2206
+  BASE_SEEDS=(${BASE_SEEDS_FILTER})
+fi
+
 # =========================
 # Core settings
 # =========================
@@ -24,10 +34,21 @@ if [ "$K_RUNS" -lt 1 ]; then
   exit 1
 fi
 
-# Parallelize with 2 physical GPUs and reuse them across runs.
-GPU_COUNT="${GPU_COUNT:-2}"
+# GPU assignment (examples: "0 1" or single-card "3").
+if [ -n "${GPU_IDS:-}" ]; then
+  # shellcheck disable=SC2206
+  GPU_ID_LIST=(${GPU_IDS})
+else
+  GPU_COUNT_DEFAULT="${GPU_COUNT:-2}"
+  GPU_ID_LIST=()
+  for ((i=0; i<GPU_COUNT_DEFAULT; i++)); do
+    GPU_ID_LIST+=("$i")
+  done
+fi
+
+GPU_COUNT="${#GPU_ID_LIST[@]}"
 if [ "$GPU_COUNT" -lt 1 ]; then
-  echo "[ERR] GPU_COUNT must be >= 1, got ${GPU_COUNT}"
+  echo "[ERR] at least one GPU id is required (set GPU_IDS or GPU_COUNT)"
   exit 1
 fi
 
@@ -153,6 +174,21 @@ find_mean_score_path () {
   find "$exp_dir" -maxdepth 4 -type f -name "ckpt_${step}.npy" -path "*${type}*" | head -n 1 || true
 }
 
+run_score_exists () {
+  local run_dir="$1"
+  local score_step="$2"
+  local score_type="$3"
+
+  local path_name=""
+  case "$score_type" in
+    l2_error) path_name="error_l2_norm_scores" ;;
+    grad_norm) path_name="grad_norm_scores" ;;
+    *) echo "[ERR] unknown score_type=$score_type"; exit 1 ;;
+  esac
+
+  [ -f "$run_dir/$path_name/ckpt_${score_step}.npy" ]
+}
+
 wait_for_pids () {
   local -n _pids=$1
   local fail=0
@@ -206,7 +242,8 @@ for dataset in "${DATASETS[@]}"; do
     pids=()
     launched_in_wave=0
     for run_id in $(seq 0 $((K_RUNS-1))); do
-      gpu_id=$((run_id % GPU_COUNT))
+      gpu_slot=$((run_id % GPU_COUNT))
+      gpu_id="${GPU_ID_LIST[$gpu_slot]}"
       run_seed=$((base_seed * (run_id + 1)))
       run_dir="$exp_dir/run_${run_id}"
       log_file="$LOG_ROOT/${exp_name}.run_${run_id}.train.log"
@@ -245,11 +282,17 @@ for dataset in "${DATASETS[@]}"; do
       pids=()
       launched_in_wave=0
       for run_id in $(seq 0 $((K_RUNS-1))); do
-        gpu_id=$((run_id % GPU_COUNT))
-        log_file="$LOG_ROOT/${exp_name}.run_${run_id}.el2n.step_${score_step}.log"
-        (
-          export CUDA_VISIBLE_DEVICES="$gpu_id"
-          python "$ROOT/scripts/get_run_score.py" "$ROOT" "$exp_name" "$run_id" "$score_step" "$EL2N_SCORE_BATCH" "l2_error"
+      gpu_slot=$((run_id % GPU_COUNT))
+      gpu_id="${GPU_ID_LIST[$gpu_slot]}"
+      run_dir="$exp_dir/run_${run_id}"
+      log_file="$LOG_ROOT/${exp_name}.run_${run_id}.el2n.step_${score_step}.log"
+      if run_score_exists "$run_dir" "$score_step" "l2_error"; then
+        echo "[SKIP SCORE] EL2N run=$run_id step=$score_step exists"
+        continue
+      fi
+      (
+        export CUDA_VISIBLE_DEVICES="$gpu_id"
+        python "$ROOT/scripts/get_run_score.py" "$ROOT" "$exp_name" "$run_id" "$score_step" "$EL2N_SCORE_BATCH" "l2_error"
         ) >"$log_file" 2>&1 &
         pids+=($!)
         launched_in_wave=$((launched_in_wave + 1))
@@ -269,10 +312,16 @@ for dataset in "${DATASETS[@]}"; do
       pids=()
       launched_in_wave=0
       for run_id in $(seq 0 $((K_RUNS-1))); do
-        gpu_id=$((run_id % GPU_COUNT))
-        log_file="$LOG_ROOT/${exp_name}.run_${run_id}.grand.step_${score_step}.log"
-        (
-          export CUDA_VISIBLE_DEVICES="$gpu_id"
+      gpu_slot=$((run_id % GPU_COUNT))
+      gpu_id="${GPU_ID_LIST[$gpu_slot]}"
+      run_dir="$exp_dir/run_${run_id}"
+      log_file="$LOG_ROOT/${exp_name}.run_${run_id}.grand.step_${score_step}.log"
+      if run_score_exists "$run_dir" "$score_step" "grad_norm"; then
+        echo "[SKIP SCORE] GraNd run=$run_id step=$score_step exists"
+        continue
+      fi
+      (
+        export CUDA_VISIBLE_DEVICES="$gpu_id"
           python "$ROOT/scripts/get_run_score.py" "$ROOT" "$exp_name" "$run_id" "$score_step" "$GRAND_SCORE_BATCH" "grad_norm"
         ) >"$log_file" 2>&1 &
         pids+=($!)
