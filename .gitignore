@@ -14,3 +14,6 @@ __pycache__/
 
 # internal backups
 .git_backup/
+
+# herding feature cache
+herding/cache/
