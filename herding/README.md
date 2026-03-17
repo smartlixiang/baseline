@@ -1,4 +1,4 @@
-# Herding Baseline (CIFAR-10 / CIFAR-100)
+# Herding Baseline (CIFAR-10 / CIFAR-100 / Tiny-ImageNet)
 
 本目录实现了一个简洁的 **class-wise feature herding** baseline，用于生成图像分类数据选择实验需要的 0/1 mask。
 
@@ -16,7 +16,7 @@
 
 ## 默认参数
 
-- 数据集：`cifar10`, `cifar100`
+- 数据集：`cifar10`, `cifar100`, `tiny-imagenet`（或 `tiny-imagenet-200`）
 - seed：`22, 42, 96`
 - keep ratio：`0.9, 0.8, 0.7, 0.6, 0.5, 0.4, 0.3, 0.2`
 - backbone：`resnet18`
@@ -35,6 +35,17 @@
 - tqdm
 
 ## 统一运行脚本
+
+### Tiny-ImageNet 数据准备
+
+默认会在 `--data-root` 下查找：
+
+```text
+[--data-root]/tiny-imagenet-200/train
+```
+
+例如默认路径：`herding/data/tiny-imagenet-200/train`。
+
 
 推荐在仓库根目录执行：
 

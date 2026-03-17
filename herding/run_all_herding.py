@@ -1,4 +1,15 @@
 from __future__ import annotations
+from herding.utils import (
+    DEFAULT_DATASETS,
+    DEFAULT_KEEP_RATIOS,
+    DEFAULT_SEEDS,
+    ensure_dir,
+    get_device,
+    set_seed,
+)
+from herding.models import ResNet18FeatureExtractor
+from herding.herding_select import extract_features, generate_masks_for_keep_ratios
+from herding.datasets import build_train_loader
 
 import argparse
 from pathlib import Path
@@ -14,28 +25,16 @@ REPO_ROOT = Path(__file__).resolve().parent.parent
 if str(REPO_ROOT) not in sys.path:
     sys.path.insert(0, str(REPO_ROOT))
 
-from herding.datasets import build_train_loader
-from herding.herding_select import extract_features, generate_masks_for_keep_ratios
-from herding.models import ResNet18FeatureExtractor
-from herding.utils import (
-    DEFAULT_DATASETS,
-    DEFAULT_KEEP_RATIOS,
-    DEFAULT_SEEDS,
-    ensure_dir,
-    get_device,
-    set_seed,
-)
-
 
 def parse_args():
-    parser = argparse.ArgumentParser(description="Run class-wise feature herding for CIFAR-10/100.")
+    parser = argparse.ArgumentParser(description="Run class-wise feature herding for CIFAR / Tiny-ImageNet.")
 
     default_base_dir = Path(__file__).resolve().parent
     parser.add_argument(
         "--data-root",
         type=str,
         default=str(default_base_dir / "data"),
-        help="Root directory for CIFAR data.",
+        help="Root directory for datasets (supports CIFAR and Tiny-ImageNet).",
     )
     parser.add_argument(
         "--output-root",
@@ -65,7 +64,7 @@ def parse_args():
 
 def validate_args(args):
     for dataset in args.datasets:
-        if dataset not in ("cifar10", "cifar100"):
+        if dataset not in ("cifar10", "cifar100", "tiny-imagenet", "tiny-imagenet-200"):
             raise ValueError(f"Unsupported dataset: {dataset}")
 
     for ratio in args.keep_ratios:

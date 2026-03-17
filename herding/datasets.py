@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+from pathlib import Path
 from typing import Tuple
 
 import torch
@@ -11,6 +12,8 @@ CIFAR_STATS = {
     "cifar10": ((0.4914, 0.4822, 0.4465), (0.2470, 0.2435, 0.2616)),
     "cifar100": ((0.5071, 0.4867, 0.4408), (0.2675, 0.2565, 0.2761)),
 }
+
+IMAGENET_STATS = ((0.485, 0.456, 0.406), (0.229, 0.224, 0.225))
 
 
 class IndexedDataset(Dataset):
@@ -28,11 +31,15 @@ class IndexedDataset(Dataset):
 
 
 def build_train_dataset(dataset_name: str, data_root: str):
-    """Build CIFAR train set with deterministic preprocessing (no augmentation)."""
-    if dataset_name not in ("cifar10", "cifar100"):
+    """Build train set with deterministic preprocessing (no augmentation)."""
+    if dataset_name not in ("cifar10", "cifar100", "tiny-imagenet", "tiny-imagenet-200"):
         raise ValueError(f"Unsupported dataset: {dataset_name}")
 
-    mean, std = CIFAR_STATS[dataset_name]
+    if dataset_name in CIFAR_STATS:
+        mean, std = CIFAR_STATS[dataset_name]
+    else:
+        mean, std = IMAGENET_STATS
+
     transform = transforms.Compose(
         [
             transforms.ToTensor(),
@@ -42,8 +49,16 @@ def build_train_dataset(dataset_name: str, data_root: str):
 
     if dataset_name == "cifar10":
         dataset = datasets.CIFAR10(root=data_root, train=True, transform=transform, download=True)
-    else:
+    elif dataset_name == "cifar100":
         dataset = datasets.CIFAR100(root=data_root, train=True, transform=transform, download=True)
+    else:
+        train_dir = Path(data_root) / "tiny-imagenet-200" / "train"
+        if not train_dir.is_dir():
+            raise FileNotFoundError(
+                "Tiny-ImageNet train directory not found. "
+                f"Expected: {train_dir}"
+            )
+        dataset = datasets.ImageFolder(root=str(train_dir), transform=transform)
 
     return dataset
 
