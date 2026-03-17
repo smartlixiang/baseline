@@ -1,63 +1,54 @@
 import json
-import numpy as np
 import os
+import random
 import shutil
-import torch
 from types import SimpleNamespace
-from .models import get_apply_fn_test, get_model
+
+import numpy as np
+import torch
+
 from .train_state import get_train_state
 
 
-########################################################################################################################
-#  Args
-########################################################################################################################
-
 def save_args(args, save_dir, verbose=True):
-  save_path = save_dir + '/args.json'
-  with open(save_path, 'w') as f: json.dump(vars(args), f, indent=4)
-  if verbose: print(f'Save args to {save_path}')
-  return save_dir + '/args.json'
+    path = save_dir + '/args.json'
+    with open(path, 'w', encoding='utf-8') as f:
+        json.dump(vars(args), f, indent=4)
+    if verbose:
+        print(f'Save args to {path}')
+    return path
 
 
 def load_args(load_dir, verbose=True):
-  load_path = load_dir + '/args.json'
-  with open(load_path, 'r') as f: args = SimpleNamespace(**json.load(f))
-  if verbose: print(f'Load args from {load_path}')
-  return args
+    path = load_dir + '/args.json'
+    with open(path, 'r', encoding='utf-8') as f:
+        args = SimpleNamespace(**json.load(f))
+    if verbose:
+        print(f'Load args from {path}')
+    return args
 
 
 def print_args(args):
-  print(json.dumps(vars(args), indent=4))
+    print(json.dumps(vars(args), indent=4))
 
-
-########################################################################################################################
-#  File Management
-########################################################################################################################
 
 def make_dir(path):
-  if os.path.exists(path):
-    shutil.rmtree(path)
-  os.makedirs(path)
+    if os.path.exists(path):
+        shutil.rmtree(path)
+    os.makedirs(path)
 
 
-########################################################################################################################
-#  Models
-########################################################################################################################
+def load_model_for_scoring(args):
+    state, args = get_train_state(args)
+    device = state.model.fc.weight.device if hasattr(state.model, 'fc') else torch.device('cuda' if torch.cuda.is_available() else 'cpu')
+    return state.model, device, args
 
-def get_fn_params_state(args):
-  model = get_model(args)
-  fn = get_apply_fn_test(model)
-  state, args = get_train_state(args, model)
-  params, state = state.optim.target, state.model
-  return fn, params, state
-
-
-########################################################################################################################
-#  Seed
-########################################################################################################################
 
 def set_global_seed(seed=0):
-  np.random.seed(seed)
-  torch.manual_seed(seed)
-  if torch.cuda.is_available():
-    torch.cuda.manual_seed_all(seed)
+    random.seed(seed)
+    np.random.seed(seed)
+    torch.manual_seed(seed)
+    if torch.cuda.is_available():
+        torch.cuda.manual_seed_all(seed)
+    torch.backends.cudnn.deterministic = True
+    torch.backends.cudnn.benchmark = False

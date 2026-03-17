@@ -1,38 +1,50 @@
-from flax import optim
-from flax.struct import dataclass as flax_dataclass
-from flax.training import checkpoints
-from jax import jit, random
-import jax.numpy as jnp
+from dataclasses import dataclass
+import os
 import time
-from typing import Any
-from .models import get_num_params
+
+import torch
+
+from .models import get_model, get_num_params
 
 
-@flax_dataclass
+@dataclass
 class TrainState:
-  optim: optim.Optimizer
-  model: Any
+    model: torch.nn.Module
+    optimizer: torch.optim.Optimizer
 
 
-def create_train_state(args, model):
-  @jit
-  def init(*args):
-    return model.init(*args)
-  key, input = random.PRNGKey(args.model_seed), jnp.ones((1, *args.image_shape), model.dtype)
-  model_state, params = init(key, input).pop('params')
-  if not hasattr(args, 'nesterov'): args.nesterov = False
-  opt = optim.Momentum(args.lr, args.beta, args.weight_decay, args.nesterov).create(params)
-  train_state = TrainState(optim=opt, model=model_state)
-  return train_state
+def build_optimizer(args, model):
+    return torch.optim.SGD(
+        model.parameters(),
+        lr=args.lr,
+        momentum=args.beta,
+        weight_decay=args.weight_decay,
+        nesterov=getattr(args, 'nesterov', False),
+    )
 
 
-def get_train_state(args, model):
-  time_start = time.time()
-  print('get train state... ', end='')
-  state = create_train_state(args, model)
-  if args.load_dir:
-    print(f'load from {args.load_dir}/ckpts/checkpoint_{args.ckpt}... ', end='')
-    state = checkpoints.restore_checkpoint(args.load_dir + '/ckpts', state, args.ckpt)
-  args.num_params = get_num_params(state.optim.target)
-  print(f'{int(time.time() - time_start)}s')
-  return state, args
+def get_device(args):
+    return torch.device(getattr(args, 'device', 'cuda' if torch.cuda.is_available() else 'cpu'))
+
+
+def checkpoint_path(load_dir, ckpt):
+    return os.path.join(load_dir, 'ckpts', f'checkpoint_{ckpt}.pt')
+
+
+def get_train_state(args):
+    t0 = time.time()
+    print('get train state... ', end='')
+    device = get_device(args)
+    model = get_model(args).to(device)
+    optimizer = build_optimizer(args, model)
+    state = TrainState(model=model, optimizer=optimizer)
+    if args.load_dir:
+        path = checkpoint_path(args.load_dir, args.ckpt)
+        print(f'load from {path}... ', end='')
+        ckpt = torch.load(path, map_location=device)
+        model.load_state_dict(ckpt['model'])
+        if 'optimizer' in ckpt:
+            optimizer.load_state_dict(ckpt['optimizer'])
+    args.num_params = get_num_params(model)
+    print(f'{int(time.time()-t0)}s')
+    return state, args

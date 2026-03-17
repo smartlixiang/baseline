@@ -1,14 +1,15 @@
-from flax import linen as nn
-from jax import numpy as jnp
+import torch
+import torch.nn.functional as F
 
 
-def cross_entropy_loss(logits, labels):
-  return jnp.mean(-jnp.sum(nn.log_softmax(logits) * labels, axis=-1))
+def cross_entropy_loss(logits, labels_onehot):
+    targets = labels_onehot.argmax(dim=-1)
+    return F.cross_entropy(logits, targets)
 
 
-def correct(logits, labels):
-  return jnp.argmax(logits, axis=-1) == jnp.argmax(labels, axis=-1)
+def correct(logits, labels_onehot):
+    return logits.argmax(dim=-1) == labels_onehot.argmax(dim=-1)
 
 
-def accuracy(logits, labels):
-  return jnp.mean(correct(logits, labels))
+def accuracy(logits, labels_onehot):
+    return correct(logits, labels_onehot).float().mean()

@@ -36,10 +36,7 @@ RUN ln -sf /usr/bin/python3 /usr/local/bin/python && \
         Cython \
         jupyter \
         torch \
-        torchvision \
-        jax \
-        flax \
-        neural-tangents && \
+        torchvision && \
     apt-get clean && \
     apt-get autoremove -y && \
     rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*

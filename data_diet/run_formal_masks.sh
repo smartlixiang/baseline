@@ -52,7 +52,7 @@ if [ "$GPU_COUNT" -lt 1 ]; then
   exit 1
 fi
 
-# Host RAM can be the bottleneck before VRAM when each worker loads JAX/TFDS.
+# Host RAM can be the bottleneck before VRAM when each worker loads full datasets.
 # Use train waves to avoid Linux OOM-killer taking down random workers.
 TRAIN_PARALLEL="${TRAIN_PARALLEL:-$GPU_COUNT}"
 if [ "$TRAIN_PARALLEL" -lt 1 ] || [ "$TRAIN_PARALLEL" -gt "$GPU_COUNT" ]; then
@@ -77,12 +77,8 @@ LR="${LR:-0.1}"
 BETA="${BETA:-0.9}"
 WEIGHT_DECAY="${WEIGHT_DECAY:-0.0005}"
 
-# JAX/XLA runtime knobs
+# PyTorch runtime knobs
 export LD_LIBRARY_PATH="${CONDA_PREFIX:-}/lib:${LD_LIBRARY_PATH:-}"
-export XLA_PYTHON_CLIENT_PREALLOCATE=false
-export XLA_PYTHON_CLIENT_ALLOCATOR=platform
-export XLA_FLAGS="--xla_gpu_strict_conv_algorithm_picker=false --xla_gpu_autotune_level=0"
-export TF_CPP_MIN_LOG_LEVEL=3
 export PYTHONWARNINGS="ignore::FutureWarning,ignore::DeprecationWarning"
 
 # Use official exps/ for compatibility with scripts/get_run_score.py + get_mean_score.py.

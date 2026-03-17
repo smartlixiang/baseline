@@ -1,160 +1,137 @@
-from flax import linen as nn
 from functools import partial
-from jax import numpy as jnp
-from jax.tree_util import tree_flatten
-from typing import Any, Callable, Sequence, Tuple
-import numpy as np
+from typing import Sequence
 
+import torch
+import torch.nn as nn
 
-########################################################################################################################
-#  SimpleCNN
-########################################################################################################################
 
 class SimpleCNN(nn.Module):
-  num_channels: Sequence[int]
-  num_classes: int
-  dtype: Any = jnp.float32
+    def __init__(self, num_channels: Sequence[int], num_classes: int):
+        super().__init__()
+        layers = []
+        in_ch = 3
+        for nc in num_channels:
+            layers.extend([
+                nn.Conv2d(in_ch, nc, kernel_size=3, padding=1, bias=True),
+                nn.ReLU(inplace=True),
+                nn.Conv2d(nc, nc, kernel_size=3, stride=2, padding=1, bias=True),
+                nn.ReLU(inplace=True),
+            ])
+            in_ch = nc
+        self.features = nn.Sequential(*layers)
+        self.head = nn.Linear(in_ch, num_classes)
 
-  @nn.compact
-  def __call__(self, x, train=False):  # train is a dummy argument, model does not have different train and eval modes
-    for nc in self.num_channels:
-      x = nn.Conv(nc, (3, 3), padding='SAME', dtype=self.dtype)(x)
-      x = nn.relu(x)
-      x = nn.Conv(nc, (3, 3), (2, 2), 'SAME', dtype=self.dtype)(x)
-      x = nn.relu(x)
-    x = jnp.mean(x, axis=(1, 2))
-    x = nn.Dense(self.num_classes, dtype=self.dtype)(x)
-    return x
-
-
-########################################################################################################################
-#  ResNet18: based on flax and elegy implementations of ResNet V1
-########################################################################################################################
-
-ModuleDef = Any
+    def forward(self, x, train=False):
+        del train
+        x = self.features(x)
+        x = x.mean(dim=(2, 3))
+        return self.head(x)
 
 
 class ResNetBlock(nn.Module):
-  """ResNet block."""
-  filters: int
-  conv: ModuleDef
-  norm: ModuleDef
-  act: Callable
-  strides: Tuple[int, int] = (1, 1)
+    expansion = 1
 
-  @nn.compact
-  def __call__(self, x,):
-    residual = x
-    y = self.conv(self.filters, (3, 3), self.strides)(x)
-    y = self.norm()(y)
-    y = self.act(y)
-    y = self.conv(self.filters, (3, 3))(y)
-    y = self.norm()(y)
+    def __init__(self, inplanes, planes, stride=1):
+        super().__init__()
+        self.conv1 = nn.Conv2d(inplanes, planes, kernel_size=3, stride=stride, padding=1, bias=False)
+        self.bn1 = nn.BatchNorm2d(planes, momentum=0.9, eps=1e-5)
+        self.conv2 = nn.Conv2d(planes, planes, kernel_size=3, stride=1, padding=1, bias=False)
+        self.bn2 = nn.BatchNorm2d(planes, momentum=0.9, eps=1e-5)
+        self.downsample = None
+        if stride != 1 or inplanes != planes:
+            self.downsample = nn.Sequential(
+                nn.Conv2d(inplanes, planes, kernel_size=1, stride=stride, bias=False),
+                nn.BatchNorm2d(planes, momentum=0.9, eps=1e-5),
+            )
 
-    if residual.shape != y.shape:
-      residual = self.conv(self.filters, (1, 1), self.strides, name='conv_proj')(residual)
-      residual = self.norm(name='norm_proj')(residual)
-
-    return self.act(residual + y)
+    def forward(self, x):
+        identity = x
+        out = torch.relu(self.bn1(self.conv1(x)))
+        out = self.bn2(self.conv2(out))
+        if self.downsample is not None:
+            identity = self.downsample(x)
+        out = torch.relu(out + identity)
+        return out
 
 
 class BottleneckResNetBlock(nn.Module):
-  """Bottleneck ResNet block."""
-  filters: int
-  conv: ModuleDef
-  norm: ModuleDef
-  act: Callable
-  strides: Tuple[int, int] = (1, 1)
+    expansion = 4
 
-  @nn.compact
-  def __call__(self, x):
-    residual = x
-    y = self.conv(self.filters, (1, 1))(x)
-    y = self.norm()(y)
-    y = self.act(y)
-    y = self.conv(self.filters, (3, 3), self.strides)(y)
-    y = self.norm()(y)
-    y = self.act(y)
-    y = self.conv(self.filters * 4, (1, 1))(y)
-    y = self.norm(scale_init=nn.initializers.zeros)(y)
+    def __init__(self, inplanes, planes, stride=1):
+        super().__init__()
+        outplanes = planes * self.expansion
+        self.conv1 = nn.Conv2d(inplanes, planes, kernel_size=1, bias=False)
+        self.bn1 = nn.BatchNorm2d(planes, momentum=0.9, eps=1e-5)
+        self.conv2 = nn.Conv2d(planes, planes, kernel_size=3, stride=stride, padding=1, bias=False)
+        self.bn2 = nn.BatchNorm2d(planes, momentum=0.9, eps=1e-5)
+        self.conv3 = nn.Conv2d(planes, outplanes, kernel_size=1, bias=False)
+        self.bn3 = nn.BatchNorm2d(outplanes, momentum=0.9, eps=1e-5)
+        nn.init.zeros_(self.bn3.weight)
+        self.downsample = None
+        if stride != 1 or inplanes != outplanes:
+            self.downsample = nn.Sequential(
+                nn.Conv2d(inplanes, outplanes, kernel_size=1, stride=stride, bias=False),
+                nn.BatchNorm2d(outplanes, momentum=0.9, eps=1e-5),
+            )
 
-    if residual.shape != y.shape:
-      residual = self.conv(self.filters * 4, (1, 1),
-                           self.strides, name='conv_proj')(residual)
-      residual = self.norm(name='norm_proj')(residual)
-
-    return self.act(residual + y)
+    def forward(self, x):
+        identity = x
+        out = torch.relu(self.bn1(self.conv1(x)))
+        out = torch.relu(self.bn2(self.conv2(out)))
+        out = self.bn3(self.conv3(out))
+        if self.downsample is not None:
+            identity = self.downsample(x)
+        out = torch.relu(out + identity)
+        return out
 
 
 class ResNet(nn.Module):
-  """ResNetV1."""
-  stage_sizes: Sequence[int]
-  block_cls: ModuleDef
-  num_classes: int
-  num_filters: int = 64
-  lowres: bool = True
-  dtype: Any = jnp.float32
-  act: Callable = nn.relu
+    def __init__(self, stage_sizes, block_cls, num_classes, num_filters=64, lowres=True):
+        super().__init__()
+        self.lowres = lowres
+        self.inplanes = num_filters
+        self.conv_init = nn.Conv2d(3, num_filters, kernel_size=3 if lowres else 7,
+                                   stride=1 if lowres else 2, padding=1 if lowres else 3, bias=False)
+        self.bn_init = nn.BatchNorm2d(num_filters, momentum=0.9, eps=1e-5)
 
-  @nn.compact
-  def __call__(self, x, train: bool = True):
-    conv = partial(nn.Conv, use_bias=False, dtype=self.dtype)
-    norm = partial(nn.BatchNorm, use_running_average=not train, momentum=0.9, epsilon=1e-5, dtype=self.dtype)
+        layers = []
+        for i, block_count in enumerate(stage_sizes):
+            planes = num_filters * (2 ** i)
+            stride = 1 if i == 0 else 2
+            layers.append(self._make_stage(block_cls, planes, block_count, stride))
+        self.layers = nn.Sequential(*layers)
+        self.fc = nn.Linear(num_filters * (2 ** (len(stage_sizes) - 1)) * block_cls.expansion, num_classes)
 
-    x = conv(self.num_filters,
-             (3, 3) if self.lowres else (7, 7),
-             (1, 1) if self.lowres else (2, 2),
-             padding='SAME',
-             name='conv_init')(x)
-    x = norm(name='bn_init')(x)
-    x = nn.relu(x)
-    if not self.lowres:
-      x = nn.max_pool(x, (3, 3), strides=(2, 2), padding='SAME')
-    for i, block_size in enumerate(self.stage_sizes):
-      for j in range(block_size):
-        strides = (2, 2) if i > 0 and j == 0 else (1, 1)
-        x = self.block_cls(self.num_filters * 2 ** i, strides=strides, conv=conv, norm=norm, act=self.act)(x)
-    x = jnp.mean(x, axis=(1, 2))
-    x = nn.Dense(self.num_classes, dtype=self.dtype)(x)
-    x = jnp.asarray(x, self.dtype)
-    return x
+    def _make_stage(self, block_cls, planes, blocks, stride):
+        blocks_list = [block_cls(self.inplanes, planes, stride=stride)]
+        self.inplanes = planes * block_cls.expansion
+        for _ in range(1, blocks):
+            blocks_list.append(block_cls(self.inplanes, planes, stride=1))
+        return nn.Sequential(*blocks_list)
+
+    def forward(self, x, train=True):
+        del train
+        x = torch.relu(self.bn_init(self.conv_init(x)))
+        if not self.lowres:
+            x = torch.max_pool2d(x, kernel_size=3, stride=2, padding=1)
+        x = self.layers(x)
+        x = x.mean(dim=(2, 3))
+        return self.fc(x)
 
 
 ResNet18 = partial(ResNet, stage_sizes=[2, 2, 2, 2], block_cls=ResNetBlock)
 ResNet50 = partial(ResNet, stage_sizes=[3, 4, 6, 3], block_cls=BottleneckResNetBlock)
 
 
-########################################################################################################################
-#  Utils
-########################################################################################################################
-
 def get_model(args):
-  if args.model == 'resnet18_lowres':
-    model = ResNet18(num_classes=args.num_classes, lowres=True)
-  elif args.model == 'resnet50_lowres':
-    model = ResNet50(num_classes=args.num_classes, lowres=True)
-  elif args.model == 'simple_cnn_0':
-    model = SimpleCNN(num_channels=[32, 64, 128], num_classes=args.num_classes)
-  else:
-    raise NotImplementedError
-  return model
+    if args.model == 'resnet18_lowres':
+        return ResNet18(num_classes=args.num_classes, lowres=True)
+    if args.model == 'resnet50_lowres':
+        return ResNet50(num_classes=args.num_classes, lowres=True)
+    if args.model == 'simple_cnn_0':
+        return SimpleCNN(num_channels=[32, 64, 128], num_classes=args.num_classes)
+    raise NotImplementedError(f'Unknown model: {args.model}')
 
 
-def get_num_params(params):
-  return int(sum([np.prod(w.shape) for w in tree_flatten(params)[0]]))
-
-
-def get_apply_fn_test(model):
-  def apply_fn_test(params, model_state, x):
-    vs = {'params': params, **model_state}
-    logits = model.apply(vs, x, train=False, mutable=False)
-    return logits
-  return apply_fn_test
-
-
-def get_apply_fn_train(model):
-  def apply_fn_train(params, model_state, x):
-    vs = {'params': params, **model_state}
-    logits, model_state = model.apply(vs, x, mutable=list(model_state.keys()))
-    return logits, model_state
-  return apply_fn_train
+def get_num_params(model):
+    return sum(p.numel() for p in model.parameters())
