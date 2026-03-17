@@ -6,7 +6,7 @@ This repository accompanies the paper [Deep Learning on a Data Diet: Finding Imp
 
 ## Setup
 
-The main requirements are [jax](https://github.com/google/jax), [flax](https://github.com/google/flax) and [tensorflow_datasets](https://www.tensorflow.org/datasets).
+The main requirements are [jax](https://github.com/google/jax), [flax](https://github.com/google/flax), [torch](https://pytorch.org/) and [torchvision](https://pytorch.org/vision/stable/index.html).
 
 The [`Dockerfile`](Dockerfile) sets up a container with a functioning environment for this project. It can be used as a template for constructing an environment by other means. If using this container, the working directory will point to this repository. For the rest of this Readme, we use `ROOT` to reference the path to this repository.
 

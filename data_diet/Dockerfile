@@ -1,39 +1,31 @@
-FROM nvcr.io/nvidia/cuda:11.0-cudnn8-devel-ubuntu18.04
+FROM nvidia/cuda:12.1.1-cudnn8-devel-ubuntu22.04
 
 RUN apt-get update && \
-    DEBIAN_FRONTEND=DEBIAN_FRONTEND=noninteractive apt-get install -y \
+    DEBIAN_FRONTEND=noninteractive apt-get install -y \
         build-essential \
         ca-certificates \
-        cuda-command-line-tools-11-0 \
         curl \
         git \
         locales \
+        python3 \
+        python3-dev \
+        python3-pip \
         rsync \
         software-properties-common \
         tree \
         unzip \
         vim \
-        wget \
-        && \
+        wget && \
     sed -i "s/# en_US.UTF-8/en_US.UTF-8/" /etc/locale.gen && \
-    locale-gen
+    locale-gen && \
+    rm -rf /var/lib/apt/lists/*
 
 ENV LANG en_US.UTF-8
 ENV LANGUAGE en_US.UTF-8
 ENV LC_ALL en_US.UTF-8
 
-RUN add-apt-repository ppa:deadsnakes/ppa && \
-    apt-get update && \
-    DEBIAN_FRONTEND=DEBIAN_FRONTEND=noninteractive apt-get install -y \
-        python3.7 \
-        python3.7-dev \
-        && \
-    rm -rf /var/lib/apt/lists/* && \
-    curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py && \
-    python3.7 get-pip.py && \
-    ln -s /usr/bin/python3.7 /usr/local/bin/python3 && \
-    ln -s /usr/bin/python3.7 /usr/local/bin/python && \
-    pip install --upgrade pip && \
+RUN ln -sf /usr/bin/python3 /usr/local/bin/python && \
+    python -m pip install --upgrade pip && \
     pip install --upgrade \
         numpy \
         scipy \
@@ -43,14 +35,13 @@ RUN add-apt-repository ppa:deadsnakes/ppa && \
         tqdm \
         Cython \
         jupyter \
-        tensorflow-gpu \
-        tensorflow-datasets \
-        jax jaxlib==0.1.65+cuda110 -f https://storage.googleapis.com/jax-releases/jax_releases.html \
-        neural-tangents \
+        torch \
+        torchvision \
+        jax \
         flax \
-        && \
+        neural-tangents && \
     apt-get clean && \
-    apt-get autoremove && \
+    apt-get autoremove -y && \
     rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
 COPY . /data_diet

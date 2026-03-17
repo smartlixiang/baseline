@@ -2,7 +2,7 @@ import json
 import numpy as np
 import os
 import shutil
-import tensorflow as tf
+import torch
 from types import SimpleNamespace
 from .models import get_apply_fn_test, get_model
 from .train_state import get_train_state
@@ -58,4 +58,6 @@ def get_fn_params_state(args):
 
 def set_global_seed(seed=0):
   np.random.seed(seed)
-  tf.random.set_seed(seed)
+  torch.manual_seed(seed)
+  if torch.cuda.is_available():
+    torch.cuda.manual_seed_all(seed)
