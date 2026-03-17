@@ -120,12 +120,15 @@ class ResNet(nn.Module):
 
 
 ResNet18 = partial(ResNet, stage_sizes=[2, 2, 2, 2], block_cls=ResNetBlock)
+ResNet34 = partial(ResNet, stage_sizes=[3, 4, 6, 3], block_cls=ResNetBlock)
 ResNet50 = partial(ResNet, stage_sizes=[3, 4, 6, 3], block_cls=BottleneckResNetBlock)
 
 
 def get_model(args):
     if args.model == 'resnet18_lowres':
         return ResNet18(num_classes=args.num_classes, lowres=True)
+    if args.model == 'resnet34_lowres':
+        return ResNet34(num_classes=args.num_classes, lowres=True)
     if args.model == 'resnet50_lowres':
         return ResNet50(num_classes=args.num_classes, lowres=True)
     if args.model == 'simple_cnn_0':

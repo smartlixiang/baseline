@@ -33,7 +33,7 @@ def update_data_args(args, X_train, Y_train, X_test, Y_test):
     args.num_classes = int(Y_train.shape[1])
     args.num_train_examples = int(X_train.shape[0])
     args.num_test_examples = int(X_test.shape[0])
-    args.steps_per_epoch = int(np.ceil(args.num_train_examples / args.train_batch_size))
+    args.steps_per_epoch = max(1, int(args.num_train_examples // args.train_batch_size))
     args.steps_per_test = int(np.ceil(args.num_test_examples / args.test_batch_size))
     return args
 
@@ -138,7 +138,7 @@ def load_dataset(args):
 
 def update_train_data_args(args, I):
     args.num_train_examples = int(I.shape[0])
-    args.steps_per_epoch = int(np.ceil(args.num_train_examples / args.train_batch_size))
+    args.steps_per_epoch = max(1, int(args.num_train_examples // args.train_batch_size))
     return args
 
 

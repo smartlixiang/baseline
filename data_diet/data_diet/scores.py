@@ -1,6 +1,7 @@
 import numpy as np
 import torch
 import torch.nn.functional as F
+from tqdm import tqdm
 
 
 def _to_torch_batch(X, Y, device):
@@ -49,7 +50,7 @@ def _grand_scores(model, X, Y, device):
 def compute_scores(model, device, X, Y, batch_sz, score_type):
     n = X.shape[0]
     out = []
-    for start in range(0, n, batch_sz):
+    for start in tqdm(range(0, n, batch_sz), desc=f"score:{score_type}", dynamic_ncols=True):
         end = min(start + batch_sz, n)
         if score_type == 'l2_error':
             out.append(_el2n_scores(model, X[start:end], Y[start:end], device))

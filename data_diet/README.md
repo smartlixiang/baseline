@@ -2,65 +2,49 @@
 
 PyTorch-only implementation of EL2N / GraNd / Forgetting scoring and mask generation.
 
-## Setup
+## Tiny-ImageNet two-stage workflow
 
-Core dependencies: `torch`, `torchvision`, `numpy`, `tqdm`, `pillow`.
-
-```bash
-mkdir -p data exps
-```
-
-Datasets are read from `<ROOT>/data`.
-
-## Reproducibility
-
-Training/scoring set unified seeds for `python`, `numpy`, `torch` (CPU/GPU). cuDNN is set to deterministic mode (`torch.backends.cudnn.deterministic=True`, `benchmark=False`). This improves reproducibility but can reduce speed.
-
-## Main workflow
-
-### 1) Train one run
+### Stage 1: run training for **one** base seed (3 runs)
 
 ```bash
-python scripts/run_full_data.py <ROOT> <EXP_NAME> <RUN_ID> [DATASET]
+cd data_diet
+bash run_tiny_imagenet_exp.sh 22
+# or
+BASE_SEED=22 bash run_tiny_imagenet_exp.sh
 ```
 
-- Supported datasets: `cifar10`, `cifar100`, `cinic10`, `tiny-imagenet`.
-- Saves checkpoints to `<ROOT>/exps/<EXP_NAME>/run_<RUN_ID>/ckpts/checkpoint_<STEP>.pt`.
-- Forgetting scores are written during checkpointing to `forget_scores/ckpt_<STEP>.npy`.
+For each `base_seed`, this script launches exactly 3 runs with real seeds:
 
-### 2) Compute per-run EL2N / GraNd at a checkpoint
+- run_0: `seed = base_seed * 1`
+- run_1: `seed = base_seed * 2`
+- run_2: `seed = base_seed * 3`
+
+It only trains and stores intermediate artifacts (args, checkpoints, forget scores).
+
+### Stage 2: compute EL2N / GraNd / Forgetting means and export masks
+
+After all desired base seeds are trained (default: `22 42 96`):
 
 ```bash
-python scripts/get_run_score.py <ROOT> <EXP_NAME> <RUN_ID> <STEP> <BATCH_SZ> l2_error
-python scripts/get_run_score.py <ROOT> <EXP_NAME> <RUN_ID> <STEP> <BATCH_SZ> grad_norm
+cd data_diet
+bash get_tiny_imagenet_mask.sh
 ```
 
-- EL2N: `error_l2_norm_scores/ckpt_<STEP>.npy`.
-- GraNd: `grad_norm_scores/ckpt_<STEP>.npy`.
-
-### 3) Aggregate mean score across runs
+Optional overrides:
 
 ```bash
-python scripts/get_mean_score.py <ROOT> <EXP_NAME> <N_RUNS> <STEP> l2_error
-python scripts/get_mean_score.py <ROOT> <EXP_NAME> <N_RUNS> <STEP> grad_norm
-python scripts/get_mean_score.py <ROOT> <EXP_NAME> <N_RUNS> <STEP> forget
+BASE_SEEDS="22 42 96" SCORE_EPOCH=10 KEEP_RATIOS="0.9 0.8 0.7 0.6 0.5 0.4 0.3 0.2" bash get_tiny_imagenet_mask.sh
 ```
 
-### 4) Build masks from mean scores
+Mask output paths follow:
 
-```bash
-python tools/make_mask_from_scores.py \
-  --scores <MEAN_SCORE.npy> \
-  --keep_ratios 0.9 0.8 0.7 0.6 0.5 0.4 0.3 0.2 \
-  --out_dir <OUT_DIR> \
-  --name_prefix <PREFIX> \
-  --keep_high
-```
+- `E2LN/tiny-imagenet/<seed>/mask_<keep_ratio>.npz`
+- `GraNd/tiny-imagenet/<seed>/mask_<keep_ratio>.npz`
+- `Forgetting/tiny-imagenet/<seed>/mask_<keep_ratio>.npz`
 
-### End-to-end launcher
+## Notes
 
-```bash
-bash run_formal_masks.sh
-```
-
-This script trains K runs, computes EL2N/GraNd at selected epochs, averages scores, averages forgetting at final step, and writes masks under `mask/`.
+- Tiny-ImageNet uses `resnet34_lowres`.
+- Training augmentation keeps **random horizontal flip only** for Tiny-ImageNet.
+- Default Tiny-ImageNet setup: `epochs=90`, `train_batch=64`, no grad accumulation, `lr=0.025`, LR drops at epochs 30/60 by 10x.
+- EL2N/GraNd default score epoch is 10.

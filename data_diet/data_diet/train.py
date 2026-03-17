@@ -2,6 +2,7 @@ import os
 import time
 
 import torch
+from tqdm import tqdm
 
 from .data import load_data, train_batches
 from .forgetting import init_forget_stats, save_forget_scores, update_forget_stats
@@ -35,10 +36,12 @@ def _make_dirs(args):
 
 
 def _save_checkpoint(args, step, state, rec, forget_stats=None):
-    torch.save({'step': step, 'model': state.model.state_dict(), 'optimizer': state.optimizer.state_dict()},
-               f'{args.save_dir}/ckpts/checkpoint_{step}.pt')
+    path = f'{args.save_dir}/ckpts/checkpoint_{step}.pt'
+    torch.save({'step': step, 'model': state.model.state_dict(), 'optimizer': state.optimizer.state_dict()}, path)
+    print(f'[CKPT] saved {path}')
     if forget_stats is not None:
         save_forget_scores(args.save_dir, step, forget_stats)
+        print(f'[FORGET] saved {args.save_dir}/forget_scores/ckpt_{step}.npy')
     return record_ckpt(rec, step)
 
 
@@ -59,9 +62,10 @@ def train(args):
 
     test_loss, test_acc = test(state, X_test, Y_test, args.test_batch_size, device)
     rec = record_test_stats(rec, args.ckpt, test_loss, test_acc)
-    print(f"  0.00% | time: {0.0:5.1f}s ({0.0:5.1f}m) | step: {args.ckpt:6d} | lr:  init | train acc:  init | test acc: {test_acc:.3f}")
     rec = _save_checkpoint(args, args.ckpt, state, rec, forget_stats)
 
+    total_iters = max(0, args.num_steps - args.ckpt)
+    pbar = tqdm(total=total_iters, desc='train', dynamic_ncols=True)
     for t, idxs, x, y in train_batches(I_train, X_train, Y_train, args):
         state.model.train()
         xb = torch.from_numpy(x).permute(0, 3, 1, 2).to(device=device, dtype=torch.float32)
@@ -79,6 +83,10 @@ def train(args):
             batch_accs = correct(logits.detach(), yb).int().cpu().numpy()
             forget_stats = update_forget_stats(forget_stats, idxs, batch_accs)
         rec = record_train_stats(rec, t - 1, loss.item(), acc.item(), lr)
+        pbar.update(1)
+
+        epoch = int(t // max(1, args.steps_per_epoch))
+        pbar.set_postfix(step=t, epoch=epoch, loss=f'{loss.item():.4f}', train_acc=f'{acc.item():.3f}', lr=f'{lr:.4f}')
 
         if t % args.log_steps == 0:
             test_loss, test_acc = test(state, X_test, Y_test, args.test_batch_size, device)
@@ -94,5 +102,6 @@ def train(args):
                 test_loss, test_acc = test(state, X_test, Y_test, args.test_batch_size, device)
                 rec = record_test_stats(rec, t, test_loss, test_acc)
             rec = _save_checkpoint(args, t, state, rec, forget_stats)
+    pbar.close()
 
     save_recorder(args.save_dir, rec)
