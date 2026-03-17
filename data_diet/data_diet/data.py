@@ -94,29 +94,49 @@ def _load_tiny_imagenet(args):
     def load_split(split_dir):
         xs, ys = [], []
         for cls in class_names:
-            img_dir = os.path.join(split_dir, cls, 'images')
-            if not os.path.isdir(img_dir):
+            cls_dir = os.path.join(split_dir, cls)
+            if not os.path.isdir(cls_dir):
                 continue
-            for fname in sorted(os.listdir(img_dir)):
-                path = os.path.join(img_dir, fname)
+
+            # Support both layouts:
+            # 1) <split>/<cls>/images/*.JPEG (original Tiny-ImageNet train layout)
+            # 2) <split>/<cls>/*.JPEG (flattened class folder layout)
+            img_dir = os.path.join(cls_dir, 'images')
+            if os.path.isdir(img_dir):
+                img_root = img_dir
+            else:
+                img_root = cls_dir
+
+            for fname in sorted(os.listdir(img_root)):
+                path = os.path.join(img_root, fname)
+                if not os.path.isfile(path):
+                    continue
                 with Image.open(path) as im:
                     xs.append(np.array(im.convert('RGB')))
                 ys.append(class_to_idx[cls])
         return np.stack(xs), np.array(ys)
 
-    ann = os.path.join(val_dir, 'val_annotations.txt')
-    xs, ys = [], []
-    with open(ann, 'r', encoding='utf-8') as f:
-        for line in f:
-            toks = line.strip().split('\t')
-            if len(toks) < 2:
-                continue
-            fn, cls = toks[0], toks[1]
-            with Image.open(os.path.join(val_dir, 'images', fn)) as im:
-                xs.append(np.array(im.convert('RGB')))
-            ys.append(class_to_idx[cls])
     X_train, Y_train = load_split(train_dir)
-    X_test, Y_test = np.stack(xs), np.array(ys)
+
+    # Prefer class-folder validation layout when available.
+    # Fallback to original Tiny-ImageNet val/images + val_annotations.txt layout.
+    val_has_class_dirs = any(os.path.isdir(os.path.join(val_dir, cls)) for cls in class_names)
+    if val_has_class_dirs:
+        X_test, Y_test = load_split(val_dir)
+    else:
+        ann = os.path.join(val_dir, 'val_annotations.txt')
+        xs, ys = [], []
+        with open(ann, 'r', encoding='utf-8') as f:
+            for line in f:
+                toks = line.strip().split('\t')
+                if len(toks) < 2:
+                    continue
+                fn, cls = toks[0], toks[1]
+                with Image.open(os.path.join(val_dir, 'images', fn)) as im:
+                    xs.append(np.array(im.convert('RGB')))
+                ys.append(class_to_idx[cls])
+        X_test, Y_test = np.stack(xs), np.array(ys)
+
     X_train, X_test = normalize_tiny_imagenet_images(X_train), normalize_tiny_imagenet_images(X_test)
     Y_train, Y_test = one_hot(Y_train, 200), one_hot(Y_test, 200)
     X_train, Y_train = sort_by_class(X_train, Y_train)
