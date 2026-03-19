@@ -19,7 +19,7 @@ from utils import progress_bar
 from models import *
 from torch.autograd import grad
 import copy
-from dataset_utils import build_test_dataset, build_train_dataset, build_transforms, DATASET_NUM_CLASSES
+from dataset_utils import DEFAULT_DATA_ROOT, DEFAULT_EXPERIMENT_ROOT, build_test_dataset, build_train_dataset, build_transforms, DATASET_NUM_CLASSES, resolve_moso_path
 torch.manual_seed(3407)
 
 class ResNetT(nn.Module):
@@ -129,16 +129,25 @@ if __name__ == '__main__':
     parser.add_argument('--dataset', default='cifar10', type=str, help='dataset: cifar10/cifar100/tiny')
     parser.add_argument('--model', default='resnet50', type=str, help='model')
     parser.add_argument('--ckptfreq', default=1, type=int, help='saving interval')
-    parser.add_argument('--path', default='./MoSo_CIFAR100', type=str, help='the path of this exp')
+    parser.add_argument('--path', default=str(DEFAULT_EXPERIMENT_ROOT), type=str, help='the path of this exp')
     parser.add_argument('--bs', default=256, type=int, help='batchsize')
     parser.add_argument('--num_trails', default=8, type=int, help='number of trials')
     parser.add_argument('--maxepoch', default=50, type=int, help='max epoch')
     parser.add_argument('--samples', default=10, type=int, help='number of selected ckpts')
     parser.add_argument('--noise_ratio', default=0.0, type=float, help='noise_ratio')
     parser.add_argument('--trainaug', default=0, type=int, help='0: None, 1: AutoAug (Cifar10), 2: RandAug, 3: AugMix')
-    parser.add_argument('--data_root', default='./data', type=str, help='Root data directory.')
+    parser.add_argument('--data_root', default=str(DEFAULT_DATA_ROOT), type=str, help='Root data directory.')
     #ckptfreq , cls_indim, num_classes
     args = parser.parse_args()
+    if hasattr(args, 'path'):
+        args.path = str(resolve_moso_path(args.path))
+    if hasattr(args, 'saveroot'):
+        args.saveroot = str(resolve_moso_path(args.saveroot))
+    if hasattr(args, 'ckptroot') and args.ckptroot:
+        args.ckptroot = str(resolve_moso_path(args.ckptroot))
+    if hasattr(args, 'aosproot') and args.aosproot:
+        args.aosproot = str(resolve_moso_path(args.aosproot))
+    args.data_root = str(resolve_moso_path(args.data_root))
 
     device = 'cuda' if torch.cuda.is_available() else 'cpu'
     best_acc = 0  # best test accuracy

@@ -4,7 +4,7 @@ import argparse
 import shutil
 from pathlib import Path
 
-from dataset_utils import resolve_dataset_path
+from dataset_utils import DEFAULT_DATA_ROOT, resolve_dataset_path
 
 
 def prepare_tiny_val(data_root: str) -> None:
@@ -55,6 +55,6 @@ def prepare_tiny_val(data_root: str) -> None:
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='Prepare Tiny-ImageNet val split for ImageFolder loading.')
-    parser.add_argument('--data_root', default='./data', type=str, help='Root data directory containing tiny-imagenet-200.')
+    parser.add_argument('--data_root', default=str(DEFAULT_DATA_ROOT), type=str, help='Root data directory containing tiny-imagenet-200.')
     args = parser.parse_args()
     prepare_tiny_val(args.data_root)

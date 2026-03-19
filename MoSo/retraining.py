@@ -17,7 +17,7 @@ import numpy as np
 from utils import progress_bar
 from models import *
 import copy
-from dataset_utils import build_test_dataset, build_train_dataset, build_transforms, get_dataset_targets, DATASET_NUM_CLASSES
+from dataset_utils import DEFAULT_DATA_ROOT, DEFAULT_EXPERIMENT_ROOT, build_test_dataset, build_train_dataset, build_transforms, get_dataset_targets, DATASET_NUM_CLASSES, resolve_moso_path
 from selection_utils import make_binary_mask, select_indices_from_scores
 torch.manual_seed(3407)
 
@@ -197,10 +197,19 @@ if __name__ == '__main__':
     parser.add_argument('--noise_ratio', default=0.0, type=float, help='noise_ratio')
     parser.add_argument('--trainaug', default=0, type=int, help='0: None, 1: AutoAug (Cifar10), 2: RandAug, 3: AugMix')
     parser.add_argument('--nest', default=1, type=int, help='0: without nestrove, 1: with nest')
-    parser.add_argument('--path', default='./MoSo_CIFAR100', type=str, help='the path of this exp')
+    parser.add_argument('--path', default=str(DEFAULT_EXPERIMENT_ROOT), type=str, help='the path of this exp')
     parser.add_argument('--num_trails', default=8, type=int, help='number of trials')
-    parser.add_argument('--data_root', default='./data', type=str, help='Root data directory.')
+    parser.add_argument('--data_root', default=str(DEFAULT_DATA_ROOT), type=str, help='Root data directory.')
     args = parser.parse_args()
+    if hasattr(args, 'path'):
+        args.path = str(resolve_moso_path(args.path))
+    if hasattr(args, 'saveroot'):
+        args.saveroot = str(resolve_moso_path(args.saveroot))
+    if hasattr(args, 'ckptroot') and args.ckptroot:
+        args.ckptroot = str(resolve_moso_path(args.ckptroot))
+    if hasattr(args, 'aosproot') and args.aosproot:
+        args.aosproot = str(resolve_moso_path(args.aosproot))
+    args.data_root = str(resolve_moso_path(args.data_root))
 
     device = 'cuda' if torch.cuda.is_available() else 'cpu'
     best_acc = 0  # best test accuracy

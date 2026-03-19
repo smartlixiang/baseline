@@ -7,8 +7,10 @@ import torchvision
 import torchvision.transforms as transforms
 from torchvision.datasets import ImageFolder
 
-REPO_ROOT = Path(__file__).resolve().parents[1]
-DEFAULT_DATA_ROOT = Path('./data')
+MOSO_ROOT = Path(__file__).resolve().parent
+DEFAULT_DATA_ROOT = MOSO_ROOT / 'data'
+DEFAULT_EXPERIMENT_ROOT = MOSO_ROOT / 'MoSo_CIFAR100'
+DEFAULT_MASK_ROOT = MOSO_ROOT / 'mask'
 DATASET_SUBDIRS = {
     'cifar10': 'cifar10',
     'cifar100': 'cifar100',
@@ -21,8 +23,15 @@ DATASET_NUM_CLASSES = {
 }
 
 
+def resolve_moso_path(path: str | Path) -> Path:
+    candidate = Path(path).expanduser()
+    if candidate.is_absolute():
+        return candidate.resolve()
+    return (MOSO_ROOT / candidate).resolve()
+
+
 def resolve_data_root(data_root: str | Path) -> Path:
-    return Path(data_root).expanduser().resolve()
+    return resolve_moso_path(data_root)
 
 
 def resolve_dataset_path(dataset: str, data_root: str | Path) -> Path:
@@ -39,14 +48,14 @@ def _assert_tiny_val_ready(tiny_root: Path) -> None:
     if (val_root / 'images').exists():
         raise RuntimeError(
             'Tiny-ImageNet val directory is not arranged as an ImageFolder dataset yet. '
-            'Please run `python MoSo/prepare_tiny_imagenet.py --data_root ./data` first.'
+            'Please run `python prepare_tiny_imagenet.py --data_root ./data` from the MoSo directory first.'
         )
 
     class_dirs = [p for p in val_root.iterdir() if p.is_dir()]
     if not class_dirs:
         raise RuntimeError(
             f'No class folders found under {val_root}. '
-            'Please prepare Tiny-ImageNet val first with MoSo/prepare_tiny_imagenet.py.'
+            'Please prepare Tiny-ImageNet val first with `python prepare_tiny_imagenet.py --data_root ./data` from the MoSo directory.'
         )
 
 
