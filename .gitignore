@@ -2,6 +2,7 @@
 data/
 herding/data/
 data_diet/data/
+MoSo/data/
 
 
 # experiment outputs / checkpoints
