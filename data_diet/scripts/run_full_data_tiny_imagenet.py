@@ -1,4 +1,4 @@
-# python run_full_data_tiny_imagenet.py <ROOT:str> <EXP:str> <RUN:int> <SEED:int>
+# python run_full_data_tiny_imagenet.py <ROOT:str> <EXP:str> <RUN:int> <SEED:int> [SCORE_EPOCH:int]
 
 import os
 import sys
@@ -27,6 +27,7 @@ ROOT = sys.argv[1]
 EXP = sys.argv[2]
 RUN = int(sys.argv[3])
 SEED = int(sys.argv[4])
+SCORE_EPOCH = int(sys.argv[5]) if len(sys.argv) > 5 else 10
 
 DATA_DIR = ROOT + '/data'
 EXPS_DIR = ROOT + '/exps'
@@ -39,6 +40,7 @@ BASE_LR = 0.025
 num_train_examples = count_tiny_imagenet_train_examples(DATA_DIR)
 steps_per_epoch = max(1, num_train_examples // TRAIN_BATCH_SIZE)
 num_steps = EPOCHS * steps_per_epoch
+score_step = max(1, min(num_steps, SCORE_EPOCH * steps_per_epoch))
 
 args = SimpleNamespace()
 args.data_dir = DATA_DIR
@@ -67,8 +69,8 @@ args.augment = True
 args.track_forgetting = True
 args.save_dir = EXPS_DIR + f'/{EXP}/run_{RUN}'
 args.log_steps = steps_per_epoch
-args.early_step = 0
-args.early_save_steps = None
-args.save_steps = steps_per_epoch
+args.early_step = score_step
+args.early_save_steps = score_step
+args.save_steps = num_steps
 
 train(args)

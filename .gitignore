@@ -1,5 +1,8 @@
 # datasets and caches
 data/
+herding/data/
+data_diet/data/
+
 
 # experiment outputs / checkpoints
 exps/

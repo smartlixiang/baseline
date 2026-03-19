@@ -16,6 +16,12 @@ EPOCHS="${EPOCHS:-90}"
 TRAIN_BATCH="${TRAIN_BATCH:-64}"
 TEST_BATCH="${TEST_BATCH:-256}"
 SCORE_EPOCH="${SCORE_EPOCH:-10}"
+K_RUNS="${K_RUNS:-3}"
+
+if [ "$K_RUNS" -ne 3 ]; then
+  echo "[ERR] Tiny-ImageNet pipeline requires K_RUNS=3 per base seed to keep one mask group per base seed."
+  exit 1
+fi
 
 EXP_NAME="tiny_imagenet_${MODEL}_seed${BASE_SEED}_E${EPOCHS}_b${TRAIN_BATCH}_k3"
 EXP_DIR="$ROOT/exps/$EXP_NAME"
@@ -24,7 +30,7 @@ mkdir -p "$EXP_DIR"
 echo "[INFO] base_seed=$BASE_SEED dataset=$DATASET model=$MODEL"
 echo "[INFO] exp_dir=$EXP_DIR"
 
-for run_id in 0 1 2; do
+for run_id in $(seq 0 $((K_RUNS-1))); do
   real_seed=$((BASE_SEED * (run_id + 1)))
   run_dir="$EXP_DIR/run_${run_id}"
 
@@ -34,7 +40,7 @@ for run_id in 0 1 2; do
   fi
 
   echo "[RUN] run=$run_id seed=$real_seed"
-  python "$ROOT/scripts/run_full_data_tiny_imagenet.py" "$ROOT" "$EXP_NAME" "$run_id" "$real_seed"
+  python "$ROOT/scripts/run_full_data_tiny_imagenet.py" "$ROOT" "$EXP_NAME" "$run_id" "$real_seed" "$SCORE_EPOCH"
   python - <<PY
 import json
 from pathlib import Path
@@ -50,4 +56,4 @@ PY
 
 done
 
-echo "[DONE] training complete for base_seed=$BASE_SEED"
+echo "[DONE] training complete for base_seed=$BASE_SEED (k=$K_RUNS)"
