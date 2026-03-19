@@ -8,7 +8,6 @@ import torch.nn.functional as F
 import torch.backends.cudnn as cudnn
 import torchvision
 import torchvision.transforms as transforms
-from torchvision.datasets import ImageFolder
 import torchvision.models as models
 import os
 import argparse
@@ -16,12 +15,12 @@ import model
 from tqdm import tqdm  
 import numpy as np
 from utils import progress_bar
-from utils import *
 from models import *
-from torch.utils.data import DataLoader
 from torch.autograd import grad
 import random
 import copy
+from dataset_utils import build_test_dataset, build_train_dataset, build_transforms, get_dataset_targets, DATASET_NUM_CLASSES
+from selection_utils import select_indices_from_scores
 torch.manual_seed(3407)
 
 class ResNetT(nn.Module):
@@ -180,37 +179,11 @@ def sample_opt(S, size, tar):
     return index
 
 def nopt2(S, size, tar):
-    # S: dict
-    # size: the subset size
-    tar = torch.tensor(tar)
-    K = tar.max()
-    size = int(len(S) * size )
-    pool = torch.tensor(S)
-    pool = pool.squeeze()
-    mask = (pool*0).int()
-    # normalize
-    index_all = []
-    for i in range(K+1):
-        temp_pool = pool * (tar == i).float()
-        _, index = temp_pool.topk(int(size/(K+1)))
-        #mask[index] = 1
-        index_all = index_all + index.tolist()
-    #return mask
-    return index_all
+    return select_indices_from_scores(S, size, tar, random_mode=False).tolist()
 
 def random_opt(S, size):
-    # S: dict
-    # size: the subset size
     print('random selecting....')
-    size = int(len(S) * size )
-    pool = torch.tensor(S)
-    pool = pool.squeeze()
-    pool = torch.rand(pool.shape)
-    _, index = pool.topk(size)
-    #mask = (pool*0).int()
-    #mask[index] = 1
-    #return mask
-    return index
+    return select_indices_from_scores(S, size, list(range(len(S))), random_mode=True).tolist()
 
 def save_model(model, acc, epoch, path, lr):
     print('saving......')
@@ -279,7 +252,8 @@ if __name__ == '__main__':
     parser.add_argument('--num_trails', default=8, type=int, help='number of trials')
     parser.add_argument('--maxepoch', default=50, type=int, help='max epoch')
     parser.add_argument('--noise_ratio', default=0.0, type=float, help='noise_ratio')
-    parser.add_argument('--trainaug', default=0, type=int, help='0: None, 1: AutoAug (Cifar10), 2: RandAug, 3: AugMix')\
+    parser.add_argument('--trainaug', default=0, type=int, help='0: None, 1: AutoAug (Cifar10), 2: RandAug, 3: AugMix')
+    parser.add_argument('--data_root', default='./data', type=str, help='Root data directory.')
     #ckptfreq , cls_indim, num_classes
     args = parser.parse_args()
 
@@ -290,104 +264,16 @@ if __name__ == '__main__':
 
     # Data
     print('==> Preparing data..' + args.dataset)
-    if args.dataset == 'tiny':
-        mean = [0.4802, 0.4481, 0.3975]
-        std = [0.2302, 0.2265, 0.2262]
-        transform_train = transforms.Compose([
-            transforms.RandomResizedCrop(55),
-            transforms.Resize(64),
-            transforms.RandomHorizontalFlip(),
-            transforms.ToTensor(),
-            transforms.Normalize(mean=mean, std=std),
-        ])
-        transform_train_RandAug = transforms.Compose([
-            transforms.RandomResizedCrop(55),
-            transforms.Resize(64),
-            transforms.RandAugment(),
-            transforms.RandomHorizontalFlip(),
-            transforms.ToTensor(),
-            transforms.Normalize(mean=mean, std=std),
-        ])
-        transform_train_AugMix = transforms.Compose([
-            transforms.RandomResizedCrop(55),
-            transforms.Resize(64),
-            #transforms.AugMix(),
-            transforms.RandomHorizontalFlip(),
-            transforms.ToTensor(),
-            transforms.Normalize(mean=mean, std=std),
-        ])
-        transform_test = transforms.Compose([
-            transforms.Resize(int(64/0.875)),
-            transforms.CenterCrop(64),
-            transforms.ToTensor(),
-            transforms.Normalize(mean=mean, std=std),
-        ])
-        if True:
-            if args.trainaug == 0:
-                transform_train = transform_train
-            elif args.trainaug == 3:
-                transform_train = transform_train_AugMix
-            else:
-                transform_train = transform_train_RandAug
-    else:
-        mean = (0.4914, 0.4822, 0.4465)
-        std = (0.2023, 0.1994, 0.2010)
-        transform_train = transforms.Compose([
-            transforms.RandomCrop(32, padding=4),
-            transforms.RandomHorizontalFlip(),
-            transforms.ToTensor(),
-            transforms.Normalize(mean=mean, std=std),
-        ])
-        transform_train_AutoAug = transforms.Compose([
-            transforms.AutoAugment(transforms.AutoAugmentPolicy.CIFAR10),
-            transforms.ToTensor(),
-            transforms.Normalize(mean=mean, std=std)
-        ])
-        transform_train_RandAug = transforms.Compose([
-            transforms.RandAugment(),
-            transforms.RandomHorizontalFlip(),
-            transforms.ToTensor(),
-            transforms.Normalize(mean=mean, std=std),
-        ])
-        transform_train_AugMix = transforms.Compose([
-            #transforms.AugMix(),
-            transforms.RandomHorizontalFlip(),
-            transforms.ToTensor(),
-            transforms.Normalize(mean=mean, std=std),
-        ])
-        if True:
-            if args.trainaug == 0:
-                transform_train = transform_train
-            elif args.trainaug == 1:
-                transform_train = transform_train_AutoAug
-            elif args.trainaug == 2:
-                transform_train = transform_train_RandAug
-            elif args.trainaug == 3:
-                transform_train = transform_train_AugMix
-        transform_test = transforms.Compose([
-            transforms.ToTensor(),
-            transforms.Normalize(mean=mean, std=std),
-        ])
+    transforms_map = build_transforms(args.dataset, trainaug=args.trainaug)
+    transform_train = transforms_map['train']
+    transform_test = transforms_map['test']
 
     # Dataset
     print('==> Building model..')
-    if args.dataset == 'cifar10': #classes = ('plane', 'car', 'bird', 'cat', 'deer', 'dog', 'frog', 'horse', 'ship', 'truck')
-        cls_outdim = 10
-        trainset = torchvision.datasets.CIFAR10(root='/mnt/workspace/cifar10/exp1/data', train=True, download=True, transform=transform_train)
-        testset = torchvision.datasets.CIFAR10(root='/mnt/workspace/cifar10/exp1/data', train=False, download=True, transform=transform_test)
-        wholedataset = torchvision.datasets.CIFAR10(root='/mnt/workspace/cifar10/exp1/data', train=True, download=True, transform=transform_test)
-    elif args.dataset == 'cifar100':
-        cls_outdim = 100
-        trainset = torchvision.datasets.CIFAR100(root='/earth-nas/datasets/cifar-100-python', train=True, download=True, transform=transform_train)
-        testset = torchvision.datasets.CIFAR100(root='/earth-nas/datasets/cifar-100-python', train=False, download=True, transform=transform_test)
-        wholedataset = torchvision.datasets.CIFAR100(root='/earth-nas/datasets/cifar-100-python', train=True, download=True, transform=transform_test)
-    elif args.dataset == 'tiny':
-        cls_outdim = 200
-        train_set_path = os.path.join('/mnt/workspace/workgroup/tanhaoru.thr/dataset/tiny-imagenet-200', 'train')
-        test_set_path = os.path.join('/mnt/workspace/workgroup/tanhaoru.thr/dataset/tiny-imagenet-200', 'val')
-        trainset = ImageFolder(root=train_set_path, transform=transform_train)
-        testset = ImageFolder(root=test_set_path, transform=transform_test)
-        wholedataset = ImageFolder(root=train_set_path, transform=transform_train)
+    cls_outdim = DATASET_NUM_CLASSES[args.dataset]
+    trainset = build_train_dataset(args.dataset, args.data_root, transform=transform_train, trainaug=args.trainaug)
+    testset = build_test_dataset(args.dataset, args.data_root, transform=transform_test, trainaug=args.trainaug)
+    wholedataset = build_train_dataset(args.dataset, args.data_root, transform=transform_test, trainaug=args.trainaug)
 
     testloader = torch.utils.data.DataLoader(
         testset, batch_size=100, shuffle=False, num_workers=1)
@@ -454,7 +340,7 @@ if __name__ == '__main__':
         N = len(trainset)
         # noise_num = int(N * args.noise_ratio)
         noise_mask = [torch.rand(1)<args.noise_ratio for i in range(N)]
-        L = max(trainset.targets)
+        L = max(get_dataset_targets(trainset))
         label_set = [ind for ind in range(L)]
         flag = -1
         for i in noise_mask:
@@ -472,7 +358,7 @@ if __name__ == '__main__':
         noise_mask_saving_path = os.path.join(noise_mask_path, 'mask.pth')
         torch.save(noise_mask, noise_mask_saving_path)
         noise_label_saving_path = os.path.join(noise_mask_path, 'label.pth')
-        torch.save(trainset.targets, noise_label_saving_path)
+        torch.save(get_dataset_targets(trainset), noise_label_saving_path)
     # Optimizer
     #if args.dataset == 'cifar10':
     #    optimizer = optim.SGD(net.parameters(), lr=args.lr, momentum=0.9, weight_decay=0.0005, nesterov=True)
@@ -498,14 +384,8 @@ if __name__ == '__main__':
                         momentum=0.9, weight_decay=0.0002, nesterov=True)
         scheduler = torch.optim.lr_scheduler.CosineAnnealingLR(optimizer, T_max=maxepoch, eta_min=0.0001)
         support_mask = trial_mask_support[trial_index]
-        trial_train_set = copy.deepcopy(trainset)
-        # get the train set of the current trial
-        if args.dataset == 'tiny':
-            trial_train_set.samples = [trial_train_set.samples[ind] for ind in range(len(support_mask)) if support_mask[ind] == 1]
-        else:
-            trial_train_set.data = [trial_train_set.data[ind, :] for ind in range(len(support_mask)) if support_mask[ind] == 1]
-            trial_train_set.data = torch.tensor(trial_train_set.data).numpy()
-        trial_train_set.targets = [trial_train_set.targets[ind] for ind in range(len(support_mask)) if support_mask[ind]==1]
+        support_indices = [ind for ind, flag in enumerate(support_mask) if flag == 1]
+        trial_train_set = torch.utils.data.Subset(trainset, support_indices)
         trial_train_loader = torch.utils.data.DataLoader(trial_train_set, batch_size=args.bs, shuffle=True, num_workers=2)
         # name it
         trial_name = 'trial_' + str(trial_index) + '_'

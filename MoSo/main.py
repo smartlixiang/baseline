@@ -8,7 +8,6 @@ import torch.nn.functional as F
 import torch.backends.cudnn as cudnn
 import torchvision
 import torchvision.transforms as transforms
-from torchvision.datasets import ImageFolder
 import torchvision.models as models
 import os
 import argparse
@@ -21,6 +20,7 @@ from models import *
 from torch.utils.data import DataLoader
 from torch.autograd import grad
 import copy
+from dataset_utils import build_test_dataset, build_train_dataset, build_transforms, DATASET_NUM_CLASSES
 torch.manual_seed(3407)
 
 class ResNetT(nn.Module):
@@ -312,7 +312,7 @@ if __name__ == '__main__':
     parser.add_argument('--weightpower', default=0.0, type=float, help='ind.pow(this) is the weight of the ind-th pool vector')
     parser.add_argument('--maxepoch', default=400, type=int, help='max epoch')
     parser.add_argument('--trial', default=0, type=int, help='specific trial index')
-    parser.add_argument('--saveroot', default='/mnt/workspace/workgroup/tanhaoru.thr/AOSP', type=str, help='root for saving')
+    parser.add_argument('--saveroot', default='./runs', type=str, help='root for saving')
     parser.add_argument('--ckptroot', default='', type=str, help='for already existed Checkpoint path')
     parser.add_argument('--aosproot', default='', type=str, help='for already existed AOSP score files')
     parser.add_argument('--risk', default=0, type=int, help='0: risk on suppor tset, 1: rish on query set.')#random
@@ -322,6 +322,7 @@ if __name__ == '__main__':
     parser.add_argument('--cosscheduler', default=0, type=int, help='cos scheduler')
     parser.add_argument('--trainaug', default=0, type=int, help='0: None, 1: AutoAug (Cifar10), 2: RandAug, 3: AugMix')
     parser.add_argument('--nest', default=1, type=int, help='0: without nestrove, 1: with nest')
+    parser.add_argument('--data_root', default='./data', type=str, help='Root data directory.')
     #ckptfreq , cls_indim, num_classes
     args = parser.parse_args()
 
@@ -332,104 +333,16 @@ if __name__ == '__main__':
 
     # Data
     print('==> Preparing data..' + args.dataset)
-    if args.dataset == 'tiny':
-        mean = [0.4802, 0.4481, 0.3975]
-        std = [0.2302, 0.2265, 0.2262]
-        transform_train = transforms.Compose([
-            transforms.RandomResizedCrop(55),
-            transforms.Resize(64),
-            transforms.RandomHorizontalFlip(),
-            transforms.ToTensor(),
-            transforms.Normalize(mean=mean, std=std),
-        ])
-        transform_train_RandAug = transforms.Compose([
-            transforms.RandomResizedCrop(55),
-            transforms.Resize(64),
-            transforms.RandAugment(),
-            transforms.RandomHorizontalFlip(),
-            transforms.ToTensor(),
-            transforms.Normalize(mean=mean, std=std),
-        ])
-        transform_train_AugMix = transforms.Compose([
-            transforms.RandomResizedCrop(55),
-            transforms.Resize(64),
-            #transforms.AugMix(),
-            transforms.RandomHorizontalFlip(),
-            transforms.ToTensor(),
-            transforms.Normalize(mean=mean, std=std),
-        ])
-        transform_test = transforms.Compose([
-            transforms.Resize(int(64/0.875)),
-            transforms.CenterCrop(64),
-            transforms.ToTensor(),
-            transforms.Normalize(mean=mean, std=std),
-        ])
-        if True:
-            if args.trainaug == 0:
-                transform_train = transform_train
-            elif args.trainaug == 3:
-                transform_train = transform_train_AugMix
-            else:
-                transform_train = transform_train_RandAug
-    else:
-        mean = (0.4914, 0.4822, 0.4465)
-        std = (0.2023, 0.1994, 0.2010)
-        transform_train = transforms.Compose([
-            transforms.RandomCrop(32, padding=4),
-            transforms.RandomHorizontalFlip(),
-            transforms.ToTensor(),
-            transforms.Normalize(mean=mean, std=std),
-        ])
-        transform_train_AutoAug = transforms.Compose([
-            transforms.AutoAugment(transforms.AutoAugmentPolicy.CIFAR10),
-            transforms.ToTensor(),
-            transforms.Normalize(mean=mean, std=std)
-        ])
-        transform_train_RandAug = transforms.Compose([
-            transforms.RandAugment(),
-            transforms.RandomHorizontalFlip(),
-            transforms.ToTensor(),
-            transforms.Normalize(mean=mean, std=std),
-        ])
-        transform_train_AugMix = transforms.Compose([
-            #transforms.AugMix(),
-            transforms.RandomHorizontalFlip(),
-            transforms.ToTensor(),
-            transforms.Normalize(mean=mean, std=std),
-        ])
-        if True:
-            if args.trainaug == 0:
-                transform_train = transform_train
-            elif args.trainaug == 1:
-                transform_train = transform_train_AutoAug
-            elif args.trainaug == 2:
-                transform_train = transform_train_RandAug
-            elif args.trainaug == 3:
-                transform_train = transform_train_AugMix
-        transform_test = transforms.Compose([
-            transforms.ToTensor(),
-            transforms.Normalize(mean=mean, std=std),
-        ])
+    transforms_map = build_transforms(args.dataset, trainaug=args.trainaug)
+    transform_train = transforms_map['train']
+    transform_test = transforms_map['test']
 
     # Dataset
     print('==> Building model..')
-    if args.dataset == 'cifar10': #classes = ('plane', 'car', 'bird', 'cat', 'deer', 'dog', 'frog', 'horse', 'ship', 'truck')
-        cls_outdim = 10
-        trainset = torchvision.datasets.CIFAR10(root='/mnt/workspace/cifar10/exp1/data', train=True, download=True, transform=transform_train)
-        testset = torchvision.datasets.CIFAR10(root='/mnt/workspace/cifar10/exp1/data', train=False, download=True, transform=transform_test)
-        wholedataset = torchvision.datasets.CIFAR10(root='/mnt/workspace/cifar10/exp1/data', train=True, download=True, transform=transform_test)
-    elif args.dataset == 'cifar100':
-        cls_outdim = 100
-        trainset = torchvision.datasets.CIFAR100(root='/earth-nas/datasets/cifar-100-python', train=True, download=True, transform=transform_train)
-        testset = torchvision.datasets.CIFAR100(root='/earth-nas/datasets/cifar-100-python', train=False, download=True, transform=transform_test)
-        wholedataset = torchvision.datasets.CIFAR100(root='/earth-nas/datasets/cifar-100-python', train=True, download=True, transform=transform_test)
-    elif args.dataset == 'tiny':
-        cls_outdim = 200
-        train_set_path = os.path.join('/mnt/workspace/workgroup/tanhaoru.thr/dataset/tiny-imagenet-200', 'train')
-        test_set_path = os.path.join('/mnt/workspace/workgroup/tanhaoru.thr/dataset/tiny-imagenet-200', 'val')
-        trainset = ImageFolder(root=train_set_path, transform=transform_train)
-        testset = ImageFolder(root=test_set_path, transform=transform_test)
-        wholedataset = ImageFolder(root=train_set_path, transform=transform_train)
+    cls_outdim = DATASET_NUM_CLASSES[args.dataset]
+    trainset = build_train_dataset(args.dataset, args.data_root, transform=transform_train, trainaug=args.trainaug)
+    testset = build_test_dataset(args.dataset, args.data_root, transform=transform_test, trainaug=args.trainaug)
+    wholedataset = build_train_dataset(args.dataset, args.data_root, transform=transform_test, trainaug=args.trainaug)
 
     testloader = torch.utils.data.DataLoader(
         testset, batch_size=100, shuffle=False, num_workers=1)
@@ -710,14 +623,7 @@ if __name__ == '__main__':
             #print(AOSP_score)
             my_transform = transform_train
             print(args.dataset, 'hahahahhhhhhhhubhubuybuyb')
-            if args.dataset=='cifar10':
-                pruned_dataset = torchvision.datasets.CIFAR10(root='/mnt/workspace/cifar10/exp1/data', train=True, download=True, transform=my_transform)
-            elif args.dataset=='cifar100':
-                pruned_dataset = torchvision.datasets.CIFAR100(root='/mnt/workspace/cifar10/exp1/data', train=True, download=True, transform=my_transform)
-            elif args.dataset=='tiny':
-                print('preparing Tiny-ImageNet')
-                train_set_path = os.path.join('/mnt/workspace/workgroup/tanhaoru.thr/dataset/tiny-imagenet-200', 'train')
-                pruned_dataset = ImageFolder(root=train_set_path, transform=my_transform)
+            pruned_dataset = build_train_dataset(args.dataset, args.data_root, transform=my_transform, trainaug=args.trainaug)
             #selected_index = m_guided_opt(all_score, 1-args.pr)
             #selected_index = nopt2(all_score, 1-args.pr, pruned_dataset.targets)
             if args.random==0:

@@ -8,7 +8,6 @@ import torch.nn.functional as F
 import torch.backends.cudnn as cudnn
 import torchvision
 import torchvision.transforms as transforms
-from torchvision.datasets import ImageFolder
 import torchvision.models as models
 import os
 import argparse
@@ -16,11 +15,10 @@ import model
 from tqdm import tqdm  
 import numpy as np
 from utils import progress_bar
-from utils import *
 from models import *
-from torch.utils.data import DataLoader
-from torch.autograd import grad
 import copy
+from dataset_utils import build_test_dataset, build_train_dataset, build_transforms, get_dataset_targets, DATASET_NUM_CLASSES
+from selection_utils import make_binary_mask, select_indices_from_scores
 torch.manual_seed(3407)
 
 class ResNetT(nn.Module):
@@ -120,37 +118,13 @@ def sample_opt(S, size, tar):
     return index
 
 def nopt2(S, size, tar):
-    # S: dict
-    # size: the subset size
-    tar = torch.tensor(tar)
-    K = tar.max()
-    size = int(len(S) * size )
-    pool = torch.tensor(S)
-    pool = pool.squeeze()
-    mask = (pool*0).int()
-    # normalize
-    index_all = []
-    for i in range(K+1):
-        temp_pool = pool * (tar == i).float()
-        _, index = temp_pool.topk(int(size/(K+1)))
-        #mask[index] = 1
-        index_all = index_all + index.tolist()
-    #return mask
-    return index_all
+    # Keep the official retraining selection behavior centralized in selection_utils.
+    return select_indices_from_scores(S, size, tar, random_mode=False).tolist()
 
 def random_opt(S, size):
-    # S: dict
-    # size: the subset size
+    # Keep the official retraining random-selection behavior centralized in selection_utils.
     print('random selecting....')
-    size = int(len(S) * size )
-    pool = torch.tensor(S)
-    pool = pool.squeeze()
-    pool = torch.rand(pool.shape)
-    _, index = pool.topk(size)
-    #mask = (pool*0).int()
-    #mask[index] = 1
-    #return mask
-    return index
+    return select_indices_from_scores(S, size, list(range(len(S))), random_mode=True).tolist()
 
 def train(net, dataloader, optimizer, criterion):
     net.train()
@@ -225,6 +199,7 @@ if __name__ == '__main__':
     parser.add_argument('--nest', default=1, type=int, help='0: without nestrove, 1: with nest')
     parser.add_argument('--path', default='./MoSo_CIFAR100', type=str, help='the path of this exp')
     parser.add_argument('--num_trails', default=8, type=int, help='number of trials')
+    parser.add_argument('--data_root', default='./data', type=str, help='Root data directory.')
     args = parser.parse_args()
 
     device = 'cuda' if torch.cuda.is_available() else 'cpu'
@@ -234,104 +209,16 @@ if __name__ == '__main__':
 
     # Data
     print('==> Preparing data..' + args.dataset)
-    if args.dataset == 'tiny':
-        mean = [0.4802, 0.4481, 0.3975]
-        std = [0.2302, 0.2265, 0.2262]
-        transform_train = transforms.Compose([
-            transforms.RandomResizedCrop(55),
-            transforms.Resize(64),
-            transforms.RandomHorizontalFlip(),
-            transforms.ToTensor(),
-            transforms.Normalize(mean=mean, std=std),
-        ])
-        transform_train_RandAug = transforms.Compose([
-            transforms.RandomResizedCrop(55),
-            transforms.Resize(64),
-            transforms.RandAugment(),
-            transforms.RandomHorizontalFlip(),
-            transforms.ToTensor(),
-            transforms.Normalize(mean=mean, std=std),
-        ])
-        transform_train_AugMix = transforms.Compose([
-            transforms.RandomResizedCrop(55),
-            transforms.Resize(64),
-            #transforms.AugMix(),
-            transforms.RandomHorizontalFlip(),
-            transforms.ToTensor(),
-            transforms.Normalize(mean=mean, std=std),
-        ])
-        transform_test = transforms.Compose([
-            transforms.Resize(int(64/0.875)),
-            transforms.CenterCrop(64),
-            transforms.ToTensor(),
-            transforms.Normalize(mean=mean, std=std),
-        ])
-        if True:
-            if args.trainaug == 0:
-                transform_train = transform_train
-            elif args.trainaug == 3:
-                transform_train = transform_train_AugMix
-            else:
-                transform_train = transform_train_RandAug
-    else:
-        mean = (0.4914, 0.4822, 0.4465)
-        std = (0.2023, 0.1994, 0.2010)
-        transform_train = transforms.Compose([
-            transforms.RandomCrop(32, padding=4),
-            transforms.RandomHorizontalFlip(),
-            transforms.ToTensor(),
-            transforms.Normalize(mean=mean, std=std),
-        ])
-        transform_train_AutoAug = transforms.Compose([
-            transforms.AutoAugment(transforms.AutoAugmentPolicy.CIFAR10),
-            transforms.ToTensor(),
-            transforms.Normalize(mean=mean, std=std)
-        ])
-        transform_train_RandAug = transforms.Compose([
-            transforms.RandAugment(),
-            transforms.RandomHorizontalFlip(),
-            transforms.ToTensor(),
-            transforms.Normalize(mean=mean, std=std),
-        ])
-        transform_train_AugMix = transforms.Compose([
-            #transforms.AugMix(),
-            transforms.RandomHorizontalFlip(),
-            transforms.ToTensor(),
-            transforms.Normalize(mean=mean, std=std),
-        ])
-        if True:
-            if args.trainaug == 0:
-                transform_train = transform_train
-            elif args.trainaug == 1:
-                transform_train = transform_train_AutoAug
-            elif args.trainaug == 2:
-                transform_train = transform_train_RandAug
-            elif args.trainaug == 3:
-                transform_train = transform_train_AugMix
-        transform_test = transforms.Compose([
-            transforms.ToTensor(),
-            transforms.Normalize(mean=mean, std=std),
-        ])
+    transforms_map = build_transforms(args.dataset, trainaug=args.trainaug)
+    transform_train = transforms_map['train']
+    transform_test = transforms_map['test']
 
     # Dataset
     print('==> Building model..')
-    if args.dataset == 'cifar10': #classes = ('plane', 'car', 'bird', 'cat', 'deer', 'dog', 'frog', 'horse', 'ship', 'truck')
-        cls_outdim = 10
-        trainset = torchvision.datasets.CIFAR10(root='/mnt/workspace/cifar10/exp1/data', train=True, download=True, transform=transform_train)
-        testset = torchvision.datasets.CIFAR10(root='/mnt/workspace/cifar10/exp1/data', train=False, download=True, transform=transform_test)
-        wholedataset = torchvision.datasets.CIFAR10(root='/mnt/workspace/cifar10/exp1/data', train=True, download=True, transform=transform_test)
-    elif args.dataset == 'cifar100':
-        cls_outdim = 100
-        trainset = torchvision.datasets.CIFAR100(root='/earth-nas/datasets/cifar-100-python', train=True, download=True, transform=transform_train)
-        testset = torchvision.datasets.CIFAR100(root='/earth-nas/datasets/cifar-100-python', train=False, download=True, transform=transform_test)
-        wholedataset = torchvision.datasets.CIFAR100(root='/earth-nas/datasets/cifar-100-python', train=True, download=True, transform=transform_test)
-    elif args.dataset == 'tiny':
-        cls_outdim = 200
-        train_set_path = os.path.join('/mnt/workspace/workgroup/tanhaoru.thr/dataset/tiny-imagenet-200', 'train')
-        test_set_path = os.path.join('/mnt/workspace/workgroup/tanhaoru.thr/dataset/tiny-imagenet-200', 'val')
-        trainset = ImageFolder(root=train_set_path, transform=transform_train)
-        testset = ImageFolder(root=test_set_path, transform=transform_test)
-        wholedataset = ImageFolder(root=train_set_path, transform=transform_train)
+    cls_outdim = DATASET_NUM_CLASSES[args.dataset]
+    trainset = build_train_dataset(args.dataset, args.data_root, transform=transform_train, trainaug=args.trainaug)
+    testset = build_test_dataset(args.dataset, args.data_root, transform=transform_test, trainaug=args.trainaug)
+    wholedataset = build_train_dataset(args.dataset, args.data_root, transform=transform_test, trainaug=args.trainaug)
 
     testloader = torch.utils.data.DataLoader(
         testset, batch_size=100, shuffle=False, num_workers=1)
@@ -390,13 +277,14 @@ if __name__ == '__main__':
         assert os.path.exists(noise_mask_path), "the noise-label path not exists"
         noise_label_path = os.path.join(noise_mask_path, 'label.pth')
         temp = torch.load(noise_label_path)
+        original_targets = get_dataset_targets(trainset)
         uneq = 0
-        for i,j in zip(trainset.targets, temp):
+        for i,j in zip(original_targets, temp):
             if i!=j:
                 uneq = uneq + 1
         print(uneq)
         #print((temp!=trainset.targets).float().sum())
-        trainset.targets = temp
+        trainset.targets = list(temp)
 
     # Load the MoSo score
     score_file_path = os.path.join(args.path, 'score/moso_score.pth')
@@ -405,17 +293,12 @@ if __name__ == '__main__':
     pruned_dataset = trainset
     
     all_score = moso_all
-    if args.random==0:
-        #selected_index = nopt(all_score, 1-args.pr, pruned_dataset.targets)
-        selected_index = nopt2(all_score, 1-args.pr, pruned_dataset.targets)
-        #selected_index = sample_opt(all_score, 1-args.pr, pruned_dataset.targets)
-    else:
-        length = len(pruned_dataset)#pruned_dataset.data.shape[0]
-        #print(max(pruned_dataset.targets))
-        all_score = [0 for i in range(length)]
-        selected_index = random_opt(all_score, 1-args.pr) 
-    #torch.utils.data.Subset
-    pruned_dataset = torch.utils.data.Subset(pruned_dataset, selected_index)
+    targets = get_dataset_targets(pruned_dataset)
+    assert len(all_score) == len(pruned_dataset), f'len(score)={len(all_score)} != len(train_dataset)={len(pruned_dataset)}'
+    selected_index = select_indices_from_scores(all_score, 1 - args.pr, targets, random_mode=bool(args.random))
+    mask = make_binary_mask(len(pruned_dataset), selected_index)
+    assert len(mask) == len(pruned_dataset), f'len(mask)={len(mask)} != len(train_dataset)={len(pruned_dataset)}'
+    pruned_dataset = torch.utils.data.Subset(pruned_dataset, selected_index.tolist())
     pruned_loader = torch.utils.data.DataLoader(pruned_dataset, batch_size=args.bs, shuffle=True, num_workers=2)
     model = copy.deepcopy(net)
     model = model.to(device)
