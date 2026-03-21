@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 from pathlib import Path
-from typing import Dict, Optional
+from typing import Dict
 
 import torchvision
 import torchvision.transforms as transforms
@@ -15,6 +15,10 @@ DATASET_SUBDIRS = {
     'cifar10': 'cifar10',
     'cifar100': 'cifar100',
     'tiny': 'tiny-imagenet-200',
+}
+TORCHVISION_ARCHIVE_DIRS = {
+    'cifar10': 'cifar-10-batches-py',
+    'cifar100': 'cifar-100-python',
 }
 DATASET_NUM_CLASSES = {
     'cifar10': 10,
@@ -38,6 +42,22 @@ def resolve_dataset_path(dataset: str, data_root: str | Path) -> Path:
     if dataset not in DATASET_SUBDIRS:
         raise ValueError(f'Unsupported dataset: {dataset}')
     return resolve_data_root(data_root) / DATASET_SUBDIRS[dataset]
+
+
+def resolve_torchvision_root(dataset: str, data_root: str | Path) -> Path:
+    data_root_path = resolve_data_root(data_root)
+    if dataset not in TORCHVISION_ARCHIVE_DIRS:
+        raise ValueError(f'Unsupported torchvision dataset: {dataset}')
+
+    extracted_dir = TORCHVISION_ARCHIVE_DIRS[dataset]
+    if (data_root_path / extracted_dir).exists():
+        return data_root_path
+
+    legacy_dataset_root = resolve_dataset_path(dataset, data_root)
+    if (legacy_dataset_root / extracted_dir).exists():
+        return legacy_dataset_root
+
+    return data_root_path
 
 
 def _assert_tiny_val_ready(tiny_root: Path) -> None:
@@ -145,9 +165,11 @@ def build_train_dataset(dataset: str, data_root: str | Path, transform=None, tra
     transform = transform or transforms_map['train']
     dataset_root = resolve_dataset_path(dataset, data_root)
     if dataset == 'cifar10':
-        return torchvision.datasets.CIFAR10(root=str(dataset_root), train=True, download=True, transform=transform)
+        torchvision_root = resolve_torchvision_root(dataset, data_root)
+        return torchvision.datasets.CIFAR10(root=str(torchvision_root), train=True, download=True, transform=transform)
     if dataset == 'cifar100':
-        return torchvision.datasets.CIFAR100(root=str(dataset_root), train=True, download=True, transform=transform)
+        torchvision_root = resolve_torchvision_root(dataset, data_root)
+        return torchvision.datasets.CIFAR100(root=str(torchvision_root), train=True, download=True, transform=transform)
     if dataset == 'tiny':
         _assert_tiny_val_ready(dataset_root)
         return ImageFolder(root=str(dataset_root / 'train'), transform=transform)
@@ -159,9 +181,11 @@ def build_test_dataset(dataset: str, data_root: str | Path, transform=None, trai
     transform = transform or transforms_map['test']
     dataset_root = resolve_dataset_path(dataset, data_root)
     if dataset == 'cifar10':
-        return torchvision.datasets.CIFAR10(root=str(dataset_root), train=False, download=True, transform=transform)
+        torchvision_root = resolve_torchvision_root(dataset, data_root)
+        return torchvision.datasets.CIFAR10(root=str(torchvision_root), train=False, download=True, transform=transform)
     if dataset == 'cifar100':
-        return torchvision.datasets.CIFAR100(root=str(dataset_root), train=False, download=True, transform=transform)
+        torchvision_root = resolve_torchvision_root(dataset, data_root)
+        return torchvision.datasets.CIFAR100(root=str(torchvision_root), train=False, download=True, transform=transform)
     if dataset == 'tiny':
         _assert_tiny_val_ready(dataset_root)
         return ImageFolder(root=str(dataset_root / 'val'), transform=transform)
