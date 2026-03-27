@@ -3,6 +3,8 @@ data/
 herding/data/
 data_diet/data/
 MoSo/data/
+YangCLIP/data/
+YangCLIP/clip_model/
 
 
 # experiment outputs / checkpoints
