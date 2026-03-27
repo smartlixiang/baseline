@@ -7,6 +7,7 @@ import numpy as np
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
+from torch.optim.lr_scheduler import StepLR
 from torch.utils.data import DataLoader
 from tqdm import tqdm
 
@@ -14,6 +15,11 @@ from data_loader_with_index import DATASET_CHOICES, build_train_dataset
 
 
 SEED_CHOICES = [22, 42, 96]
+DATASET_DEFAULT_BATCH = {
+    "cifar10": 256,
+    "cifar100": 256,
+    "tiny-imagenet": 64,
+}
 
 
 def set_seed(seed: int) -> None:
@@ -21,6 +27,12 @@ def set_seed(seed: int) -> None:
     np.random.seed(seed)
     torch.manual_seed(seed)
     torch.cuda.manual_seed_all(seed)
+
+
+def seed_worker(worker_id: int) -> None:
+    worker_seed = torch.initial_seed() % 2**32
+    np.random.seed(worker_seed)
+    random.seed(worker_seed)
 
 
 def build_model(device: torch.device, clip_path: str):
@@ -66,6 +78,8 @@ def train_one_epoch(
     class_text_features,
     optimizer,
     device,
+    epoch_idx,
+    total_epochs,
 ):
     image_adapter.train()
     text_adapter.train()
@@ -73,7 +87,12 @@ def train_one_epoch(
     total_loss = 0.0
     total_num = 0
 
-    for images, labels, _ in tqdm(train_loader):
+    batch_bar = tqdm(
+        train_loader,
+        desc=f"Train {epoch_idx}/{total_epochs}",
+        leave=False,
+    )
+    for images, labels, _ in batch_bar:
         images = images.to(device)
         labels = labels.to(device)
 
@@ -95,6 +114,8 @@ def train_one_epoch(
         total_loss += loss.item() * batch_size
         total_num += batch_size
 
+        batch_bar.set_postfix(loss=f"{loss.item():.4f}")
+
     return total_loss / max(total_num, 1)
 
 
@@ -102,13 +123,16 @@ def main():
     parser = argparse.ArgumentParser(description="Train YangCLIP adapters")
     parser.add_argument("--dataset", type=str, required=True, choices=DATASET_CHOICES)
     parser.add_argument("--seed", type=int, required=True, choices=SEED_CHOICES)
-    parser.add_argument("--batch_size", type=int, default=128)
-    parser.add_argument("--epochs", type=int, default=50)
-    parser.add_argument("--lr", type=float, default=1e-3)
+    parser.add_argument("--batch_size", type=int, default=None)
+    parser.add_argument("--epochs", type=int, default=30)
+    parser.add_argument("--lr", type=float, default=1e-4)
     parser.add_argument("--clip_path", type=str, default="clip_model/ViT-B-32.pt")
     parser.add_argument("--data_root", type=str, default="data")
     parser.add_argument("--num_workers", type=int, default=4)
     args = parser.parse_args()
+
+    if args.batch_size is None:
+        args.batch_size = DATASET_DEFAULT_BATCH[args.dataset]
 
     set_seed(args.seed)
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
@@ -119,12 +143,16 @@ def main():
     model, preprocess, image_adapter, text_adapter = build_model(device, str(clip_path))
 
     train_dataset, class_names = build_train_dataset(args.dataset, preprocess, data_root)
+    data_generator = torch.Generator()
+    data_generator.manual_seed(args.seed)
     train_loader = DataLoader(
         train_dataset,
         batch_size=args.batch_size,
         shuffle=True,
         num_workers=args.num_workers,
         pin_memory=torch.cuda.is_available(),
+        worker_init_fn=seed_worker,
+        generator=data_generator,
     )
 
     prompts = [f"A photo of a {name}" for name in class_names]
@@ -136,9 +164,10 @@ def main():
         list(image_adapter.parameters()) + list(text_adapter.parameters()),
         lr=args.lr,
     )
+    scheduler = StepLR(optimizer, step_size=30, gamma=0.1)
 
-    epoch_bar = tqdm(range(1, args.epochs + 1))
-    for _ in epoch_bar:
+    epoch_bar = tqdm(range(1, args.epochs + 1), desc="Epochs")
+    for epoch in epoch_bar:
         avg_loss = train_one_epoch(
             model=model,
             image_adapter=image_adapter,
@@ -147,8 +176,13 @@ def main():
             class_text_features=class_text_features,
             optimizer=optimizer,
             device=device,
+            epoch_idx=epoch,
+            total_epochs=args.epochs,
         )
-        epoch_bar.set_postfix(loss=f"{avg_loss:.4f}")
+        scheduler.step()
+        current_lr = optimizer.param_groups[0]["lr"]
+        epoch_bar.set_postfix(loss=f"{avg_loss:.4f}", lr=f"{current_lr:.2e}")
+        print(f"Epoch {epoch}/{args.epochs} - avg_loss: {avg_loss:.6f} - lr: {current_lr:.2e}")
 
     save_path = Path("checkpoints") / args.dataset / f"seed_{args.seed}" / "adapter.pth"
     save_path.parent.mkdir(parents=True, exist_ok=True)

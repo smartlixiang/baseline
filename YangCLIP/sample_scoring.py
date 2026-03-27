@@ -1,62 +1,133 @@
-import os
-import time
 import argparse
-parser = argparse.ArgumentParser(description='PyTorch Training')
-parser.add_argument('--lr', default=0.001, type=float, help='learning rate')
-parser.add_argument('--gpu', default='3', type=str, help='GPU id to use.')
-parser.add_argument('--dataset', default='CIFAR100', type=str)
-args = parser.parse_args()
-os.environ['CUDA_VISIBLE_DEVICES'] = args.gpu
-import torch
-import clip
-import torchvision.transforms as transforms
-import torch.nn as nn
-from tqdm import tqdm
-import dataset
-from torch.utils.data import DataLoader
-import numpy as np
-from utils import *
-import torch.nn.functional as F
-device = "cuda" if torch.cuda.is_available() else "cpu"
-model, preprocess = clip.load("ViT-B/32", device=device)
-model = model.float()
+import random
+from pathlib import Path
 
-def text_(dataset):
-    class_names = obtain_classnames(dataset)
-    text_inputs = torch.cat([clip.tokenize(f"A photo of a {c}") for c in class_names]).to(device)
+import clip
+import numpy as np
+import torch
+import torch.nn as nn
+import torch.nn.functional as F
+from torch.utils.data import DataLoader
+from tqdm import tqdm
+
+from data_loader_with_index import DATASET_CHOICES, build_train_dataset
+
+
+SEED_CHOICES = [22, 42, 96]
+DATASET_DEFAULT_BATCH = {
+    "cifar10": 256,
+    "cifar100": 256,
+    "tiny-imagenet": 64,
+}
+
+
+def set_seed(seed: int) -> None:
+    random.seed(seed)
+    np.random.seed(seed)
+    torch.manual_seed(seed)
+    torch.cuda.manual_seed_all(seed)
+
+
+def resolve_user_path(path_arg: str, script_dir: Path) -> Path:
+    user_path = Path(path_arg)
+    if user_path.is_absolute():
+        return user_path.resolve()
+
+    candidates = [
+        (script_dir.parent / user_path).resolve(),
+        (script_dir / user_path).resolve(),
+        (Path.cwd() / user_path).resolve(),
+    ]
+    for candidate in candidates:
+        if candidate.exists():
+            return candidate
+
+    return (script_dir / user_path).resolve()
+
+
+def build_model(device: torch.device, clip_path: str):
+    clip_model_path = Path(clip_path)
+    if not clip_model_path.exists():
+        raise FileNotFoundError(
+            f"CLIP model file not found: {clip_model_path}. "
+            "Please prepare local file `clip_model/ViT-B-32.pt`."
+        )
+    model, preprocess = clip.load(str(clip_model_path), device=device)
+    model = model.float()
+    for p in model.parameters():
+        p.requires_grad = False
+    model.eval()
+    return model, preprocess
+
+
+def main():
+    parser = argparse.ArgumentParser(description="Sample scoring for YangCLIP")
+    parser.add_argument("--dataset", type=str, required=True, choices=DATASET_CHOICES)
+    parser.add_argument("--seed", type=int, required=True, choices=SEED_CHOICES)
+    parser.add_argument("--clip_path", type=str, default="clip_model/ViT-B-32.pt")
+    parser.add_argument("--data_root", type=str, default="data")
+    parser.add_argument("--batch_size", type=int, default=None)
+    parser.add_argument("--num_workers", type=int, default=4)
+    args = parser.parse_args()
+
+    if args.batch_size is None:
+        args.batch_size = DATASET_DEFAULT_BATCH[args.dataset]
+
+    set_seed(args.seed)
+    device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+
+    script_dir = Path(__file__).resolve().parent
+    clip_path = resolve_user_path(args.clip_path, script_dir)
+    data_root = resolve_user_path(args.data_root, script_dir)
+
+    model, preprocess = build_model(device, str(clip_path))
+
+    ckpt_path = Path("checkpoints") / args.dataset / f"seed_{args.seed}" / "adapter.pth"
+    if not ckpt_path.exists():
+        raise FileNotFoundError(f"Adapter checkpoint not found: {ckpt_path}")
+
+    state = torch.load(ckpt_path, map_location=device)
+    image_adapter = nn.Linear(512, 512).to(device)
+    text_adapter = nn.Linear(512, 512).to(device)
+    image_adapter.load_state_dict(state["image_adapter"])
+    text_adapter.load_state_dict(state["text_adapter"])
+    image_adapter.eval()
+    text_adapter.eval()
+
+    train_dataset, class_names = build_train_dataset(args.dataset, preprocess, data_root)
+    train_loader = DataLoader(
+        train_dataset,
+        batch_size=args.batch_size,
+        shuffle=False,
+        num_workers=args.num_workers,
+        pin_memory=torch.cuda.is_available(),
+    )
+
+    prompts = [f"A photo of a {name}" for name in class_names]
+    text_tokens = clip.tokenize(prompts).to(device)
     with torch.no_grad():
-        text_features = model.encode_text(text_inputs)
-    return text_features
- 
-def load_pretrained_adapter_for_pruning():
-    adpater_img = adpater_text = nn.Linear(512, 512).cuda()
-    adpater_img.load_state_dict(torch.load(f'./adapter_ckpt/{args.dataset}/adapater_img.pth'))
-    adpater_text.load_state_dict(torch.load(f'./adapter_ckpt/{args.dataset}/adapater_text.pth'))
-    adpater_img.eval()
-    adpater_text.eval()
-    transform = transforms.Compose([
-        preprocess
-    ])
-    train_dataset = getattr(dataset, args.dataset)(root='./data/', train=True, download=False, transform=transform)
-    train_loader = DataLoader(train_dataset, batch_size=256, shuffle=False, pin_memory=True, num_workers=8)
-    with torch.no_grad():   
-        ft_text_features = adpater_text(text_(args.dataset))
-    scores = torch.ones(len(train_dataset)) * -1
-    for i, (index, images, target) in enumerate(tqdm(train_loader)):
-        images = images.to(device)
-        target = target.to(device)
-        # Extract features from CLIP model
-        with torch.no_grad(): 
-            batch_image_features = model.encode_image(images)
-            # Embedding features by adapter
-            image_outputs = adpater_img(batch_image_features)
-            # batchsize * 512
-            batch_text_features = ft_text_features[target] 
-            # Calculate Cosine Similarity
-            matchness = F.cosine_similarity(image_outputs.cpu(), batch_text_features.cpu())
-            scores[index] = matchness.cpu()
-    # np.save(f'./Pruning_Scores/{args.dataset}/scores.npy',scores.numpy())
- 
-    
-if __name__ == '__main__':
-    load_pretrained_adapter_for_pruning()
+        text_features = model.encode_text(text_tokens).float()
+        adapted_text_features = F.normalize(text_adapter(text_features), dim=-1)
+
+    scores = np.zeros(len(train_dataset), dtype=np.float32)
+
+    with torch.no_grad():
+        for images, labels, indices in tqdm(train_loader, desc="Scoring"):
+            images = images.to(device)
+            labels = labels.to(device)
+
+            image_features = model.encode_image(images).float()
+            adapted_image_features = F.normalize(image_adapter(image_features), dim=-1)
+            batch_text_features = adapted_text_features[labels]
+            matchness = F.cosine_similarity(adapted_image_features, batch_text_features, dim=-1)
+
+            scores[indices.numpy()] = matchness.detach().cpu().numpy().astype(np.float32)
+
+    save_path = Path("Pruning_Scores") / args.dataset / str(args.seed) / "scores.npy"
+    save_path.parent.mkdir(parents=True, exist_ok=True)
+    np.save(save_path, scores)
+    print(f"Saved scores to {save_path}")
+
+
+if __name__ == "__main__":
+    main()
