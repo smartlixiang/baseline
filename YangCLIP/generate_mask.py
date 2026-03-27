@@ -16,7 +16,13 @@ SEED_CHOICES = [22, 42, 96]
 
 
 def load_model_and_adapter(dataset, seed, clip_path, device):
-    model, preprocess = clip.load("ViT-B/32", device=device, download_root=clip_path)
+    clip_model_path = Path(clip_path)
+    if not clip_model_path.exists():
+        raise FileNotFoundError(
+            f"CLIP model file not found: {clip_model_path}. "
+            "Please prepare local file `clip_model/ViT-B-32.pt`."
+        )
+    model, preprocess = clip.load(str(clip_model_path), device=device)
     model = model.float()
     model.eval()
     for p in model.parameters():
@@ -38,13 +44,30 @@ def load_model_and_adapter(dataset, seed, clip_path, device):
     return model, preprocess, image_adapter, text_adapter
 
 
+def resolve_user_path(path_arg: str, script_dir: Path) -> Path:
+    user_path = Path(path_arg)
+    if user_path.is_absolute():
+        return user_path.resolve()
+
+    candidates = [
+        (script_dir.parent / user_path).resolve(),
+        (script_dir / user_path).resolve(),
+        (Path.cwd() / user_path).resolve(),
+    ]
+    for candidate in candidates:
+        if candidate.exists():
+            return candidate
+
+    return (script_dir / user_path).resolve()
+
+
 def main():
     parser = argparse.ArgumentParser(description="Generate sample mask with trained adapter")
     parser.add_argument("--dataset", type=str, required=True, choices=DATASET_CHOICES)
     parser.add_argument("--seed", type=int, required=True, choices=SEED_CHOICES)
     parser.add_argument("--keep_ratio", type=float, required=True)
-    parser.add_argument("--clip_path", type=str, default="../clip_model")
-    parser.add_argument("--data_root", type=str, default="./data")
+    parser.add_argument("--clip_path", type=str, default="clip_model/ViT-B-32.pt")
+    parser.add_argument("--data_root", type=str, default="data")
     parser.add_argument("--batch_size", type=int, default=256)
     parser.add_argument("--num_workers", type=int, default=4)
     args = parser.parse_args()
@@ -53,11 +76,12 @@ def main():
         raise ValueError("keep_ratio must be in (0, 1].")
 
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+    script_dir = Path(__file__).resolve().parent
+    clip_path = resolve_user_path(args.clip_path, script_dir)
+    data_root = resolve_user_path(args.data_root, script_dir)
     model, preprocess, image_adapter, text_adapter = load_model_and_adapter(
-        args.dataset, args.seed, args.clip_path, device
+        args.dataset, args.seed, str(clip_path), device
     )
-
-    data_root = (Path(__file__).resolve().parent / args.data_root).resolve()
     train_dataset, class_names = build_train_dataset(args.dataset, preprocess, data_root)
     loader = DataLoader(
         train_dataset,
@@ -95,7 +119,7 @@ def main():
     dataset = args.dataset
     seed = args.seed
     keep_ratio = args.keep_ratio
-    save_path = f"mask/{dataset}/{seed}/mask_{int(keep_ratio*100)}.npz"
+    save_path = f"mask/{dataset}/{seed}/mask_{int(keep_ratio * 100)}.npz"
     os.makedirs(os.path.dirname(save_path), exist_ok=True)
 
     np.savez(save_path, mask=mask)

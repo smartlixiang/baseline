@@ -42,28 +42,47 @@ def build_train_dataset(dataset_name: str, preprocess, data_root: Path):
     dataset_name = dataset_name.lower()
 
     if dataset_name == "cifar10":
+        cifar10_dir = data_root / "cifar-10-batches-py"
+        if not cifar10_dir.exists():
+            raise FileNotFoundError(
+                f"CIFAR-10 not found at: {cifar10_dir}. "
+                "Please prepare local dataset folder `data/cifar-10-batches-py`."
+            )
         base_dataset = datasets.CIFAR10(
             root=str(data_root),
             train=True,
             transform=preprocess,
-            download=True,
+            download=False,
         )
         class_names = base_dataset.classes
     elif dataset_name == "cifar100":
+        cifar100_dir = data_root / "cifar-100-python"
+        if not cifar100_dir.exists():
+            raise FileNotFoundError(
+                f"CIFAR-100 not found at: {cifar100_dir}. "
+                "Please prepare local dataset folder `data/cifar-100-python`."
+            )
         base_dataset = datasets.CIFAR100(
             root=str(data_root),
             train=True,
             transform=preprocess,
-            download=True,
+            download=False,
         )
         class_names = base_dataset.classes
     elif dataset_name == "tiny-imagenet":
         tiny_root = data_root / "tiny-imagenet-200"
         train_dir = tiny_root / "train"
+        val_dir = tiny_root / "val"
         if not train_dir.exists():
             raise FileNotFoundError(
                 f"Tiny-ImageNet train dir not found: {train_dir}. "
                 "Expected structure: tiny-imagenet-200/train"
+            )
+        if not val_dir.exists():
+            raise FileNotFoundError(
+                f"Tiny-ImageNet val dir not found: {val_dir}. "
+                "Expected structure: tiny-imagenet-200/val "
+                "(used as test set because tiny-imagenet-200/test has no labels)."
             )
 
         base_dataset = datasets.ImageFolder(root=str(train_dir), transform=preprocess)

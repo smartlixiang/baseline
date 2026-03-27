@@ -24,7 +24,13 @@ def set_seed(seed: int) -> None:
 
 
 def build_model(device: torch.device, clip_path: str):
-    model, preprocess = clip.load("ViT-B/32", device=device, download_root=clip_path)
+    clip_model_path = Path(clip_path)
+    if not clip_model_path.exists():
+        raise FileNotFoundError(
+            f"CLIP model file not found: {clip_model_path}. "
+            "Please prepare local file `clip_model/ViT-B-32.pt`."
+        )
+    model, preprocess = clip.load(str(clip_model_path), device=device)
     model = model.float()
     for p in model.parameters():
         p.requires_grad = False
@@ -33,6 +39,23 @@ def build_model(device: torch.device, clip_path: str):
     image_adapter = nn.Linear(512, 512).to(device)
     text_adapter = nn.Linear(512, 512).to(device)
     return model, preprocess, image_adapter, text_adapter
+
+
+def resolve_user_path(path_arg: str, script_dir: Path) -> Path:
+    user_path = Path(path_arg)
+    if user_path.is_absolute():
+        return user_path.resolve()
+
+    candidates = [
+        (script_dir.parent / user_path).resolve(),
+        (script_dir / user_path).resolve(),
+        (Path.cwd() / user_path).resolve(),
+    ]
+    for candidate in candidates:
+        if candidate.exists():
+            return candidate
+
+    return (script_dir / user_path).resolve()
 
 
 def train_one_epoch(
@@ -82,16 +105,18 @@ def main():
     parser.add_argument("--batch_size", type=int, default=128)
     parser.add_argument("--epochs", type=int, default=50)
     parser.add_argument("--lr", type=float, default=1e-3)
-    parser.add_argument("--clip_path", type=str, default="../clip_model")
-    parser.add_argument("--data_root", type=str, default="./data")
+    parser.add_argument("--clip_path", type=str, default="clip_model/ViT-B-32.pt")
+    parser.add_argument("--data_root", type=str, default="data")
     parser.add_argument("--num_workers", type=int, default=4)
     args = parser.parse_args()
 
     set_seed(args.seed)
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
-    model, preprocess, image_adapter, text_adapter = build_model(device, args.clip_path)
-    data_root = (Path(__file__).resolve().parent / args.data_root).resolve()
+    script_dir = Path(__file__).resolve().parent
+    clip_path = resolve_user_path(args.clip_path, script_dir)
+    data_root = resolve_user_path(args.data_root, script_dir)
+    model, preprocess, image_adapter, text_adapter = build_model(device, str(clip_path))
 
     train_dataset, class_names = build_train_dataset(args.dataset, preprocess, data_root)
     train_loader = DataLoader(
