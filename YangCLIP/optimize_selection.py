@@ -8,6 +8,7 @@ from tqdm import tqdm
 from data_loader_with_index import DATASET_CHOICES
 
 SEED_CHOICES = [22, 42, 96]
+SCALE_FACTOR = 100.0
 
 
 def resolve_user_path(path_arg: str, script_dir: Path) -> Path:
@@ -27,77 +28,142 @@ def resolve_user_path(path_arg: str, script_dir: Path) -> Path:
     return (script_dir / user_path).resolve()
 
 
-def build_ste_mask(w: torch.Tensor):
-    soft_mask = torch.sigmoid(100.0 * w)
-    hard_mask = (soft_mask >= 0.5).float()
-    ste_mask = hard_mask.detach() - soft_mask.detach() + soft_mask
-    return soft_mask, ste_mask
+def min_max_norm(x: np.ndarray) -> np.ndarray:
+    x = x.astype(np.float32)
+    x_min = float(x.min())
+    x_max = float(x.max())
+    if x_max - x_min < 1e-12:
+        return np.zeros_like(x, dtype=np.float32)
+    return (x - x_min) / (x_max - x_min)
 
 
-def optimize_selection(
-    scores: np.ndarray,
-    density: np.ndarray,
-    keep_ratio: float,
-    steps: int,
-    lr: float,
-    weight_align: float,
-    weight_div: float,
-    weight_budget: float,
-) -> np.ndarray:
-    device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+def get_knn_k(dataset: str, class_size: int) -> int:
+    if class_size <= 1:
+        return 0
+    if dataset == "cifar10":
+        return min(100, class_size - 1)
+    if dataset == "cifar100":
+        return min(50, class_size - 1)
+    if dataset == "tiny-imagenet":
+        k = max(1, int(class_size * 0.1))
+        return min(k, class_size - 1)
+    raise ValueError(f"Unsupported dataset for KNN setup: {dataset}")
 
-    score_tensor = torch.from_numpy(scores.astype(np.float32)).to(device)
-    density_tensor = torch.from_numpy(density.astype(np.float32)).to(device)
-    score_tensor = (score_tensor - score_tensor.mean()) / (score_tensor.std() + 1e-6)
-    density_tensor = (density_tensor - density_tensor.mean()) / (density_tensor.std() + 1e-6)
 
-    if score_tensor.shape != density_tensor.shape:
+def compute_dis_loss(dataset: str, features: np.ndarray, labels: np.ndarray) -> np.ndarray:
+    if features.ndim != 2:
+        raise ValueError(f"image_features must be 2D, got shape {features.shape}")
+    if labels.ndim != 1:
+        raise ValueError(f"labels must be 1D, got shape {labels.shape}")
+    if features.shape[0] != labels.shape[0]:
         raise ValueError(
-            "scores and density must have same shape, "
-            f"got {score_tensor.shape} and {density_tensor.shape}"
+            "image_features and labels must have same number of samples, "
+            f"got {features.shape[0]} and {labels.shape[0]}"
         )
-    num_samples = score_tensor.numel()
 
-    w = torch.zeros(num_samples, device=device, requires_grad=True)
-    optimizer = torch.optim.SGD([w], lr=lr, momentum=0.9)
+    # Normalize to unit features before cosine KNN.
+    feat = features.astype(np.float32)
+    feat = feat / np.clip(np.linalg.norm(feat, axis=1, keepdims=True), a_min=1e-12, a_max=None)
 
-    step_bar = tqdm(range(steps), desc="Selection optimization")
-    for step in step_bar:
-        mask_soft, mask_ste = build_ste_mask(w)
+    dis_loss = np.zeros(feat.shape[0], dtype=np.float32)
+    unique_labels = np.unique(labels)
+    for cls in tqdm(unique_labels, desc="Computing class-wise dis_loss"):
+        cls_indices = np.where(labels == cls)[0]
+        cls_feats = feat[cls_indices]
+        cls_size = cls_feats.shape[0]
 
-        loss_align = -(mask_ste * score_tensor).sum()
-        # Higher density -> stronger penalty, encouraging dispersed selections.
-        loss_div = (mask_ste * density_tensor).sum()
-        loss_budget = (mask_soft.mean() - keep_ratio).pow(2)
+        k = get_knn_k(dataset, cls_size)
+        if k <= 0:
+            dis_loss[cls_indices] = 0.0
+            continue
 
-        loss = (
-            weight_align * loss_align
-            + weight_div * loss_div
-            + weight_budget * loss_budget
+        # Cosine similarity matrix within same class.
+        sim = cls_feats @ cls_feats.T
+        np.fill_diagonal(sim, -np.inf)
+
+        # K nearest neighbors in cosine distance <=> K largest cosine similarities.
+        topk_sim = np.partition(sim, kth=cls_size - k, axis=1)[:, -k:]
+        mean_knn_sim = topk_sim.mean(axis=1)
+        cls_dis_loss = 1.0 - mean_knn_sim
+        dis_loss[cls_indices] = cls_dis_loss.astype(np.float32)
+
+    return dis_loss
+
+
+def optimize_mask(
+    similarity_scores: np.ndarray,
+    dis_loss: np.ndarray,
+    keep_ratio: float,
+    total_steps: int,
+) -> np.ndarray:
+    if similarity_scores.ndim != 1:
+        raise ValueError(
+            f"similarity_scores must be 1D, but got shape {similarity_scores.shape}"
         )
+    if dis_loss.ndim != 1:
+        raise ValueError(f"dis_loss must be 1D, but got shape {dis_loss.shape}")
+    if similarity_scores.shape[0] != dis_loss.shape[0]:
+        raise ValueError(
+            "similarity_scores and dis_loss length mismatch, "
+            f"got {similarity_scores.shape[0]} and {dis_loss.shape[0]}"
+        )
+
+    n = int(similarity_scores.shape[0])
+    k = int(round(n * keep_ratio))
+    k = max(1, min(k, n))
+
+    device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+    sim = torch.from_numpy(similarity_scores.astype(np.float32)).to(device)
+    dis = torch.from_numpy(dis_loss.astype(np.float32)).to(device)
+
+    sim_mean = sim.mean().clamp_min(1e-12)
+    dis_mean = dis.mean().clamp_min(1e-12)
+
+    w = (0.01 * torch.ones(n, dtype=torch.float32, device=device)).requires_grad_(True)
+    optimizer = torch.optim.SGD([w], lr=1e-3, momentum=0.9)
+
+    progress = tqdm(range(total_steps), desc="Selection optimization")
+    for step in progress:
+        x = torch.sigmoid(SCALE_FACTOR * w)
+        x_hard = (x > 0.5).float()
+        x_ste = x_hard - x.detach() + x
+
+        loss1 = -torch.mean(x_ste * (sim / sim_mean))
+        loss2 = -torch.mean(x_ste * (dis / dis_mean)) * 0.1
+        loss3 = torch.sqrt(((((x_hard - x.detach() + x).sum() - k) / n) ** 2)) * 2.0
+        loss = loss1 + loss2 + loss3
 
         optimizer.zero_grad()
         loss.backward()
         optimizer.step()
 
-        if step % 20 == 0 or step == steps - 1:
-            selected_est = int((mask_soft >= 0.5).sum().item())
-            step_bar.set_postfix(
-                loss=f"{loss.item():.4f}",
-                align=f"{loss_align.item():.4f}",
-                div=f"{loss_div.item():.4f}",
-                budget=f"{loss_budget.item():.4f}",
-                selected=f"{selected_est}/{num_samples}",
+        if step % 20 == 0 or step == total_steps - 1:
+            selected = int((x > 0.5).sum().item())
+            progress.set_postfix(
+                loss=f"{loss.item():.6f}",
+                loss1=f"{loss1.item():.6f}",
+                loss2=f"{loss2.item():.6f}",
+                loss3=f"{loss3.item():.6f}",
+                selected=f"{selected}/{n}",
             )
 
-    with torch.no_grad():
-        final_mask = (torch.sigmoid(100.0 * w) > 0.5).to(torch.uint8)
+        if loss3.item() < 0.001:
+            progress.set_postfix(
+                loss=f"{loss.item():.6f}",
+                loss1=f"{loss1.item():.6f}",
+                loss2=f"{loss2.item():.6f}",
+                loss3=f"{loss3.item():.6f}",
+                early_stop="yes",
+            )
+            break
 
-    return final_mask.cpu().numpy()
+    with torch.no_grad():
+        binary_mask = (torch.sigmoid(SCALE_FACTOR * w) > 0.5).to(torch.uint8)
+    return binary_mask.cpu().numpy()
 
 
 def main():
-    parser = argparse.ArgumentParser(description="Optimize sample selection mask from scores")
+    parser = argparse.ArgumentParser(description="Official-style selection optimization for YangCLIP")
     parser.add_argument("--dataset", type=str, required=True, choices=DATASET_CHOICES)
     parser.add_argument("--seed", type=int, required=True, choices=SEED_CHOICES)
     parser.add_argument("--keep_ratio", type=float, required=True)
@@ -105,58 +171,68 @@ def main():
     parser.add_argument("--data_root", type=str, default="data")
     parser.add_argument("--batch_size", type=int, default=256)
     parser.add_argument("--num_workers", type=int, default=4)
-    parser.add_argument("--steps", type=int, default=300)
-    parser.add_argument("--lr", type=float, default=0.1)
-    parser.add_argument("--weight_align", type=float, default=1.0)
-    parser.add_argument("--weight_div", type=float, default=0.5)
-    parser.add_argument("--weight_budget", type=float, default=20.0)
+    parser.add_argument("--steps", type=int, default=100000)
     args = parser.parse_args()
 
     if not (0 < args.keep_ratio <= 1):
         raise ValueError("keep_ratio must be in (0, 1].")
 
+    # Keep these argument checks for path compatibility with existing scripts.
     script_dir = Path(__file__).resolve().parent
     clip_path = resolve_user_path(args.clip_path, script_dir)
+    data_root = resolve_user_path(args.data_root, script_dir)
     if not clip_path.exists():
         raise FileNotFoundError(
             f"CLIP model file not found: {clip_path}. "
             "Please prepare local file `clip_model/ViT-B-32.pt`."
         )
+    if not data_root.exists():
+        raise FileNotFoundError(f"Data root not found: {data_root}")
 
-    score_path = Path("Pruning_Scores") / args.dataset / str(args.seed) / "scores.npy"
-    density_path = Path("Pruning_Scores") / args.dataset / str(args.seed) / "density.npy"
+    score_dir = Path("Pruning_Scores") / args.dataset / str(args.seed)
+    score_path = score_dir / "scores.npy"
+    features_path = score_dir / "image_features.npy"
+    labels_path = score_dir / "labels.npy"
+    dis_loss_path = score_dir / "dis_loss.npy"
+
     if not score_path.exists():
         raise FileNotFoundError(f"Score file not found: {score_path}")
-    if not density_path.exists():
-        raise FileNotFoundError(f"Density file not found: {density_path}")
+    if not features_path.exists():
+        raise FileNotFoundError(f"Feature file not found: {features_path}")
+    if not labels_path.exists():
+        raise FileNotFoundError(f"Label file not found: {labels_path}")
 
-    scores = np.load(score_path)
-    density = np.load(density_path)
-    if scores.ndim != 1:
-        raise ValueError(f"scores.npy must be 1D, but got shape {scores.shape}")
-    if density.ndim != 1:
-        raise ValueError(f"density.npy must be 1D, but got shape {density.shape}")
+    similarity_scores = np.load(score_path).astype(np.float32)
+    similarity_scores = min_max_norm(similarity_scores)
+    image_features = np.load(features_path).astype(np.float32)
+    labels = np.load(labels_path).astype(np.int64)
 
-    mask = optimize_selection(
-        scores=scores,
-        density=density,
+    if dis_loss_path.exists():
+        dis_loss = np.load(dis_loss_path).astype(np.float32)
+        if dis_loss.ndim != 1 or dis_loss.shape[0] != similarity_scores.shape[0]:
+            raise ValueError(
+                f"Invalid dis_loss shape {dis_loss.shape}, expected ({similarity_scores.shape[0]},)"
+            )
+        print(f"Loaded dis_loss from {dis_loss_path}")
+    else:
+        dis_loss = compute_dis_loss(args.dataset, image_features, labels)
+        score_dir.mkdir(parents=True, exist_ok=True)
+        np.save(dis_loss_path, dis_loss)
+        print(f"Saved dis_loss to {dis_loss_path}")
+
+    mask = optimize_mask(
+        similarity_scores=similarity_scores,
+        dis_loss=dis_loss,
         keep_ratio=args.keep_ratio,
-        steps=args.steps,
-        lr=args.lr,
-        weight_align=args.weight_align,
-        weight_div=args.weight_div,
-        weight_budget=args.weight_budget,
+        total_steps=args.steps,
     )
 
     save_dir = Path("mask") / args.dataset / str(args.seed)
     save_dir.mkdir(parents=True, exist_ok=True)
     ratio_tag = int(args.keep_ratio * 100)
-    save_path = save_dir / f"mask_{ratio_tag}.npy"
-    canonical_path = save_dir / "mask.npy"
-    np.save(save_path, mask)
-    np.save(canonical_path, mask)
+    save_path = save_dir / f"mask_{ratio_tag}.npz"
+    np.savez(save_path, mask.astype(np.uint8))
     print(f"Saved mask to {save_path}")
-    print(f"Saved canonical mask to {canonical_path}")
 
 
 if __name__ == "__main__":

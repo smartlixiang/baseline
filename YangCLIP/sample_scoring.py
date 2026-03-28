@@ -19,7 +19,6 @@ DATASET_DEFAULT_BATCH = {
     "cifar100": 256,
     "tiny-imagenet": 64,
 }
-KNN_K = 10
 
 
 def set_seed(seed: int) -> None:
@@ -59,42 +58,6 @@ def build_model(device: torch.device, clip_path: str):
         p.requires_grad = False
     model.eval()
     return model, preprocess
-
-
-def compute_density_scores(
-    features: np.ndarray,
-    labels: np.ndarray,
-    k: int = KNN_K,
-) -> np.ndarray:
-    if features.ndim != 2:
-        raise ValueError(f"features must be 2D, got shape {features.shape}")
-    if labels.ndim != 1:
-        raise ValueError(f"labels must be 1D, got shape {labels.shape}")
-    if features.shape[0] != labels.shape[0]:
-        raise ValueError(
-            "features and labels must have same number of samples, "
-            f"got {features.shape[0]} and {labels.shape[0]}"
-        )
-
-    num_samples = features.shape[0]
-    density = np.zeros(num_samples, dtype=np.float32)
-
-    for cls in tqdm(np.unique(labels), desc="Density (class-wise KNN)"):
-        cls_idx = np.where(labels == cls)[0]
-        cls_feats = features[cls_idx]
-        cls_size = cls_feats.shape[0]
-        if cls_size <= 1:
-            density[cls_idx] = 0.0
-            continue
-
-        k_eff = min(k, cls_size - 1)
-        sim = cls_feats @ cls_feats.T
-        np.fill_diagonal(sim, -np.inf)
-
-        topk = np.partition(sim, kth=cls_size - k_eff, axis=1)[:, -k_eff:]
-        density[cls_idx] = topk.mean(axis=1).astype(np.float32)
-
-    return density
 
 
 def main():
@@ -168,16 +131,17 @@ def main():
             features[np_indices] = clip_image_features.detach().cpu().numpy().astype(np.float32)
             labels_all[np_indices] = labels.detach().cpu().numpy().astype(np.int64)
 
-    density = compute_density_scores(features=features, labels=labels_all, k=KNN_K)
-
     save_dir = Path("Pruning_Scores") / args.dataset / str(args.seed)
     save_dir.mkdir(parents=True, exist_ok=True)
     score_path = save_dir / "scores.npy"
-    density_path = save_dir / "density.npy"
+    feature_path = save_dir / "image_features.npy"
+    label_path = save_dir / "labels.npy"
     np.save(score_path, scores)
-    np.save(density_path, density)
+    np.save(feature_path, features)
+    np.save(label_path, labels_all)
     print(f"Saved scores to {score_path}")
-    print(f"Saved density to {density_path}")
+    print(f"Saved image features to {feature_path}")
+    print(f"Saved labels to {label_path}")
 
 
 if __name__ == "__main__":
