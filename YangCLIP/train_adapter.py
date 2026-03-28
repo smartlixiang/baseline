@@ -37,12 +37,9 @@ def get_text_features(model, dataset_name: str, device: torch.device, class_name
 
 
 def build_loader(args, transform):
-    import dataset as dataset_lib
-    from torch.utils.data import DataLoader
-
     train_dataset = dataset_lib.build_dataset(
         dataset_name=args.dataset,
-        data_root="data",
+        data_root=args.data_root,
         train=True,
         transform=transform,
     )
@@ -51,7 +48,7 @@ def build_loader(args, transform):
         train_dataset,
         batch_size=args.batch_size,
         shuffle=True,
-        num_workers=4,
+        num_workers=args.num_workers,
         pin_memory=True,
     )
     return train_dataset, train_loader

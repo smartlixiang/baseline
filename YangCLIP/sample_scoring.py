@@ -69,8 +69,8 @@ def main():
 
     transform = transforms.Compose([preprocess])
 
-    # 关键修复：
-    # 不再把 data_root 拼成具体子目录，直接传 data 给 build_dataset。
+    # Keep dataset-root behavior aligned with dataset.py: CIFAR uses root=data,
+    # Tiny-ImageNet uses data/tiny-imagenet-200/{train,val}.
     train_dataset = dataset_lib.build_dataset(
         dataset_name,
         args.data_root,
@@ -78,9 +78,10 @@ def main():
         transform=transform,
     )
 
+    batch_size = 64 if dataset_name == "tiny-imagenet" else 256
     loader = DataLoader(
         train_dataset,
-        batch_size=256,
+        batch_size=batch_size,
         shuffle=False,
         pin_memory=True,
         num_workers=args.num_workers,
@@ -136,7 +137,6 @@ def main():
 
     sa_norm = _norm(sa_scores)
     sd_norm = _norm(sd_scores)
-    final_score = sa_norm + sd_norm
 
     out_dir = os.path.join(args.score_dir, dataset_name, f"seed_{args.seed}")
     os.makedirs(out_dir, exist_ok=True)
@@ -145,7 +145,14 @@ def main():
     np.save(os.path.join(out_dir, "sd_scores.npy"), sd_scores.numpy())
     np.save(os.path.join(out_dir, "sa_norm.npy"), sa_norm.numpy())
     np.save(os.path.join(out_dir, "sd_norm.npy"), sd_norm.numpy())
-    np.savez(os.path.join(out_dir, "scores.npz"), score=final_score.numpy())
+    # Save optimization inputs; final mask must be produced in optimize_selection.py, not here.
+    np.savez(
+        os.path.join(out_dir, "scores.npz"),
+        sa_scores=sa_scores.numpy(),
+        sd_scores=sd_scores.numpy(),
+        sa_norm=sa_norm.numpy(),
+        sd_norm=sd_norm.numpy(),
+    )
     np.save(os.path.join(out_dir, "targets.npy"), targets)
     torch.save(image_features, os.path.join(out_dir, "image_features.pt"))
 
