@@ -7,6 +7,7 @@ from typing import Any, Callable, Optional, Tuple, cast, Dict
 import torch.utils.data as data
 import torch
 
+
 class StandardTransform(object):
     def __init__(self, transform: Optional[Callable] = None, target_transform: Optional[Callable] = None) -> None:
         self.transform = transform
@@ -19,7 +20,7 @@ class StandardTransform(object):
             target = self.target_transform(target)
         return input, target
 
-    def _format_transform_repr(self, transform: Callable, head: str)  :
+    def _format_transform_repr(self, transform: Callable, head: str):
         lines = transform.__repr__().splitlines()
         return (["{}{}".format(head, lines[0])] +
                 ["{}{}".format(" " * len(head), line) for line in lines[1:]])
@@ -35,6 +36,7 @@ class StandardTransform(object):
 
         return '\n'.join(body)
 
+
 class VisionDataset(data.Dataset):
     _repr_indent = 4
 
@@ -45,7 +47,7 @@ class VisionDataset(data.Dataset):
             transform: Optional[Callable] = None,
             target_transform: Optional[Callable] = None,
     ) -> None:
-        if isinstance(root, torch._six.string_classes):
+        if isinstance(root, str):
             root = os.path.expanduser(root)
         self.root = root
 
@@ -80,13 +82,14 @@ class VisionDataset(data.Dataset):
         lines = [head] + [" " * self._repr_indent + line for line in body]
         return '\n'.join(lines)
 
-    def _format_transform_repr(self, transform: Callable, head: str)  :
+    def _format_transform_repr(self, transform: Callable, head: str):
         lines = transform.__repr__().splitlines()
         return (["{}{}".format(head, lines[0])] +
                 ["{}{}".format(" " * len(head), line) for line in lines[1:]])
 
     def extra_repr(self) -> str:
         return ""
+
 
 class CIFAR10(VisionDataset):
     """`CIFAR10 <https://www.cs.toronto.edu/~kriz/cifar.html>`_ Dataset.
@@ -247,6 +250,7 @@ class CIFAR100(CIFAR10):
         'md5': '7973b15100ade9c7d40fb424638fde48',
     }
 
+
 def has_file_allowed_extension(filename: str, extensions: Tuple[str, ...]) -> bool:
     """Checks if a file is an allowed extension.
 
@@ -277,7 +281,7 @@ def make_dataset(
     class_to_idx: Dict[str, int],
     extensions: Optional[Tuple[str, ...]] = None,
     is_valid_file: Optional[Callable[[str], bool]] = None,
-) :
+):
     """Generates a list of samples of a form (path_to_sample, class).
 
     Args:
@@ -385,10 +389,10 @@ class DatasetFolder(VisionDataset):
         class_to_idx: Dict[str, int],
         extensions: Optional[Tuple[str, ...]] = None,
         is_valid_file: Optional[Callable[[str], bool]] = None,
-    )  :
+    ):
         return make_dataset(directory, class_to_idx, extensions=extensions, is_valid_file=is_valid_file)
 
-    def _find_classes(self, dir: str)  :
+    def _find_classes(self, dir: str):
         """
         Finds the class folders in a dataset.
 
@@ -497,18 +501,46 @@ class ImageFolder(DatasetFolder):
         self.imgs = self.samples
 
 
-
-
-
 # Added for unified dataset/path handling in scripts (minimal and backward-compatible).
-def build_dataset(dataset_name, data_root, train=True, transform=None):
-    """Create dataset by unified names: cifar10/cifar100/tiny-imagenet."""
+def build_dataset(dataset_name, data_root="data", train=True, transform=None):
     name = dataset_name.strip().lower()
-    if name == 'cifar10':
+
+    if name == "cifar10":
+        cifar10_dir = os.path.join(data_root, "cifar-10-batches-py")
+        if not os.path.isdir(cifar10_dir):
+            raise FileNotFoundError(
+                f"CIFAR-10 folder not found: {cifar10_dir}\n"
+                f"Expected: data/cifar-10-batches-py"
+            )
         return CIFAR10(root=data_root, train=train, download=False, transform=transform)
-    if name == 'cifar100':
+
+    elif name == "cifar100":
+        cifar100_dir = os.path.join(data_root, "cifar-100-python")
+        if not os.path.isdir(cifar100_dir):
+            raise FileNotFoundError(
+                f"CIFAR-100 folder not found: {cifar100_dir}\n"
+                f"Expected: data/cifar-100-python"
+            )
         return CIFAR100(root=data_root, train=train, download=False, transform=transform)
-    if name == 'tiny-imagenet':
-        split = 'train' if train else 'val'  # use val as test split per requirement.
-        return ImageFolder(root=os.path.join(data_root, split), transform=transform)
-    raise ValueError(f"Unsupported dataset: {dataset_name}")
+
+    elif name == "tiny-imagenet":
+        tiny_root = os.path.join(data_root, "tiny-imagenet-200")
+        split = "train" if train else "val"
+        split_root = os.path.join(tiny_root, split)
+
+        if not os.path.isdir(tiny_root):
+            raise FileNotFoundError(
+                f"Tiny-ImageNet root not found: {tiny_root}\n"
+                f"Expected: data/tiny-imagenet-200"
+            )
+
+        if not os.path.isdir(split_root):
+            raise FileNotFoundError(
+                f"Tiny-ImageNet split folder not found: {split_root}\n"
+                f"Expected: data/tiny-imagenet-200/{split}"
+            )
+
+        return ImageFolder(root=split_root, transform=transform)
+
+    else:
+        raise ValueError(f"Unsupported dataset: {dataset_name}")
