@@ -3,7 +3,7 @@ set -euo pipefail
 
 # One-place seed variable for future switch (22/42/96 ...).
 SEED=22
-BASE_DIR="/workspace/baseline/YangCLIP"
+BASE_DIR="."
 DATA_ROOT="${BASE_DIR}/data"
 CLIP_MODEL_PATH="${BASE_DIR}/clip_model/ViT-B-32.pt"
 KEEP_RATIOS="20,30,40,50,60,70,80,90"
