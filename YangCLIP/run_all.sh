@@ -29,14 +29,21 @@ run_dataset_job () {
   tmux new-session -d -s "$session_name" "bash -lc '
     conda activate shampoo
     for seed in 22 42 96; do
-      CUDA_VISIBLE_DEVICES=$gpu_id python train_adapter.py \
-        --dataset $dataset_name \
-        --seed \$seed \
-        --batch_size $batch_size \
-        --epochs 30 \
-        --lr 1e-4 \
-        --clip_path \"$CLIP_MODEL_PATH\" \
-        --data_root \"$DATA_ROOT_PATH\"
+      ADAPTER_PATH=checkpoints/$dataset_name/seed_\$seed/adapter.pth
+
+      if [ -f \"\$ADAPTER_PATH\" ]; then
+        echo \"[Skip Train] Reusing existing adapter: \$ADAPTER_PATH\"
+      else
+        echo \"[Train] Adapter not found, start training: \$ADAPTER_PATH\"
+        CUDA_VISIBLE_DEVICES=$gpu_id python train_adapter.py \
+          --dataset $dataset_name \
+          --seed \$seed \
+          --batch_size $batch_size \
+          --epochs 30 \
+          --lr 1e-4 \
+          --clip_path \"$CLIP_MODEL_PATH\" \
+          --data_root \"$DATA_ROOT_PATH\"
+      fi
 
       CUDA_VISIBLE_DEVICES=$gpu_id python sample_scoring.py \
         --dataset $dataset_name \
@@ -46,7 +53,7 @@ run_dataset_job () {
         --data_root \"$DATA_ROOT_PATH\"
 
       for keep_ratio in ${KEEP_RATIOS[*]}; do
-        CUDA_VISIBLE_DEVICES=$gpu_id python generate_mask.py \
+        CUDA_VISIBLE_DEVICES=$gpu_id python optimize_selection.py \
           --dataset $dataset_name \
           --seed \$seed \
           --keep_ratio \$keep_ratio \
