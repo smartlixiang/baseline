@@ -1,62 +1,146 @@
-import os
-import time
 import argparse
-parser = argparse.ArgumentParser(description='PyTorch Training')
-parser.add_argument('--lr', default=0.001, type=float, help='learning rate')
-parser.add_argument('--gpu', default='3', type=str, help='GPU id to use.')
-parser.add_argument('--dataset', default='CIFAR100', type=str)
-args = parser.parse_args()
-os.environ['CUDA_VISIBLE_DEVICES'] = args.gpu
-import torch
-import clip
-import torchvision.transforms as transforms
-import torch.nn as nn
-from tqdm import tqdm
-import dataset
-from torch.utils.data import DataLoader
-import numpy as np
-from utils import *
-import torch.nn.functional as F
-device = "cuda" if torch.cuda.is_available() else "cpu"
-model, preprocess = clip.load("ViT-B/32", device=device)
-model = model.float()
+import os
+import random
 
-def text_(dataset):
-    class_names = obtain_classnames(dataset)
-    text_inputs = torch.cat([clip.tokenize(f"A photo of a {c}") for c in class_names]).to(device)
+import clip
+import numpy as np
+import torch
+import torch.nn as nn
+import torch.nn.functional as F
+import torchvision.transforms as transforms
+from sklearn.neighbors import NearestNeighbors
+from torch.utils.data import DataLoader
+from tqdm import tqdm
+
+import dataset as dataset_lib
+from utils import get_dataset_subdir, normalize_dataset_name, obtain_classnames
+
+DEFAULT_CLIP_MODEL_PATH = "clip_model/ViT-B-32.pt"
+
+
+def set_seed(seed: int) -> None:
+    random.seed(seed)
+    np.random.seed(seed)
+    torch.manual_seed(seed)
+    torch.cuda.manual_seed(seed)
+    torch.cuda.manual_seed_all(seed)
+    torch.backends.cudnn.deterministic = True
+    torch.backends.cudnn.benchmark = False
+
+
+def load_clip_local(path: str, device: torch.device):
+    # Local CLIP weight loading (required): fail fast if missing.
+    if not os.path.isfile(path):
+        raise FileNotFoundError(
+            f"CLIP checkpoint not found at '{path}'. Please place local weights there."
+        )
+    model, preprocess = clip.load(path, device=device)
+    return model.float(), preprocess
+
+
+def resolve_data_root(data_root: str, dataset_name: str) -> str:
+    return os.path.join(data_root, get_dataset_subdir(dataset_name))
+
+
+def main():
+    parser = argparse.ArgumentParser(description="Compute YangCLIP sample scores (SA + SD).")
+    parser.add_argument("--dataset", type=str, default="cifar100", choices=["cifar10", "cifar100", "tiny-imagenet"])
+    parser.add_argument("--data_root", type=str, default="data")
+    parser.add_argument("--clip_model_path", type=str, default=DEFAULT_CLIP_MODEL_PATH)
+    parser.add_argument("--seed", type=int, default=22)
+    parser.add_argument("--adapter_path", type=str, default=None)
+    parser.add_argument("--num_workers", type=int, default=8)
+    parser.add_argument("--score_dir", type=str, default="scores")
+    args = parser.parse_args()
+
+    set_seed(args.seed)
+    dataset_name = normalize_dataset_name(args.dataset)
+    adapter_path = args.adapter_path or os.path.join("adapter_ckpt", dataset_name, f"adapter_seed_{args.seed}.pt")
+    if not os.path.isfile(adapter_path):
+        raise FileNotFoundError(f"Adapter checkpoint not found: {adapter_path}")
+
+    device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+    model, preprocess = load_clip_local(args.clip_model_path, device)
+    model.eval()
+
+    input_dim = model.text_projection.shape[1]
+    adapter_img = nn.Linear(input_dim, input_dim).to(device)
+    adapter_text = nn.Linear(input_dim, input_dim).to(device)
+
+    ckpt = torch.load(adapter_path, map_location=device)
+    adapter_img.load_state_dict(ckpt["adapter_img"])
+    adapter_text.load_state_dict(ckpt["adapter_text"])
+    adapter_img.eval()
+    adapter_text.eval()
+
+    transform = transforms.Compose([preprocess])
+    ds_root = resolve_data_root(args.data_root, dataset_name)
+    train_dataset = dataset_lib.build_dataset(dataset_name, ds_root, train=True, transform=transform)
+    loader = DataLoader(train_dataset, batch_size=256, shuffle=False, pin_memory=True, num_workers=args.num_workers)
+
+    n = len(train_dataset)
+    targets = np.array(train_dataset.targets)
+
+    # Extract text features with tqdm (required long process visibility).
+    class_names = train_dataset.classes if dataset_name == "tiny-imagenet" else obtain_classnames(dataset_name)
+    text_inputs = torch.cat([clip.tokenize(f"A photo of a {c}.") for c in tqdm(class_names, desc="Tokenizing class prompts")]).to(device)
     with torch.no_grad():
-        text_features = model.encode_text(text_inputs)
-    return text_features
- 
-def load_pretrained_adapter_for_pruning():
-    adpater_img = adpater_text = nn.Linear(512, 512).cuda()
-    adpater_img.load_state_dict(torch.load(f'./adapter_ckpt/{args.dataset}/adapater_img.pth'))
-    adpater_text.load_state_dict(torch.load(f'./adapter_ckpt/{args.dataset}/adapater_text.pth'))
-    adpater_img.eval()
-    adpater_text.eval()
-    transform = transforms.Compose([
-        preprocess
-    ])
-    train_dataset = getattr(dataset, args.dataset)(root='./data/', train=True, download=False, transform=transform)
-    train_loader = DataLoader(train_dataset, batch_size=256, shuffle=False, pin_memory=True, num_workers=8)
-    with torch.no_grad():   
-        ft_text_features = adpater_text(text_(args.dataset))
-    scores = torch.ones(len(train_dataset)) * -1
-    for i, (index, images, target) in enumerate(tqdm(train_loader)):
-        images = images.to(device)
-        target = target.to(device)
-        # Extract features from CLIP model
-        with torch.no_grad(): 
-            batch_image_features = model.encode_image(images)
-            # Embedding features by adapter
-            image_outputs = adpater_img(batch_image_features)
-            # batchsize * 512
-            batch_text_features = ft_text_features[target] 
-            # Calculate Cosine Similarity
-            matchness = F.cosine_similarity(image_outputs.cpu(), batch_text_features.cpu())
-            scores[index] = matchness.cpu()
-    # np.save(f'./Pruning_Scores/{args.dataset}/scores.npy',scores.numpy())
- 
-    
-if __name__ == '__main__':
-    load_pretrained_adapter_for_pruning()
+        text_features = model.encode_text(text_inputs).float()
+        ft_text_features = F.normalize(adapter_text(text_features), dim=-1)
+
+    # Extract all train image features in strict dataset order (index-aligned).
+    image_features = torch.zeros((n, input_dim), dtype=torch.float32)
+    sa_scores = torch.full((n,), -1.0, dtype=torch.float32)
+
+    for index, images, target in tqdm(loader, desc="Extracting train features"):
+        images = images.to(device, non_blocking=True)
+        target = target.to(device, non_blocking=True)
+        with torch.no_grad():
+            batch_image_features = model.encode_image(images).float()
+            img_out = F.normalize(adapter_img(batch_image_features), dim=-1)
+            txt_out = ft_text_features[target]
+            matchness = F.cosine_similarity(img_out, txt_out, dim=-1)
+
+        image_features[index] = img_out.detach().cpu()
+        sa_scores[index] = matchness.detach().cpu()
+
+    # Compute SD (class-wise KNN distance) with tqdm.
+    sd_scores = torch.zeros(n, dtype=torch.float32)
+    unique_classes = np.unique(targets)
+    k = 50 if dataset_name in ("cifar100", "tiny-imagenet") else 100
+    for cls in tqdm(unique_classes, desc="Computing SD / KNN"):
+        cls_idx = np.where(targets == cls)[0]
+        cls_feats = image_features[cls_idx].numpy()
+        n_neighbors = min(k, len(cls_idx))
+        if n_neighbors <= 1:
+            continue
+        nbrs = NearestNeighbors(n_neighbors=n_neighbors, algorithm="auto").fit(cls_feats)
+        distances, _ = nbrs.kneighbors(cls_feats)
+        nearest_neighbor_distances = distances[:, 1:] if distances.shape[1] > 1 else distances
+        sd_scores[cls_idx] = torch.tensor(nearest_neighbor_distances.mean(axis=1), dtype=torch.float32)
+
+    # Normalize SA/SD for optimization input.
+    def _norm(v: torch.Tensor) -> torch.Tensor:
+        denom = (v.max() - v.min()).clamp(min=1e-12)
+        return (v - v.min()) / denom
+
+    sa_norm = _norm(sa_scores)
+    sd_norm = _norm(sd_scores)
+
+    out_dir = os.path.join(args.score_dir, dataset_name, f"seed_{args.seed}")
+    os.makedirs(out_dir, exist_ok=True)
+
+    # Save intermediate results for optimize_selection.py direct loading.
+    np.save(os.path.join(out_dir, "sa_scores.npy"), sa_scores.numpy())
+    np.save(os.path.join(out_dir, "sd_scores.npy"), sd_scores.numpy())
+    np.save(os.path.join(out_dir, "sa_norm.npy"), sa_norm.numpy())
+    np.save(os.path.join(out_dir, "sd_norm.npy"), sd_norm.numpy())
+    np.save(os.path.join(out_dir, "targets.npy"), targets)
+    torch.save(image_features, os.path.join(out_dir, "image_features.pt"))
+
+    print(f"[sample_scoring] dataset={dataset_name} seed={args.seed} adapter={adapter_path}")
+    print(f"[sample_scoring] saved scores to {out_dir}")
+
+
+if __name__ == "__main__":
+    main()

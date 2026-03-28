@@ -499,3 +499,16 @@ class ImageFolder(DatasetFolder):
 
 
 
+
+# Added for unified dataset/path handling in scripts (minimal and backward-compatible).
+def build_dataset(dataset_name, data_root, train=True, transform=None):
+    """Create dataset by unified names: cifar10/cifar100/tiny-imagenet."""
+    name = dataset_name.strip().lower()
+    if name == 'cifar10':
+        return CIFAR10(root=data_root, train=train, download=False, transform=transform)
+    if name == 'cifar100':
+        return CIFAR100(root=data_root, train=train, download=False, transform=transform)
+    if name == 'tiny-imagenet':
+        split = 'train' if train else 'val'  # use val as test split per requirement.
+        return ImageFolder(root=os.path.join(data_root, split), transform=transform)
+    raise ValueError(f"Unsupported dataset: {dataset_name}")

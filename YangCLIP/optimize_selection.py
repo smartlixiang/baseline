@@ -1,136 +1,161 @@
+import argparse
 import os
-os.environ["CUDA_VISIBLE_DEVICES"] = "3"
+import random
+
 import numpy as np
 import torch
 import torch.nn as nn
-from dataset import CIFAR10, CIFAR100
-from torch.utils.data import DataLoader
-import clip
-import torchvision.transforms as transforms
-from tqdm import tqdm
 import torch.optim as optim
-import argparse
+from tqdm import tqdm
 
-parser = argparse.ArgumentParser(description='Optimize Selection Parameters')
-parser.add_argument('--dataset', type=str, default='CIFAR100', help='Name of the dataset')
-args = parser.parse_args()
-DATASET = args.dataset
+from utils import get_dataset_subdir, normalize_dataset_name
 
-DATASET_NUM = {
-    'CIFAR10': 50000,
-    'CIFAR100': 50000,
-}
-DATASET_NCLASSES = {
-    'CIFAR10': 10,
-    'CIFAR100': 100,
-}
-def pdist_torch(features):
-    with torch.no_grad():
-        features_sq = torch.sum(features ** 2, dim=1, keepdim=True)
-        dist_sq = features_sq + features_sq.t() - 2 * torch.mm(features, features.t())
-        dist_sq = torch.clamp(dist_sq, min=0.0)
-        dist = torch.sqrt(dist_sq + 1e-6)
-        del dist_sq
-        del features_sq
-        return dist
-    
-def extract_img_feature_space(DATASET):
-    device = "cuda" if torch.cuda.is_available() else "cpu"
-    model, preprocess = clip.load("ViT-B/32", device=device)
-    model = model.float()
-    transform = transforms.Compose([
-        preprocess
-    ])
-    if DATASET == 'CIFAR100':
-        train_dataset = CIFAR100(root='./data/', train=True, download=False, transform=transform)
-        train_loader = DataLoader(train_dataset, batch_size=512, shuffle=False, pin_memory=True, num_workers=16)
-    elif DATASET == 'CIFAR10':
-        train_dataset = CIFAR10(root='./data/', train=True, download=False, transform=transform)
-        train_loader = DataLoader(train_dataset, batch_size=512, shuffle=False, pin_memory=True, num_workers=16)
- 
-    input_dim = model.text_projection.shape[1]
-    with torch.no_grad():
-        feature_map_list = torch.zeros(len(train_loader.dataset),input_dim).cuda()
-        if DATASET == 'CIFAR10':
-            adpater_img = nn.Linear(input_dim, input_dim).cuda()
-            adpater_img.load_state_dict(torch.load(f'./adapter_ckpt/{DATASET}/adapater_img.pth'))
-        elif DATASET == 'CIFAR100':
-            adpater_img = nn.Linear(input_dim, input_dim).cuda()
-            adpater_img.load_state_dict(torch.load(f'./adapter_ckpt/{DATASET}/adapater_img.pth'))
-        adpater_img.eval()
-        for i, (index, images, target) in enumerate(tqdm(train_loader)):
-            images = images.to(device)
-            batch_image_features = model.encode_image(images)
-            feature_map = adpater_img(batch_image_features)
-            feature_map_list[index] = feature_map
-    return feature_map_list
+DEFAULT_CLIP_MODEL_PATH = "clip_model/ViT-B-32.pt"
+DEFAULT_KEEP_RATIOS = [20, 30, 40, 50, 60, 70, 80, 90]
+BETA = 2.0
 
-def optimize_mask(similarity_scores, dis_loss, sr):
-    lambda_ = 0.1 # balance factor
-    beta_ = 2 # increase to speed up the selection process
-    learning_rate = 0.001  # learning rate
-    num_epochs = 100000 # iteration steps
-    # Initialize weights
+
+def set_seed(seed: int) -> None:
+    random.seed(seed)
+    np.random.seed(seed)
+    torch.manual_seed(seed)
+    torch.cuda.manual_seed(seed)
+    torch.cuda.manual_seed_all(seed)
+    torch.backends.cudnn.deterministic = True
+    torch.backends.cudnn.benchmark = False
+
+
+def parse_keep_ratios(keep_ratios):
+    if isinstance(keep_ratios, str):
+        vals = [int(x.strip()) for x in keep_ratios.split(",") if x.strip()]
+        return vals
+    return keep_ratios
+
+
+def optimize_mask(similarity_scores, dis_loss, sr, theta=5e-4, lr=1e-3, momentum=0.9, max_iters=100000):
+    """Official-style optimization on sample variable d (w), then strict binarization.
+
+    Keeps original idea: optimize continuous logits, enforce ratio with penalty,
+    then threshold (strict binary) at the end.
+    """
+    device = similarity_scores.device
     n = len(similarity_scores)
-    w = nn.Parameter(0.01 * torch.ones(n, requires_grad=True).cuda())
-    # Optimizer
-    optimizer = optim.SGD([w], lr=learning_rate, momentum=0.9)
-    
-    k = int(n*sr)
-    scale_factor = 100.
-    for epoch in range(num_epochs):
-        loss1 = - torch.mean(torch.sigmoid(scale_factor * w) * (similarity_scores / similarity_scores.mean()))
-        loss2 = - torch.mean(torch.sigmoid(scale_factor * w) * (dis_loss / dis_loss.mean())) * lambda_
+    k = int(round(n * sr))
+
+    w = nn.Parameter(0.01 * torch.ones(n, device=device))
+    optimizer = optim.SGD([w], lr=lr, momentum=momentum)
+    scale_factor = 100.0
+
+    progress = tqdm(range(max_iters), desc=f"Optimize keep_ratio={int(sr * 100)}", leave=False)
+    for step in progress:
         x = torch.sigmoid(scale_factor * w)
-        loss3 = torch.sqrt(((((x > 0.5).float() - x.detach() + x).sum() - k)/n) ** 2) * beta_
+        loss1 = -torch.mean(x * (similarity_scores / (similarity_scores.mean() + 1e-12)))
+        loss2 = -torch.mean(x * (dis_loss / (dis_loss.mean() + 1e-12))) * 0.1
+        # Paper/official idea: constrain cardinality during optimization.
+        loss3 = torch.sqrt(((((x > 0.5).float() - x.detach() + x).sum() - k) / n) ** 2) * BETA
         loss = loss1 + loss2 + loss3
-        if epoch % 50 == 0:
-            print(sr, ' Epoch:',epoch,'Loss:',loss.item(),'Loss1:',loss1.item(),'Loss2:',loss2.item(),'Loss3:',loss3.item(),'sr:',len(torch.where(torch.sigmoid(scale_factor * w)>0.5)[0])/n)
-        if loss3.item() < 0.001: #0.02
-            break
+
         optimizer.zero_grad()
         loss.backward()
         optimizer.step()
 
-    scores = torch.sigmoid(scale_factor * w).cpu().detach()
-    zero = torch.zeros_like(scores)
-    one = torch.ones_like(scores)
-    reserve = torch.where(scores > 0.5,one,zero).numpy()
-    file_name = f'./selection_res_sr_{int(sr*100)}.npy'
-    # np.save(file_name,reserve)
+        if step % 100 == 0:
+            cur_sr = float((torch.sigmoid(scale_factor * w) > 0.5).float().mean().item())
+            progress.set_postfix(loss=f"{loss.item():.5f}", sr=f"{cur_sr:.4f}")
 
-def calculate_scores():
-    if DATASET == 'CIFAR100':
-        similarity_scores = np.load(f'./Pruning_Scores/{DATASET}/scores.npy')
-    elif DATASET == 'CIFAR10':
-        similarity_scores = np.load(f'./Pruning_Scores/{DATASET}/scores.npy')
-    similarity_scores = (similarity_scores - similarity_scores.min()) / (similarity_scores.max() - similarity_scores.min())
-    class_num = DATASET_NCLASSES[DATASET]
-    total = DATASET_NUM[DATASET]
-    sample_num_per_class = total // class_num
-    dis_loss = torch.zeros(DATASET_NUM[DATASET]).cuda()
-    feature_map_list = torch.load(f'../checkpoint/{DATASET}/feature_map_list.pt')
-    if DATASET == 'CIFAR100':
-        K = 50
-    elif DATASET == 'CIFAR10':
-        K = 100
-    from sklearn.neighbors import NearestNeighbors 
-    for i in range(DATASET_NCLASSES[DATASET]):
-        start = i * sample_num_per_class
-        end = (i + 1) * sample_num_per_class
-        nbrs = NearestNeighbors(n_neighbors=K, algorithm='auto').fit(feature_map_list[start:end].cpu().numpy())
-        distances, _ = nbrs.kneighbors(feature_map_list[start:end].cpu().numpy())
-        nearest_neighbor_distances = distances[:, 1:]
-        dis_loss[start:end] = torch.mean(torch.tensor(nearest_neighbor_distances),dim=1).cuda()
-    dis_loss = (dis_loss - dis_loss.min()) / (dis_loss.max() - dis_loss.min())
-    return similarity_scores, dis_loss
+        if loss3.item() < theta:
+            break
+
+    scores = torch.sigmoid(scale_factor * w).detach().cpu().numpy()
+    mask = (scores > 0.5).astype(np.uint8)
+
+    # Keep count as close as possible to target if optimization settles off-target.
+    target = k
+    current = int(mask.sum())
+    if current != target:
+        order = np.argsort(scores)
+        if current < target:
+            need = target - current
+            add_idx = order[::-1][mask[order[::-1]] == 0][:need]
+            mask[add_idx] = 1
+        else:
+            need = current - target
+            rm_idx = order[mask[order] == 1][:need]
+            mask[rm_idx] = 0
+
+    indices = np.where(mask == 1)[0].astype(np.int64)
+    return mask, indices
 
 
-if __name__ == '__main__':
-    similarity_scores, dis_loss = calculate_scores()
-    sr_list = [0.9]
-    for sr in sr_list:
-        optimize_mask(torch.tensor(similarity_scores).cuda(), dis_loss, sr)
- 
+def main():
+    parser = argparse.ArgumentParser(description="YangCLIP selection optimization to output binary masks.")
+    parser.add_argument("--dataset", type=str, default="cifar100", choices=["cifar10", "cifar100", "tiny-imagenet"])
+    parser.add_argument("--data_root", type=str, default="data")
+    parser.add_argument("--clip_model_path", type=str, default=DEFAULT_CLIP_MODEL_PATH)
+    parser.add_argument("--seed", type=int, default=22)
+    parser.add_argument("--score_dir", type=str, default="scores")
+    parser.add_argument("--mask_root", type=str, default="mask")
+    parser.add_argument("--keep_ratios", type=str, default=",".join(map(str, DEFAULT_KEEP_RATIOS)))
+    parser.add_argument("--theta", type=float, default=5e-4)
+    parser.add_argument("--lr", type=float, default=1e-3)
+    parser.add_argument("--momentum", type=float, default=0.9)
+    parser.add_argument("--max_iters", type=int, default=100000)
+    args = parser.parse_args()
+
+    set_seed(args.seed)
+    dataset_name = normalize_dataset_name(args.dataset)
+
+    # Keep parameter for compatibility and explicit local-path requirement; no download attempt.
+    if not os.path.isfile(args.clip_model_path):
+        raise FileNotFoundError(
+            f"CLIP checkpoint not found at '{args.clip_model_path}'. Please place local weights there."
+        )
+
+    _ = os.path.join(args.data_root, get_dataset_subdir(dataset_name))  # normalized path hook for consistency.
+
+    score_root = os.path.join(args.score_dir, dataset_name, f"seed_{args.seed}")
+    sa_norm_path = os.path.join(score_root, "sa_norm.npy")
+    sd_norm_path = os.path.join(score_root, "sd_norm.npy")
+    if not os.path.isfile(sa_norm_path) or not os.path.isfile(sd_norm_path):
+        raise FileNotFoundError(f"Missing score files under: {score_root}. Please run sample_scoring.py first.")
+
+    similarity_scores = torch.tensor(np.load(sa_norm_path), dtype=torch.float32)
+    dis_loss = torch.tensor(np.load(sd_norm_path), dtype=torch.float32)
+
+    device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+    similarity_scores = similarity_scores.to(device)
+    dis_loss = dis_loss.to(device)
+
+    keep_ratios = parse_keep_ratios(args.keep_ratios)
+    mask_dir = os.path.join(args.mask_root, dataset_name, str(args.seed))
+    os.makedirs(mask_dir, exist_ok=True)
+
+    for keep_ratio in tqdm(keep_ratios, desc="keep_ratio list"):
+        sr = keep_ratio / 100.0  # alpha = keep_ratio selection ratio per paper.
+        mask, indices = optimize_mask(
+            similarity_scores=similarity_scores,
+            dis_loss=dis_loss,
+            sr=sr,
+            theta=args.theta,
+            lr=args.lr,
+            momentum=args.momentum,
+            max_iters=args.max_iters,
+        )
+
+        out_path = os.path.join(mask_dir, f"mask_{keep_ratio}.npz")
+        np.savez(
+            out_path,
+            mask=mask.astype(np.uint8),
+            indices=indices,
+            keep_ratio=np.int32(keep_ratio),
+            dataset=np.array(dataset_name),
+            seed=np.int32(args.seed),
+        )
+        print(
+            f"[optimize_selection] keep_ratio={keep_ratio} "
+            f"selected={int(mask.sum())}/{len(mask)} saved={out_path}"
+        )
 
 
+if __name__ == "__main__":
+    main()
