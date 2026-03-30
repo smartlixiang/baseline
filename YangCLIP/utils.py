@@ -4,6 +4,8 @@ Notes:
 - Added dataset-name/path normalization to support unified external names
   (cifar10/cifar100/tiny-imagenet) while keeping backward compatibility.
 """
+import os
+from typing import Dict, List
 
 cifar10_classes = [
     'airplane',
@@ -72,3 +74,87 @@ def obtain_classnames(dataset: str):
     if d == 'cifar100':
         return cifar100_classes
     raise ValueError("tiny-imagenet class names should come from ImageFolder.classes")
+
+
+def load_tiny_imagenet_wnid_to_name(data_root: str) -> Dict[str, str]:
+    """Load Tiny-ImageNet WNID -> natural-language class name mapping.
+
+    Mapping source:
+    - wnids.txt: authoritative class-id list used by the dataset.
+    - words.txt: WordNet id to comma-separated English synonyms.
+    """
+    tiny_root = os.path.join(data_root, "tiny-imagenet-200")
+    wnids_path = os.path.join(tiny_root, "wnids.txt")
+    words_path = os.path.join(tiny_root, "words.txt")
+
+    if not os.path.isfile(wnids_path):
+        raise FileNotFoundError(
+            f"Tiny-ImageNet metadata missing: '{wnids_path}'. "
+            "Cannot build natural-language prompts from WNIDs."
+        )
+    if not os.path.isfile(words_path):
+        raise FileNotFoundError(
+            f"Tiny-ImageNet metadata missing: '{words_path}'. "
+            "Cannot build natural-language prompts from WNIDs."
+        )
+
+    with open(wnids_path, "r", encoding="utf-8") as f:
+        wnids = [line.strip() for line in f if line.strip()]
+
+    words_map: Dict[str, str] = {}
+    with open(words_path, "r", encoding="utf-8") as f:
+        for raw_line in f:
+            line = raw_line.strip()
+            if not line:
+                continue
+            parts = line.split("\t", 1)
+            if len(parts) != 2:
+                continue
+            wnid, names = parts
+            first_name = names.split(",")[0].strip()
+            if first_name:
+                words_map[wnid.strip()] = first_name
+
+    missing = [wnid for wnid in wnids if wnid not in words_map]
+    if missing:
+        preview = ", ".join(missing[:5])
+        raise ValueError(
+            "Tiny-ImageNet words mapping is incomplete. "
+            f"{len(missing)} WNID(s) from wnids.txt missing in words.txt. "
+            f"Examples: {preview}"
+        )
+
+    return {wnid: words_map[wnid] for wnid in wnids}
+
+
+def resolve_class_names(dataset_name: str, data_root: str, class_names: List[str]) -> List[str]:
+    """Resolve dataset class identifiers into prompt-ready English labels.
+
+    For Tiny-ImageNet, `class_names` typically come from ImageFolder.classes,
+    i.e. WNID directory names (e.g. n01443537), which are not suitable as CLIP
+    text prompts. We map each WNID to an English class phrase via words.txt.
+    """
+    d = normalize_dataset_name(dataset_name)
+    if d in ("cifar10", "cifar100"):
+        return list(class_names)
+
+    if d != "tiny-imagenet":
+        raise ValueError(f"Unsupported dataset for class-name resolving: {dataset_name}")
+
+    wnid_to_name = load_tiny_imagenet_wnid_to_name(data_root)
+    resolved: List[str] = []
+    missing: List[str] = []
+    for wnid in class_names:
+        name = wnid_to_name.get(wnid)
+        if name is None:
+            missing.append(wnid)
+        else:
+            resolved.append(name)
+
+    if missing:
+        preview = ", ".join(missing[:5])
+        raise ValueError(
+            "Found Tiny-ImageNet class id(s) that cannot be mapped to English names: "
+            f"{preview}. Check class_names/ImageFolder directory names and metadata files."
+        )
+    return resolved

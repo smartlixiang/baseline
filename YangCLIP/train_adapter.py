@@ -12,7 +12,7 @@ from torch.utils.data import DataLoader
 from tqdm import tqdm
 
 import dataset as dataset_lib
-from utils import normalize_dataset_name, obtain_classnames
+from utils import normalize_dataset_name, obtain_classnames, resolve_class_names
 
 DEFAULT_CLIP_MODEL_PATH = "clip_model/ViT-B-32.pt"
 
@@ -65,6 +65,11 @@ def main():
     parser.add_argument("--lr", type=float, default=1e-4)
     parser.add_argument("--num_workers", type=int, default=8)
     parser.add_argument("--save_dir", type=str, default="adapter_ckpt")
+    parser.add_argument(
+        "--debug_prompt_preview",
+        action="store_true",
+        help="Print first 5 resolved text prompts for sanity check (useful for Tiny-ImageNet).",
+    )
     args = parser.parse_args()
 
     dataset_name = normalize_dataset_name(args.dataset)
@@ -99,7 +104,11 @@ def main():
 
     train_dataset, train_loader = build_loader(args, preprocess)
 
-    class_names = train_dataset.classes if dataset_name == "tiny-imagenet" else obtain_classnames(dataset_name)
+    raw_class_names = train_dataset.classes if dataset_name == "tiny-imagenet" else obtain_classnames(dataset_name)
+    class_names = resolve_class_names(dataset_name, args.data_root, raw_class_names)
+    if args.debug_prompt_preview:
+        preview = [f"A photo of a {c}." for c in class_names[:5]]
+        print(f"[train_adapter] prompt preview ({dataset_name}): {preview}")
     text_features = get_text_features(model, dataset_name, device, class_names=class_names)
 
     save_dir = os.path.join(args.save_dir, dataset_name)
