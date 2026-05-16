@@ -1,0 +1,4 @@
+dataset,seed,method,keep_ratio,num_selected,num_noisy_selected,noise_ratio_in_mask,mask_path
+cifar10,22,YangCLIP,30,15000,64,0.004266666666666667,/nvme/home/lixiang/baseline/YangCLIP/noise_masks/cifar10/22/YangCLIP/mask_30.npz
+cifar10,22,YangCLIP,50,25000,74,0.00296,/nvme/home/lixiang/baseline/YangCLIP/noise_masks/cifar10/22/YangCLIP/mask_50.npz
+cifar10,22,YangCLIP,70,35000,84,0.0024,/nvme/home/lixiang/baseline/YangCLIP/noise_masks/cifar10/22/YangCLIP/mask_70.npz

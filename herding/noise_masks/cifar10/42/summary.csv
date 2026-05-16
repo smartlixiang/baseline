@@ -1,0 +1,4 @@
+dataset,seed,method,keep_ratio,num_selected,num_noisy_selected,noise_ratio_in_mask,mask_path
+cifar10,42,herding,30,15000,3021,0.2014,/nvme/home/lixiang/baseline/herding/noise_masks/cifar10/42/herding/mask_30.npz
+cifar10,42,herding,50,25000,5044,0.20176,/nvme/home/lixiang/baseline/herding/noise_masks/cifar10/42/herding/mask_50.npz
+cifar10,42,herding,70,35000,7010,0.2002857142857143,/nvme/home/lixiang/baseline/herding/noise_masks/cifar10/42/herding/mask_70.npz

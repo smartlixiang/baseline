@@ -23,3 +23,13 @@ __pycache__/
 
 # herding feature cache
 herding/cache/
+data/
+datasets/
+checkpoints/
+outputs/
+results/
+*.pth
+*.pt
+*.ckpt
+*.pkl
+*.npz

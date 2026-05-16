@@ -1,0 +1,10 @@
+dataset,seed,method,keep_ratio,num_train,num_selected,num_noisy_total,noise_ratio_total,num_noisy_selected,noise_ratio_in_mask,mask_path
+cifar10,42,E2LN,30,50000,15000,10000,0.2,9658,0.6438666666666667,/nvme/home/lixiang/baseline/data_diet/noise_masks/cifar10/42/E2LN/mask_30.npz
+cifar10,42,E2LN,50,50000,25000,10000,0.2,9948,0.39792,/nvme/home/lixiang/baseline/data_diet/noise_masks/cifar10/42/E2LN/mask_50.npz
+cifar10,42,E2LN,70,50000,35000,10000,0.2,9988,0.28537142857142855,/nvme/home/lixiang/baseline/data_diet/noise_masks/cifar10/42/E2LN/mask_70.npz
+cifar10,42,GraNd,30,50000,15000,10000,0.2,4294,0.28626666666666667,/nvme/home/lixiang/baseline/data_diet/noise_masks/cifar10/42/GraNd/mask_30.npz
+cifar10,42,GraNd,50,50000,25000,10000,0.2,9286,0.37144,/nvme/home/lixiang/baseline/data_diet/noise_masks/cifar10/42/GraNd/mask_50.npz
+cifar10,42,GraNd,70,50000,35000,10000,0.2,9990,0.2854285714285714,/nvme/home/lixiang/baseline/data_diet/noise_masks/cifar10/42/GraNd/mask_70.npz
+cifar10,42,Forgetting,30,50000,15000,10000,0.2,2592,0.1728,/nvme/home/lixiang/baseline/data_diet/noise_masks/cifar10/42/Forgetting/mask_30.npz
+cifar10,42,Forgetting,50,50000,25000,10000,0.2,6331,0.25324,/nvme/home/lixiang/baseline/data_diet/noise_masks/cifar10/42/Forgetting/mask_50.npz
+cifar10,42,Forgetting,70,50000,35000,10000,0.2,9428,0.2693714285714286,/nvme/home/lixiang/baseline/data_diet/noise_masks/cifar10/42/Forgetting/mask_70.npz

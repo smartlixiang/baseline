@@ -1,0 +1,33 @@
+{
+    "dataset": "cifar10",
+    "seed": 96,
+    "data_root": "/nvme/home/lixiang/baseline/data",
+    "noise_root": "/nvme/home/lixiang/baseline/noise",
+    "output_root": "/nvme/home/lixiang/baseline/data_diet/noise_exps",
+    "mask_root": "/nvme/home/lixiang/baseline/data_diet/noise_masks",
+    "model": "resnet18_lowres",
+    "epochs": 200,
+    "score_epoch": 20,
+    "noise_rate": 0.2,
+    "train_batch_size": 128,
+    "test_batch_size": 1024,
+    "lr": 0.1,
+    "momentum": 0.9,
+    "weight_decay": 0.0005,
+    "nesterov": true,
+    "decay_factor": 0.2,
+    "decay_epochs": [
+        60,
+        120,
+        160
+    ],
+    "keep_ratios": [
+        30,
+        50,
+        70
+    ],
+    "el2n_batch_size": 1024,
+    "grand_batch_size": 32,
+    "eval_every_epochs": 10,
+    "force": false
+}

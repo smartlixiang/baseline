@@ -1,0 +1,4 @@
+dataset,seed,method,keep_ratio,num_selected,num_noisy_selected,noise_ratio_in_mask,mask_path
+cifar100,96,MoSo,30,15000,3077,0.20513333333333333,/nvme/home/lixiang/baseline/MoSo/noise_masks/cifar100/96/MoSo/mask_30.npz
+cifar100,96,MoSo,50,25000,3955,0.1582,/nvme/home/lixiang/baseline/MoSo/noise_masks/cifar100/96/MoSo/mask_50.npz
+cifar100,96,MoSo,70,35000,4580,0.13085714285714287,/nvme/home/lixiang/baseline/MoSo/noise_masks/cifar100/96/MoSo/mask_70.npz

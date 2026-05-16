@@ -1,0 +1,9 @@
+{
+    "dataset": "cifar100",
+    "seed": 22,
+    "noise_rate": 0.2,
+    "num_train": 50000,
+    "num_noisy": 10000,
+    "actual_noise_rate": 0.2,
+    "noise_list_path": "/nvme/home/lixiang/baseline/noise/cifar100/noise_list_22.txt"
+}
