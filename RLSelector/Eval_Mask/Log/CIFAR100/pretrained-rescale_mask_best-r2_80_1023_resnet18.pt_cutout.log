@@ -1,0 +1,1000 @@
+Epoch: 0 [12800/40310 (32%)]	 Training Loss: 4.806 ACC: 1.04
+Epoch: 0 [25600/40310 (64%)]	 Training Loss: 4.815 ACC: 1.07
+Epoch: 0 [38400/40310 (95%)]	 Training Loss: 4.817 ACC: 1.12
+EPOCH:0, ======================ACC:1.07====================
+BEST EPOCH:0, BEST ACC:1.07
+Epoch: 1 [12800/40310 (32%)]	 Training Loss: 5.933 ACC: 1.70
+Epoch: 1 [25600/40310 (64%)]	 Training Loss: 5.354 ACC: 1.61
+Epoch: 1 [38400/40310 (95%)]	 Training Loss: 5.107 ACC: 1.65
+EPOCH:1, ======================ACC:2.0====================
+BEST EPOCH:1, BEST ACC:2.0
+Epoch: 2 [12800/40310 (32%)]	 Training Loss: 4.499 ACC: 2.52
+Epoch: 2 [25600/40310 (64%)]	 Training Loss: 4.411 ACC: 2.97
+Epoch: 2 [38400/40310 (95%)]	 Training Loss: 4.362 ACC: 3.17
+EPOCH:2, ======================ACC:4.54====================
+BEST EPOCH:2, BEST ACC:4.54
+Epoch: 3 [12800/40310 (32%)]	 Training Loss: 4.210 ACC: 5.20
+Epoch: 3 [25600/40310 (64%)]	 Training Loss: 4.145 ACC: 5.73
+Epoch: 3 [38400/40310 (95%)]	 Training Loss: 4.102 ACC: 6.21
+EPOCH:3, ======================ACC:7.63====================
+BEST EPOCH:3, BEST ACC:7.63
+Epoch: 4 [12800/40310 (32%)]	 Training Loss: 3.967 ACC: 8.16
+Epoch: 4 [25600/40310 (64%)]	 Training Loss: 3.943 ACC: 8.53
+Epoch: 4 [38400/40310 (95%)]	 Training Loss: 3.927 ACC: 8.67
+EPOCH:4, ======================ACC:8.52====================
+BEST EPOCH:4, BEST ACC:8.52
+Epoch: 5 [12800/40310 (32%)]	 Training Loss: 3.841 ACC: 9.66
+Epoch: 5 [25600/40310 (64%)]	 Training Loss: 3.824 ACC: 10.23
+Epoch: 5 [38400/40310 (95%)]	 Training Loss: 3.800 ACC: 10.57
+EPOCH:5, ======================ACC:11.3====================
+BEST EPOCH:5, BEST ACC:11.3
+Epoch: 6 [12800/40310 (32%)]	 Training Loss: 3.699 ACC: 11.42
+Epoch: 6 [25600/40310 (64%)]	 Training Loss: 3.665 ACC: 12.28
+Epoch: 6 [38400/40310 (95%)]	 Training Loss: 3.653 ACC: 12.65
+EPOCH:6, ======================ACC:14.06====================
+BEST EPOCH:6, BEST ACC:14.06
+Epoch: 7 [12800/40310 (32%)]	 Training Loss: 3.538 ACC: 14.71
+Epoch: 7 [25600/40310 (64%)]	 Training Loss: 3.524 ACC: 15.28
+Epoch: 7 [38400/40310 (95%)]	 Training Loss: 3.497 ACC: 15.73
+EPOCH:7, ======================ACC:18.28====================
+BEST EPOCH:7, BEST ACC:18.28
+Epoch: 8 [12800/40310 (32%)]	 Training Loss: 3.368 ACC: 18.13
+Epoch: 8 [25600/40310 (64%)]	 Training Loss: 3.356 ACC: 18.55
+Epoch: 8 [38400/40310 (95%)]	 Training Loss: 3.345 ACC: 18.51
+EPOCH:8, ======================ACC:19.4====================
+BEST EPOCH:8, BEST ACC:19.4
+Epoch: 9 [12800/40310 (32%)]	 Training Loss: 3.219 ACC: 20.73
+Epoch: 9 [25600/40310 (64%)]	 Training Loss: 3.209 ACC: 20.98
+Epoch: 9 [38400/40310 (95%)]	 Training Loss: 3.196 ACC: 21.18
+EPOCH:9, ======================ACC:21.72====================
+BEST EPOCH:9, BEST ACC:21.72
+Epoch: 10 [12800/40310 (32%)]	 Training Loss: 3.094 ACC: 23.03
+Epoch: 10 [25600/40310 (64%)]	 Training Loss: 3.081 ACC: 23.33
+Epoch: 10 [38400/40310 (95%)]	 Training Loss: 3.052 ACC: 24.00
+EPOCH:10, ======================ACC:26.11====================
+BEST EPOCH:10, BEST ACC:26.11
+Epoch: 11 [12800/40310 (32%)]	 Training Loss: 2.941 ACC: 25.85
+Epoch: 11 [25600/40310 (64%)]	 Training Loss: 2.929 ACC: 26.09
+Epoch: 11 [38400/40310 (95%)]	 Training Loss: 2.914 ACC: 26.60
+EPOCH:11, ======================ACC:29.3====================
+BEST EPOCH:11, BEST ACC:29.3
+Epoch: 12 [12800/40310 (32%)]	 Training Loss: 2.783 ACC: 29.63
+Epoch: 12 [25600/40310 (64%)]	 Training Loss: 2.781 ACC: 29.39
+Epoch: 12 [38400/40310 (95%)]	 Training Loss: 2.775 ACC: 29.45
+EPOCH:12, ======================ACC:29.66====================
+BEST EPOCH:12, BEST ACC:29.66
+Epoch: 13 [12800/40310 (32%)]	 Training Loss: 2.651 ACC: 31.32
+Epoch: 13 [25600/40310 (64%)]	 Training Loss: 2.654 ACC: 31.59
+Epoch: 13 [38400/40310 (95%)]	 Training Loss: 2.652 ACC: 31.91
+EPOCH:13, ======================ACC:32.99====================
+BEST EPOCH:13, BEST ACC:32.99
+Epoch: 14 [12800/40310 (32%)]	 Training Loss: 2.558 ACC: 33.88
+Epoch: 14 [25600/40310 (64%)]	 Training Loss: 2.550 ACC: 34.37
+Epoch: 14 [38400/40310 (95%)]	 Training Loss: 2.545 ACC: 34.29
+EPOCH:14, ======================ACC:35.31====================
+BEST EPOCH:14, BEST ACC:35.31
+Epoch: 15 [12800/40310 (32%)]	 Training Loss: 2.451 ACC: 35.96
+Epoch: 15 [25600/40310 (64%)]	 Training Loss: 2.441 ACC: 36.40
+Epoch: 15 [38400/40310 (95%)]	 Training Loss: 2.436 ACC: 36.37
+EPOCH:15, ======================ACC:36.03====================
+BEST EPOCH:15, BEST ACC:36.03
+Epoch: 16 [12800/40310 (32%)]	 Training Loss: 2.337 ACC: 38.04
+Epoch: 16 [25600/40310 (64%)]	 Training Loss: 2.324 ACC: 38.51
+Epoch: 16 [38400/40310 (95%)]	 Training Loss: 2.327 ACC: 38.66
+EPOCH:16, ======================ACC:38.84====================
+BEST EPOCH:16, BEST ACC:38.84
+Epoch: 17 [12800/40310 (32%)]	 Training Loss: 2.230 ACC: 41.00
+Epoch: 17 [25600/40310 (64%)]	 Training Loss: 2.257 ACC: 40.30
+Epoch: 17 [38400/40310 (95%)]	 Training Loss: 2.254 ACC: 40.32
+EPOCH:17, ======================ACC:39.15====================
+BEST EPOCH:17, BEST ACC:39.15
+Epoch: 18 [12800/40310 (32%)]	 Training Loss: 2.167 ACC: 42.30
+Epoch: 18 [25600/40310 (64%)]	 Training Loss: 2.165 ACC: 42.12
+Epoch: 18 [38400/40310 (95%)]	 Training Loss: 2.167 ACC: 42.04
+EPOCH:18, ======================ACC:43.66====================
+BEST EPOCH:18, BEST ACC:43.66
+Epoch: 19 [12800/40310 (32%)]	 Training Loss: 2.048 ACC: 44.41
+Epoch: 19 [25600/40310 (64%)]	 Training Loss: 2.074 ACC: 44.11
+Epoch: 19 [38400/40310 (95%)]	 Training Loss: 2.078 ACC: 44.15
+EPOCH:19, ======================ACC:41.2====================
+BEST EPOCH:18, BEST ACC:43.66
+Epoch: 20 [12800/40310 (32%)]	 Training Loss: 2.003 ACC: 45.82
+Epoch: 20 [25600/40310 (64%)]	 Training Loss: 2.007 ACC: 45.81
+Epoch: 20 [38400/40310 (95%)]	 Training Loss: 2.009 ACC: 45.79
+EPOCH:20, ======================ACC:43.93====================
+BEST EPOCH:20, BEST ACC:43.93
+Epoch: 21 [12800/40310 (32%)]	 Training Loss: 1.944 ACC: 46.80
+Epoch: 21 [25600/40310 (64%)]	 Training Loss: 1.966 ACC: 46.66
+Epoch: 21 [38400/40310 (95%)]	 Training Loss: 1.967 ACC: 46.60
+EPOCH:21, ======================ACC:44.97====================
+BEST EPOCH:21, BEST ACC:44.97
+Epoch: 22 [12800/40310 (32%)]	 Training Loss: 1.864 ACC: 48.95
+Epoch: 22 [25600/40310 (64%)]	 Training Loss: 1.884 ACC: 48.45
+Epoch: 22 [38400/40310 (95%)]	 Training Loss: 1.882 ACC: 48.48
+EPOCH:22, ======================ACC:46.62====================
+BEST EPOCH:22, BEST ACC:46.62
+Epoch: 23 [12800/40310 (32%)]	 Training Loss: 1.803 ACC: 50.51
+Epoch: 23 [25600/40310 (64%)]	 Training Loss: 1.808 ACC: 50.52
+Epoch: 23 [38400/40310 (95%)]	 Training Loss: 1.817 ACC: 50.28
+EPOCH:23, ======================ACC:47.51====================
+BEST EPOCH:23, BEST ACC:47.51
+Epoch: 24 [12800/40310 (32%)]	 Training Loss: 1.762 ACC: 51.54
+Epoch: 24 [25600/40310 (64%)]	 Training Loss: 1.768 ACC: 51.11
+Epoch: 24 [38400/40310 (95%)]	 Training Loss: 1.778 ACC: 50.92
+EPOCH:24, ======================ACC:45.25====================
+BEST EPOCH:23, BEST ACC:47.51
+Epoch: 25 [12800/40310 (32%)]	 Training Loss: 1.685 ACC: 53.44
+Epoch: 25 [25600/40310 (64%)]	 Training Loss: 1.771 ACC: 51.31
+Epoch: 25 [38400/40310 (95%)]	 Training Loss: 1.787 ACC: 50.97
+EPOCH:25, ======================ACC:46.82====================
+BEST EPOCH:23, BEST ACC:47.51
+Epoch: 26 [12800/40310 (32%)]	 Training Loss: 1.706 ACC: 52.89
+Epoch: 26 [25600/40310 (64%)]	 Training Loss: 1.718 ACC: 52.70
+Epoch: 26 [38400/40310 (95%)]	 Training Loss: 1.710 ACC: 52.76
+EPOCH:26, ======================ACC:49.73====================
+BEST EPOCH:26, BEST ACC:49.73
+Epoch: 27 [12800/40310 (32%)]	 Training Loss: 1.685 ACC: 53.21
+Epoch: 27 [25600/40310 (64%)]	 Training Loss: 1.671 ACC: 53.72
+Epoch: 27 [38400/40310 (95%)]	 Training Loss: 1.664 ACC: 53.71
+EPOCH:27, ======================ACC:45.68====================
+BEST EPOCH:26, BEST ACC:49.73
+Epoch: 28 [12800/40310 (32%)]	 Training Loss: 1.622 ACC: 55.26
+Epoch: 28 [25600/40310 (64%)]	 Training Loss: 1.629 ACC: 54.89
+Epoch: 28 [38400/40310 (95%)]	 Training Loss: 1.629 ACC: 54.91
+EPOCH:28, ======================ACC:49.57====================
+BEST EPOCH:26, BEST ACC:49.73
+Epoch: 29 [12800/40310 (32%)]	 Training Loss: 1.553 ACC: 56.30
+Epoch: 29 [25600/40310 (64%)]	 Training Loss: 1.571 ACC: 55.96
+Epoch: 29 [38400/40310 (95%)]	 Training Loss: 1.590 ACC: 55.60
+EPOCH:29, ======================ACC:50.43====================
+BEST EPOCH:29, BEST ACC:50.43
+Epoch: 30 [12800/40310 (32%)]	 Training Loss: 1.520 ACC: 57.04
+Epoch: 30 [25600/40310 (64%)]	 Training Loss: 1.538 ACC: 56.83
+Epoch: 30 [38400/40310 (95%)]	 Training Loss: 1.551 ACC: 56.67
+EPOCH:30, ======================ACC:48.12====================
+BEST EPOCH:29, BEST ACC:50.43
+Epoch: 31 [12800/40310 (32%)]	 Training Loss: 1.496 ACC: 57.32
+Epoch: 31 [25600/40310 (64%)]	 Training Loss: 1.511 ACC: 57.33
+Epoch: 31 [38400/40310 (95%)]	 Training Loss: 1.520 ACC: 57.31
+EPOCH:31, ======================ACC:49.94====================
+BEST EPOCH:29, BEST ACC:50.43
+Epoch: 32 [12800/40310 (32%)]	 Training Loss: 1.485 ACC: 58.40
+Epoch: 32 [25600/40310 (64%)]	 Training Loss: 1.487 ACC: 58.63
+Epoch: 32 [38400/40310 (95%)]	 Training Loss: 1.507 ACC: 58.02
+EPOCH:32, ======================ACC:51.92====================
+BEST EPOCH:32, BEST ACC:51.92
+Epoch: 33 [12800/40310 (32%)]	 Training Loss: 1.451 ACC: 59.00
+Epoch: 33 [25600/40310 (64%)]	 Training Loss: 1.454 ACC: 58.84
+Epoch: 33 [38400/40310 (95%)]	 Training Loss: 1.477 ACC: 58.22
+EPOCH:33, ======================ACC:50.94====================
+BEST EPOCH:32, BEST ACC:51.92
+Epoch: 34 [12800/40310 (32%)]	 Training Loss: 1.413 ACC: 59.70
+Epoch: 34 [25600/40310 (64%)]	 Training Loss: 1.430 ACC: 59.71
+Epoch: 34 [38400/40310 (95%)]	 Training Loss: 1.446 ACC: 59.21
+EPOCH:34, ======================ACC:49.75====================
+BEST EPOCH:32, BEST ACC:51.92
+Epoch: 35 [12800/40310 (32%)]	 Training Loss: 1.395 ACC: 60.51
+Epoch: 35 [25600/40310 (64%)]	 Training Loss: 1.409 ACC: 60.12
+Epoch: 35 [38400/40310 (95%)]	 Training Loss: 1.419 ACC: 59.86
+EPOCH:35, ======================ACC:49.67====================
+BEST EPOCH:32, BEST ACC:51.92
+Epoch: 36 [12800/40310 (32%)]	 Training Loss: 1.380 ACC: 60.94
+Epoch: 36 [25600/40310 (64%)]	 Training Loss: 1.417 ACC: 59.84
+Epoch: 36 [38400/40310 (95%)]	 Training Loss: 1.421 ACC: 59.77
+EPOCH:36, ======================ACC:49.0====================
+BEST EPOCH:32, BEST ACC:51.92
+Epoch: 37 [12800/40310 (32%)]	 Training Loss: 1.381 ACC: 60.64
+Epoch: 37 [25600/40310 (64%)]	 Training Loss: 1.376 ACC: 60.79
+Epoch: 37 [38400/40310 (95%)]	 Training Loss: 1.397 ACC: 60.16
+EPOCH:37, ======================ACC:53.07====================
+BEST EPOCH:37, BEST ACC:53.07
+Epoch: 38 [12800/40310 (32%)]	 Training Loss: 1.318 ACC: 62.55
+Epoch: 38 [25600/40310 (64%)]	 Training Loss: 1.358 ACC: 61.52
+Epoch: 38 [38400/40310 (95%)]	 Training Loss: 1.373 ACC: 60.97
+EPOCH:38, ======================ACC:51.17====================
+BEST EPOCH:37, BEST ACC:53.07
+Epoch: 39 [12800/40310 (32%)]	 Training Loss: 1.335 ACC: 61.77
+Epoch: 39 [25600/40310 (64%)]	 Training Loss: 1.336 ACC: 61.71
+Epoch: 39 [38400/40310 (95%)]	 Training Loss: 1.339 ACC: 61.87
+EPOCH:39, ======================ACC:54.27====================
+BEST EPOCH:39, BEST ACC:54.27
+Epoch: 40 [12800/40310 (32%)]	 Training Loss: 1.310 ACC: 62.43
+Epoch: 40 [25600/40310 (64%)]	 Training Loss: 1.331 ACC: 62.17
+Epoch: 40 [38400/40310 (95%)]	 Training Loss: 1.344 ACC: 61.74
+EPOCH:40, ======================ACC:53.98====================
+BEST EPOCH:39, BEST ACC:54.27
+Epoch: 41 [12800/40310 (32%)]	 Training Loss: 1.285 ACC: 63.41
+Epoch: 41 [25600/40310 (64%)]	 Training Loss: 1.298 ACC: 63.11
+Epoch: 41 [38400/40310 (95%)]	 Training Loss: 1.316 ACC: 62.59
+EPOCH:41, ======================ACC:56.87====================
+BEST EPOCH:41, BEST ACC:56.87
+Epoch: 42 [12800/40310 (32%)]	 Training Loss: 1.268 ACC: 63.66
+Epoch: 42 [25600/40310 (64%)]	 Training Loss: 1.278 ACC: 63.36
+Epoch: 42 [38400/40310 (95%)]	 Training Loss: 1.294 ACC: 62.83
+EPOCH:42, ======================ACC:51.23====================
+BEST EPOCH:41, BEST ACC:56.87
+Epoch: 43 [12800/40310 (32%)]	 Training Loss: 1.250 ACC: 63.90
+Epoch: 43 [25600/40310 (64%)]	 Training Loss: 1.280 ACC: 63.33
+Epoch: 43 [38400/40310 (95%)]	 Training Loss: 1.279 ACC: 63.28
+EPOCH:43, ======================ACC:52.98====================
+BEST EPOCH:41, BEST ACC:56.87
+Epoch: 44 [12800/40310 (32%)]	 Training Loss: 1.239 ACC: 64.45
+Epoch: 44 [25600/40310 (64%)]	 Training Loss: 1.251 ACC: 64.20
+Epoch: 44 [38400/40310 (95%)]	 Training Loss: 1.259 ACC: 64.02
+EPOCH:44, ======================ACC:51.15====================
+BEST EPOCH:41, BEST ACC:56.87
+Epoch: 45 [12800/40310 (32%)]	 Training Loss: 1.206 ACC: 65.53
+Epoch: 45 [25600/40310 (64%)]	 Training Loss: 1.225 ACC: 65.00
+Epoch: 45 [38400/40310 (95%)]	 Training Loss: 1.242 ACC: 64.53
+EPOCH:45, ======================ACC:57.31====================
+BEST EPOCH:45, BEST ACC:57.31
+Epoch: 46 [12800/40310 (32%)]	 Training Loss: 1.185 ACC: 65.23
+Epoch: 46 [25600/40310 (64%)]	 Training Loss: 1.214 ACC: 64.78
+Epoch: 46 [38400/40310 (95%)]	 Training Loss: 1.229 ACC: 64.50
+EPOCH:46, ======================ACC:58.26====================
+BEST EPOCH:46, BEST ACC:58.26
+Epoch: 47 [12800/40310 (32%)]	 Training Loss: 1.172 ACC: 66.39
+Epoch: 47 [25600/40310 (64%)]	 Training Loss: 1.204 ACC: 65.46
+Epoch: 47 [38400/40310 (95%)]	 Training Loss: 1.221 ACC: 65.21
+EPOCH:47, ======================ACC:55.41====================
+BEST EPOCH:46, BEST ACC:58.26
+Epoch: 48 [12800/40310 (32%)]	 Training Loss: 1.170 ACC: 66.02
+Epoch: 48 [25600/40310 (64%)]	 Training Loss: 1.196 ACC: 65.58
+Epoch: 48 [38400/40310 (95%)]	 Training Loss: 1.207 ACC: 65.27
+EPOCH:48, ======================ACC:53.46====================
+BEST EPOCH:46, BEST ACC:58.26
+Epoch: 49 [12800/40310 (32%)]	 Training Loss: 1.187 ACC: 65.60
+Epoch: 49 [25600/40310 (64%)]	 Training Loss: 1.198 ACC: 65.39
+Epoch: 49 [38400/40310 (95%)]	 Training Loss: 1.211 ACC: 65.14
+EPOCH:49, ======================ACC:52.31====================
+BEST EPOCH:46, BEST ACC:58.26
+Epoch: 50 [12800/40310 (32%)]	 Training Loss: 1.155 ACC: 67.05
+Epoch: 50 [25600/40310 (64%)]	 Training Loss: 1.176 ACC: 66.21
+Epoch: 50 [38400/40310 (95%)]	 Training Loss: 1.190 ACC: 65.68
+EPOCH:50, ======================ACC:56.03====================
+BEST EPOCH:46, BEST ACC:58.26
+Epoch: 51 [12800/40310 (32%)]	 Training Loss: 1.137 ACC: 66.92
+Epoch: 51 [25600/40310 (64%)]	 Training Loss: 1.154 ACC: 66.69
+Epoch: 51 [38400/40310 (95%)]	 Training Loss: 1.171 ACC: 66.27
+EPOCH:51, ======================ACC:53.38====================
+BEST EPOCH:46, BEST ACC:58.26
+Epoch: 52 [12800/40310 (32%)]	 Training Loss: 1.097 ACC: 68.23
+Epoch: 52 [25600/40310 (64%)]	 Training Loss: 1.116 ACC: 67.77
+Epoch: 52 [38400/40310 (95%)]	 Training Loss: 1.145 ACC: 67.03
+EPOCH:52, ======================ACC:53.5====================
+BEST EPOCH:46, BEST ACC:58.26
+Epoch: 53 [12800/40310 (32%)]	 Training Loss: 1.107 ACC: 68.02
+Epoch: 53 [25600/40310 (64%)]	 Training Loss: 1.120 ACC: 67.48
+Epoch: 53 [38400/40310 (95%)]	 Training Loss: 1.147 ACC: 66.78
+EPOCH:53, ======================ACC:50.31====================
+BEST EPOCH:46, BEST ACC:58.26
+Epoch: 54 [12800/40310 (32%)]	 Training Loss: 1.087 ACC: 68.80
+Epoch: 54 [25600/40310 (64%)]	 Training Loss: 1.113 ACC: 67.93
+Epoch: 54 [38400/40310 (95%)]	 Training Loss: 1.134 ACC: 67.14
+EPOCH:54, ======================ACC:56.74====================
+BEST EPOCH:46, BEST ACC:58.26
+Epoch: 55 [12800/40310 (32%)]	 Training Loss: 1.080 ACC: 68.73
+Epoch: 55 [25600/40310 (64%)]	 Training Loss: 1.100 ACC: 68.18
+Epoch: 55 [38400/40310 (95%)]	 Training Loss: 1.122 ACC: 67.67
+EPOCH:55, ======================ACC:56.71====================
+BEST EPOCH:46, BEST ACC:58.26
+Epoch: 56 [12800/40310 (32%)]	 Training Loss: 1.080 ACC: 68.79
+Epoch: 56 [25600/40310 (64%)]	 Training Loss: 1.092 ACC: 68.25
+Epoch: 56 [38400/40310 (95%)]	 Training Loss: 1.108 ACC: 67.90
+EPOCH:56, ======================ACC:55.08====================
+BEST EPOCH:46, BEST ACC:58.26
+Epoch: 57 [12800/40310 (32%)]	 Training Loss: 1.065 ACC: 68.99
+Epoch: 57 [25600/40310 (64%)]	 Training Loss: 1.088 ACC: 68.37
+Epoch: 57 [38400/40310 (95%)]	 Training Loss: 1.099 ACC: 68.15
+EPOCH:57, ======================ACC:59.14====================
+BEST EPOCH:57, BEST ACC:59.14
+Epoch: 58 [12800/40310 (32%)]	 Training Loss: 1.042 ACC: 69.76
+Epoch: 58 [25600/40310 (64%)]	 Training Loss: 1.061 ACC: 69.05
+Epoch: 58 [38400/40310 (95%)]	 Training Loss: 1.080 ACC: 68.55
+EPOCH:58, ======================ACC:60.14====================
+BEST EPOCH:58, BEST ACC:60.14
+Epoch: 59 [12800/40310 (32%)]	 Training Loss: 1.034 ACC: 69.86
+Epoch: 59 [25600/40310 (64%)]	 Training Loss: 1.050 ACC: 69.30
+Epoch: 59 [38400/40310 (95%)]	 Training Loss: 1.067 ACC: 69.00
+EPOCH:59, ======================ACC:56.62====================
+BEST EPOCH:58, BEST ACC:60.14
+Epoch: 60 [12800/40310 (32%)]	 Training Loss: 1.018 ACC: 70.20
+Epoch: 60 [25600/40310 (64%)]	 Training Loss: 1.055 ACC: 69.29
+Epoch: 60 [38400/40310 (95%)]	 Training Loss: 1.063 ACC: 68.99
+EPOCH:60, ======================ACC:57.32====================
+BEST EPOCH:58, BEST ACC:60.14
+Epoch: 61 [12800/40310 (32%)]	 Training Loss: 1.038 ACC: 70.00
+Epoch: 61 [25600/40310 (64%)]	 Training Loss: 1.057 ACC: 69.29
+Epoch: 61 [38400/40310 (95%)]	 Training Loss: 1.072 ACC: 68.98
+EPOCH:61, ======================ACC:56.58====================
+BEST EPOCH:58, BEST ACC:60.14
+Epoch: 62 [12800/40310 (32%)]	 Training Loss: 0.996 ACC: 70.77
+Epoch: 62 [25600/40310 (64%)]	 Training Loss: 1.021 ACC: 70.04
+Epoch: 62 [38400/40310 (95%)]	 Training Loss: 1.032 ACC: 69.80
+EPOCH:62, ======================ACC:57.12====================
+BEST EPOCH:58, BEST ACC:60.14
+Epoch: 63 [12800/40310 (32%)]	 Training Loss: 1.005 ACC: 70.55
+Epoch: 63 [25600/40310 (64%)]	 Training Loss: 1.021 ACC: 70.32
+Epoch: 63 [38400/40310 (95%)]	 Training Loss: 1.044 ACC: 69.48
+EPOCH:63, ======================ACC:56.09====================
+BEST EPOCH:58, BEST ACC:60.14
+Epoch: 64 [12800/40310 (32%)]	 Training Loss: 0.992 ACC: 70.77
+Epoch: 64 [25600/40310 (64%)]	 Training Loss: 1.003 ACC: 70.45
+Epoch: 64 [38400/40310 (95%)]	 Training Loss: 1.026 ACC: 69.87
+EPOCH:64, ======================ACC:59.98====================
+BEST EPOCH:58, BEST ACC:60.14
+Epoch: 65 [12800/40310 (32%)]	 Training Loss: 0.987 ACC: 71.09
+Epoch: 65 [25600/40310 (64%)]	 Training Loss: 1.010 ACC: 70.45
+Epoch: 65 [38400/40310 (95%)]	 Training Loss: 1.019 ACC: 70.10
+EPOCH:65, ======================ACC:57.59====================
+BEST EPOCH:58, BEST ACC:60.14
+Epoch: 66 [12800/40310 (32%)]	 Training Loss: 0.962 ACC: 71.37
+Epoch: 66 [25600/40310 (64%)]	 Training Loss: 0.967 ACC: 71.45
+Epoch: 66 [38400/40310 (95%)]	 Training Loss: 0.992 ACC: 70.71
+EPOCH:66, ======================ACC:57.78====================
+BEST EPOCH:58, BEST ACC:60.14
+Epoch: 67 [12800/40310 (32%)]	 Training Loss: 0.968 ACC: 71.57
+Epoch: 67 [25600/40310 (64%)]	 Training Loss: 0.985 ACC: 71.25
+Epoch: 67 [38400/40310 (95%)]	 Training Loss: 1.002 ACC: 70.69
+EPOCH:67, ======================ACC:58.63====================
+BEST EPOCH:58, BEST ACC:60.14
+Epoch: 68 [12800/40310 (32%)]	 Training Loss: 0.931 ACC: 72.71
+Epoch: 68 [25600/40310 (64%)]	 Training Loss: 0.947 ACC: 71.97
+Epoch: 68 [38400/40310 (95%)]	 Training Loss: 0.973 ACC: 71.30
+EPOCH:68, ======================ACC:59.65====================
+BEST EPOCH:58, BEST ACC:60.14
+Epoch: 69 [12800/40310 (32%)]	 Training Loss: 0.946 ACC: 72.43
+Epoch: 69 [25600/40310 (64%)]	 Training Loss: 0.954 ACC: 71.97
+Epoch: 69 [38400/40310 (95%)]	 Training Loss: 0.970 ACC: 71.68
+EPOCH:69, ======================ACC:59.8====================
+BEST EPOCH:58, BEST ACC:60.14
+Epoch: 70 [12800/40310 (32%)]	 Training Loss: 0.901 ACC: 73.56
+Epoch: 70 [25600/40310 (64%)]	 Training Loss: 0.936 ACC: 72.39
+Epoch: 70 [38400/40310 (95%)]	 Training Loss: 0.961 ACC: 71.61
+EPOCH:70, ======================ACC:59.45====================
+BEST EPOCH:58, BEST ACC:60.14
+Epoch: 71 [12800/40310 (32%)]	 Training Loss: 0.906 ACC: 73.44
+Epoch: 71 [25600/40310 (64%)]	 Training Loss: 0.941 ACC: 72.29
+Epoch: 71 [38400/40310 (95%)]	 Training Loss: 0.961 ACC: 71.79
+EPOCH:71, ======================ACC:57.32====================
+BEST EPOCH:58, BEST ACC:60.14
+Epoch: 72 [12800/40310 (32%)]	 Training Loss: 0.903 ACC: 73.41
+Epoch: 72 [25600/40310 (64%)]	 Training Loss: 0.913 ACC: 73.03
+Epoch: 72 [38400/40310 (95%)]	 Training Loss: 0.932 ACC: 72.50
+EPOCH:72, ======================ACC:58.75====================
+BEST EPOCH:58, BEST ACC:60.14
+Epoch: 73 [12800/40310 (32%)]	 Training Loss: 0.884 ACC: 74.18
+Epoch: 73 [25600/40310 (64%)]	 Training Loss: 0.909 ACC: 73.27
+Epoch: 73 [38400/40310 (95%)]	 Training Loss: 0.934 ACC: 72.37
+EPOCH:73, ======================ACC:57.56====================
+BEST EPOCH:58, BEST ACC:60.14
+Epoch: 74 [12800/40310 (32%)]	 Training Loss: 0.897 ACC: 73.61
+Epoch: 74 [25600/40310 (64%)]	 Training Loss: 0.898 ACC: 73.41
+Epoch: 74 [38400/40310 (95%)]	 Training Loss: 0.919 ACC: 72.83
+EPOCH:74, ======================ACC:57.18====================
+BEST EPOCH:58, BEST ACC:60.14
+Epoch: 75 [12800/40310 (32%)]	 Training Loss: 0.869 ACC: 74.50
+Epoch: 75 [25600/40310 (64%)]	 Training Loss: 0.886 ACC: 73.91
+Epoch: 75 [38400/40310 (95%)]	 Training Loss: 0.912 ACC: 73.12
+EPOCH:75, ======================ACC:58.2====================
+BEST EPOCH:58, BEST ACC:60.14
+Epoch: 76 [12800/40310 (32%)]	 Training Loss: 0.858 ACC: 74.62
+Epoch: 76 [25600/40310 (64%)]	 Training Loss: 0.887 ACC: 73.60
+Epoch: 76 [38400/40310 (95%)]	 Training Loss: 0.906 ACC: 73.14
+EPOCH:76, ======================ACC:59.54====================
+BEST EPOCH:58, BEST ACC:60.14
+Epoch: 77 [12800/40310 (32%)]	 Training Loss: 0.854 ACC: 74.85
+Epoch: 77 [25600/40310 (64%)]	 Training Loss: 0.874 ACC: 74.29
+Epoch: 77 [38400/40310 (95%)]	 Training Loss: 0.894 ACC: 73.75
+EPOCH:77, ======================ACC:60.54====================
+BEST EPOCH:77, BEST ACC:60.54
+Epoch: 78 [12800/40310 (32%)]	 Training Loss: 0.833 ACC: 75.31
+Epoch: 78 [25600/40310 (64%)]	 Training Loss: 0.867 ACC: 74.32
+Epoch: 78 [38400/40310 (95%)]	 Training Loss: 0.891 ACC: 73.58
+EPOCH:78, ======================ACC:58.35====================
+BEST EPOCH:77, BEST ACC:60.54
+Epoch: 79 [12800/40310 (32%)]	 Training Loss: 0.848 ACC: 74.77
+Epoch: 79 [25600/40310 (64%)]	 Training Loss: 0.858 ACC: 74.36
+Epoch: 79 [38400/40310 (95%)]	 Training Loss: 0.869 ACC: 74.15
+EPOCH:79, ======================ACC:59.19====================
+BEST EPOCH:77, BEST ACC:60.54
+Epoch: 80 [12800/40310 (32%)]	 Training Loss: 0.820 ACC: 76.16
+Epoch: 80 [25600/40310 (64%)]	 Training Loss: 0.844 ACC: 75.26
+Epoch: 80 [38400/40310 (95%)]	 Training Loss: 0.864 ACC: 74.59
+EPOCH:80, ======================ACC:59.68====================
+BEST EPOCH:77, BEST ACC:60.54
+Epoch: 81 [12800/40310 (32%)]	 Training Loss: 0.810 ACC: 75.84
+Epoch: 81 [25600/40310 (64%)]	 Training Loss: 0.847 ACC: 74.95
+Epoch: 81 [38400/40310 (95%)]	 Training Loss: 0.862 ACC: 74.67
+EPOCH:81, ======================ACC:60.54====================
+BEST EPOCH:81, BEST ACC:60.54
+Epoch: 82 [12800/40310 (32%)]	 Training Loss: 0.813 ACC: 76.24
+Epoch: 82 [25600/40310 (64%)]	 Training Loss: 0.818 ACC: 75.75
+Epoch: 82 [38400/40310 (95%)]	 Training Loss: 0.847 ACC: 74.79
+EPOCH:82, ======================ACC:58.83====================
+BEST EPOCH:81, BEST ACC:60.54
+Epoch: 83 [12800/40310 (32%)]	 Training Loss: 0.786 ACC: 76.61
+Epoch: 83 [25600/40310 (64%)]	 Training Loss: 0.810 ACC: 75.82
+Epoch: 83 [38400/40310 (95%)]	 Training Loss: 0.835 ACC: 75.10
+EPOCH:83, ======================ACC:59.85====================
+BEST EPOCH:81, BEST ACC:60.54
+Epoch: 84 [12800/40310 (32%)]	 Training Loss: 0.797 ACC: 76.37
+Epoch: 84 [25600/40310 (64%)]	 Training Loss: 0.812 ACC: 75.78
+Epoch: 84 [38400/40310 (95%)]	 Training Loss: 0.827 ACC: 75.21
+EPOCH:84, ======================ACC:60.57====================
+BEST EPOCH:84, BEST ACC:60.57
+Epoch: 85 [12800/40310 (32%)]	 Training Loss: 0.772 ACC: 77.14
+Epoch: 85 [25600/40310 (64%)]	 Training Loss: 0.793 ACC: 76.44
+Epoch: 85 [38400/40310 (95%)]	 Training Loss: 0.818 ACC: 75.61
+EPOCH:85, ======================ACC:60.16====================
+BEST EPOCH:84, BEST ACC:60.57
+Epoch: 86 [12800/40310 (32%)]	 Training Loss: 0.793 ACC: 76.73
+Epoch: 86 [25600/40310 (64%)]	 Training Loss: 0.796 ACC: 76.53
+Epoch: 86 [38400/40310 (95%)]	 Training Loss: 0.802 ACC: 76.15
+EPOCH:86, ======================ACC:60.49====================
+BEST EPOCH:84, BEST ACC:60.57
+Epoch: 87 [12800/40310 (32%)]	 Training Loss: 0.754 ACC: 77.51
+Epoch: 87 [25600/40310 (64%)]	 Training Loss: 0.779 ACC: 76.74
+Epoch: 87 [38400/40310 (95%)]	 Training Loss: 0.797 ACC: 76.24
+EPOCH:87, ======================ACC:61.33====================
+BEST EPOCH:87, BEST ACC:61.33
+Epoch: 88 [12800/40310 (32%)]	 Training Loss: 0.744 ACC: 77.63
+Epoch: 88 [25600/40310 (64%)]	 Training Loss: 0.773 ACC: 76.68
+Epoch: 88 [38400/40310 (95%)]	 Training Loss: 0.795 ACC: 76.15
+EPOCH:88, ======================ACC:59.97====================
+BEST EPOCH:87, BEST ACC:61.33
+Epoch: 89 [12800/40310 (32%)]	 Training Loss: 0.719 ACC: 78.56
+Epoch: 89 [25600/40310 (64%)]	 Training Loss: 0.746 ACC: 77.84
+Epoch: 89 [38400/40310 (95%)]	 Training Loss: 0.767 ACC: 77.22
+EPOCH:89, ======================ACC:60.22====================
+BEST EPOCH:87, BEST ACC:61.33
+Epoch: 90 [12800/40310 (32%)]	 Training Loss: 0.722 ACC: 78.43
+Epoch: 90 [25600/40310 (64%)]	 Training Loss: 0.754 ACC: 77.47
+Epoch: 90 [38400/40310 (95%)]	 Training Loss: 0.772 ACC: 77.02
+EPOCH:90, ======================ACC:49.55====================
+BEST EPOCH:87, BEST ACC:61.33
+Epoch: 91 [12800/40310 (32%)]	 Training Loss: 0.736 ACC: 78.33
+Epoch: 91 [25600/40310 (64%)]	 Training Loss: 0.765 ACC: 77.47
+Epoch: 91 [38400/40310 (95%)]	 Training Loss: 0.779 ACC: 76.80
+EPOCH:91, ======================ACC:61.22====================
+BEST EPOCH:87, BEST ACC:61.33
+Epoch: 92 [12800/40310 (32%)]	 Training Loss: 0.693 ACC: 79.29
+Epoch: 92 [25600/40310 (64%)]	 Training Loss: 0.727 ACC: 78.24
+Epoch: 92 [38400/40310 (95%)]	 Training Loss: 0.741 ACC: 77.79
+EPOCH:92, ======================ACC:61.06====================
+BEST EPOCH:87, BEST ACC:61.33
+Epoch: 93 [12800/40310 (32%)]	 Training Loss: 0.710 ACC: 79.21
+Epoch: 93 [25600/40310 (64%)]	 Training Loss: 0.721 ACC: 78.64
+Epoch: 93 [38400/40310 (95%)]	 Training Loss: 0.742 ACC: 77.83
+EPOCH:93, ======================ACC:61.9====================
+BEST EPOCH:93, BEST ACC:61.9
+Epoch: 94 [12800/40310 (32%)]	 Training Loss: 0.695 ACC: 79.16
+Epoch: 94 [25600/40310 (64%)]	 Training Loss: 0.720 ACC: 78.39
+Epoch: 94 [38400/40310 (95%)]	 Training Loss: 0.737 ACC: 77.87
+EPOCH:94, ======================ACC:63.43====================
+BEST EPOCH:94, BEST ACC:63.43
+Epoch: 95 [12800/40310 (32%)]	 Training Loss: 0.653 ACC: 80.29
+Epoch: 95 [25600/40310 (64%)]	 Training Loss: 0.688 ACC: 79.30
+Epoch: 95 [38400/40310 (95%)]	 Training Loss: 0.711 ACC: 78.73
+EPOCH:95, ======================ACC:61.06====================
+BEST EPOCH:94, BEST ACC:63.43
+Epoch: 96 [12800/40310 (32%)]	 Training Loss: 0.668 ACC: 80.02
+Epoch: 96 [25600/40310 (64%)]	 Training Loss: 0.687 ACC: 79.46
+Epoch: 96 [38400/40310 (95%)]	 Training Loss: 0.708 ACC: 78.90
+EPOCH:96, ======================ACC:63.57====================
+BEST EPOCH:96, BEST ACC:63.57
+Epoch: 97 [12800/40310 (32%)]	 Training Loss: 0.638 ACC: 80.70
+Epoch: 97 [25600/40310 (64%)]	 Training Loss: 0.665 ACC: 79.81
+Epoch: 97 [38400/40310 (95%)]	 Training Loss: 0.689 ACC: 79.16
+EPOCH:97, ======================ACC:59.78====================
+BEST EPOCH:96, BEST ACC:63.57
+Epoch: 98 [12800/40310 (32%)]	 Training Loss: 0.674 ACC: 79.58
+Epoch: 98 [25600/40310 (64%)]	 Training Loss: 0.666 ACC: 79.88
+Epoch: 98 [38400/40310 (95%)]	 Training Loss: 0.678 ACC: 79.45
+EPOCH:98, ======================ACC:61.05====================
+BEST EPOCH:96, BEST ACC:63.57
+Epoch: 99 [12800/40310 (32%)]	 Training Loss: 0.637 ACC: 80.96
+Epoch: 99 [25600/40310 (64%)]	 Training Loss: 0.664 ACC: 80.15
+Epoch: 99 [38400/40310 (95%)]	 Training Loss: 0.679 ACC: 79.52
+EPOCH:99, ======================ACC:63.88====================
+BEST EPOCH:99, BEST ACC:63.88
+Epoch: 100 [12800/40310 (32%)]	 Training Loss: 0.627 ACC: 81.30
+Epoch: 100 [25600/40310 (64%)]	 Training Loss: 0.637 ACC: 80.98
+Epoch: 100 [38400/40310 (95%)]	 Training Loss: 0.656 ACC: 80.37
+EPOCH:100, ======================ACC:61.19====================
+BEST EPOCH:99, BEST ACC:63.88
+Epoch: 101 [12800/40310 (32%)]	 Training Loss: 0.642 ACC: 80.82
+Epoch: 101 [25600/40310 (64%)]	 Training Loss: 0.654 ACC: 80.43
+Epoch: 101 [38400/40310 (95%)]	 Training Loss: 0.671 ACC: 79.90
+EPOCH:101, ======================ACC:62.92====================
+BEST EPOCH:99, BEST ACC:63.88
+Epoch: 102 [12800/40310 (32%)]	 Training Loss: 0.640 ACC: 80.84
+Epoch: 102 [25600/40310 (64%)]	 Training Loss: 0.633 ACC: 81.02
+Epoch: 102 [38400/40310 (95%)]	 Training Loss: 0.648 ACC: 80.57
+EPOCH:102, ======================ACC:62.8====================
+BEST EPOCH:99, BEST ACC:63.88
+Epoch: 103 [12800/40310 (32%)]	 Training Loss: 0.606 ACC: 81.87
+Epoch: 103 [25600/40310 (64%)]	 Training Loss: 0.623 ACC: 81.33
+Epoch: 103 [38400/40310 (95%)]	 Training Loss: 0.643 ACC: 80.81
+EPOCH:103, ======================ACC:61.81====================
+BEST EPOCH:99, BEST ACC:63.88
+Epoch: 104 [12800/40310 (32%)]	 Training Loss: 0.611 ACC: 81.61
+Epoch: 104 [25600/40310 (64%)]	 Training Loss: 0.619 ACC: 81.44
+Epoch: 104 [38400/40310 (95%)]	 Training Loss: 0.631 ACC: 81.10
+EPOCH:104, ======================ACC:62.36====================
+BEST EPOCH:99, BEST ACC:63.88
+Epoch: 105 [12800/40310 (32%)]	 Training Loss: 0.602 ACC: 82.09
+Epoch: 105 [25600/40310 (64%)]	 Training Loss: 0.608 ACC: 81.80
+Epoch: 105 [38400/40310 (95%)]	 Training Loss: 0.622 ACC: 81.29
+EPOCH:105, ======================ACC:62.0====================
+BEST EPOCH:99, BEST ACC:63.88
+Epoch: 106 [12800/40310 (32%)]	 Training Loss: 0.575 ACC: 82.48
+Epoch: 106 [25600/40310 (64%)]	 Training Loss: 0.589 ACC: 82.27
+Epoch: 106 [38400/40310 (95%)]	 Training Loss: 0.610 ACC: 81.57
+EPOCH:106, ======================ACC:62.43====================
+BEST EPOCH:99, BEST ACC:63.88
+Epoch: 107 [12800/40310 (32%)]	 Training Loss: 0.584 ACC: 82.28
+Epoch: 107 [25600/40310 (64%)]	 Training Loss: 0.572 ACC: 82.54
+Epoch: 107 [38400/40310 (95%)]	 Training Loss: 0.592 ACC: 82.14
+EPOCH:107, ======================ACC:63.29====================
+BEST EPOCH:99, BEST ACC:63.88
+Epoch: 108 [12800/40310 (32%)]	 Training Loss: 0.572 ACC: 82.80
+Epoch: 108 [25600/40310 (64%)]	 Training Loss: 0.575 ACC: 82.68
+Epoch: 108 [38400/40310 (95%)]	 Training Loss: 0.582 ACC: 82.36
+EPOCH:108, ======================ACC:63.82====================
+BEST EPOCH:99, BEST ACC:63.88
+Epoch: 109 [12800/40310 (32%)]	 Training Loss: 0.536 ACC: 83.88
+Epoch: 109 [25600/40310 (64%)]	 Training Loss: 0.552 ACC: 83.42
+Epoch: 109 [38400/40310 (95%)]	 Training Loss: 0.576 ACC: 82.60
+EPOCH:109, ======================ACC:63.17====================
+BEST EPOCH:99, BEST ACC:63.88
+Epoch: 110 [12800/40310 (32%)]	 Training Loss: 0.524 ACC: 84.10
+Epoch: 110 [25600/40310 (64%)]	 Training Loss: 0.537 ACC: 83.75
+Epoch: 110 [38400/40310 (95%)]	 Training Loss: 0.551 ACC: 83.45
+EPOCH:110, ======================ACC:63.2====================
+BEST EPOCH:99, BEST ACC:63.88
+Epoch: 111 [12800/40310 (32%)]	 Training Loss: 0.533 ACC: 84.09
+Epoch: 111 [25600/40310 (64%)]	 Training Loss: 0.555 ACC: 83.18
+Epoch: 111 [38400/40310 (95%)]	 Training Loss: 0.569 ACC: 82.78
+EPOCH:111, ======================ACC:65.46====================
+BEST EPOCH:111, BEST ACC:65.46
+Epoch: 112 [12800/40310 (32%)]	 Training Loss: 0.492 ACC: 85.12
+Epoch: 112 [25600/40310 (64%)]	 Training Loss: 0.508 ACC: 84.63
+Epoch: 112 [38400/40310 (95%)]	 Training Loss: 0.527 ACC: 84.10
+EPOCH:112, ======================ACC:65.64====================
+BEST EPOCH:112, BEST ACC:65.64
+Epoch: 113 [12800/40310 (32%)]	 Training Loss: 0.491 ACC: 85.20
+Epoch: 113 [25600/40310 (64%)]	 Training Loss: 0.496 ACC: 85.05
+Epoch: 113 [38400/40310 (95%)]	 Training Loss: 0.517 ACC: 84.44
+EPOCH:113, ======================ACC:65.41====================
+BEST EPOCH:112, BEST ACC:65.64
+Epoch: 114 [12800/40310 (32%)]	 Training Loss: 0.493 ACC: 85.38
+Epoch: 114 [25600/40310 (64%)]	 Training Loss: 0.507 ACC: 84.91
+Epoch: 114 [38400/40310 (95%)]	 Training Loss: 0.528 ACC: 84.24
+EPOCH:114, ======================ACC:63.31====================
+BEST EPOCH:112, BEST ACC:65.64
+Epoch: 115 [12800/40310 (32%)]	 Training Loss: 0.481 ACC: 85.61
+Epoch: 115 [25600/40310 (64%)]	 Training Loss: 0.493 ACC: 85.20
+Epoch: 115 [38400/40310 (95%)]	 Training Loss: 0.503 ACC: 84.83
+EPOCH:115, ======================ACC:63.8====================
+BEST EPOCH:112, BEST ACC:65.64
+Epoch: 116 [12800/40310 (32%)]	 Training Loss: 0.468 ACC: 86.09
+Epoch: 116 [25600/40310 (64%)]	 Training Loss: 0.475 ACC: 85.87
+Epoch: 116 [38400/40310 (95%)]	 Training Loss: 0.495 ACC: 85.21
+EPOCH:116, ======================ACC:64.86====================
+BEST EPOCH:112, BEST ACC:65.64
+Epoch: 117 [12800/40310 (32%)]	 Training Loss: 0.481 ACC: 85.37
+Epoch: 117 [25600/40310 (64%)]	 Training Loss: 0.473 ACC: 85.77
+Epoch: 117 [38400/40310 (95%)]	 Training Loss: 0.487 ACC: 85.25
+EPOCH:117, ======================ACC:63.87====================
+BEST EPOCH:112, BEST ACC:65.64
+Epoch: 118 [12800/40310 (32%)]	 Training Loss: 0.462 ACC: 86.11
+Epoch: 118 [25600/40310 (64%)]	 Training Loss: 0.474 ACC: 85.84
+Epoch: 118 [38400/40310 (95%)]	 Training Loss: 0.486 ACC: 85.41
+EPOCH:118, ======================ACC:64.57====================
+BEST EPOCH:112, BEST ACC:65.64
+Epoch: 119 [12800/40310 (32%)]	 Training Loss: 0.428 ACC: 87.11
+Epoch: 119 [25600/40310 (64%)]	 Training Loss: 0.447 ACC: 86.47
+Epoch: 119 [38400/40310 (95%)]	 Training Loss: 0.466 ACC: 85.88
+EPOCH:119, ======================ACC:63.04====================
+BEST EPOCH:112, BEST ACC:65.64
+Epoch: 120 [12800/40310 (32%)]	 Training Loss: 0.433 ACC: 86.80
+Epoch: 120 [25600/40310 (64%)]	 Training Loss: 0.433 ACC: 86.89
+Epoch: 120 [38400/40310 (95%)]	 Training Loss: 0.447 ACC: 86.48
+EPOCH:120, ======================ACC:63.66====================
+BEST EPOCH:112, BEST ACC:65.64
+Epoch: 121 [12800/40310 (32%)]	 Training Loss: 0.423 ACC: 87.31
+Epoch: 121 [25600/40310 (64%)]	 Training Loss: 0.437 ACC: 86.87
+Epoch: 121 [38400/40310 (95%)]	 Training Loss: 0.454 ACC: 86.24
+EPOCH:121, ======================ACC:65.63====================
+BEST EPOCH:112, BEST ACC:65.64
+Epoch: 122 [12800/40310 (32%)]	 Training Loss: 0.405 ACC: 87.99
+Epoch: 122 [25600/40310 (64%)]	 Training Loss: 0.433 ACC: 87.19
+Epoch: 122 [38400/40310 (95%)]	 Training Loss: 0.436 ACC: 87.02
+EPOCH:122, ======================ACC:61.94====================
+BEST EPOCH:112, BEST ACC:65.64
+Epoch: 123 [12800/40310 (32%)]	 Training Loss: 0.391 ACC: 88.32
+Epoch: 123 [25600/40310 (64%)]	 Training Loss: 0.407 ACC: 87.68
+Epoch: 123 [38400/40310 (95%)]	 Training Loss: 0.426 ACC: 87.12
+EPOCH:123, ======================ACC:63.26====================
+BEST EPOCH:112, BEST ACC:65.64
+Epoch: 124 [12800/40310 (32%)]	 Training Loss: 0.404 ACC: 87.86
+Epoch: 124 [25600/40310 (64%)]	 Training Loss: 0.404 ACC: 87.82
+Epoch: 124 [38400/40310 (95%)]	 Training Loss: 0.412 ACC: 87.57
+EPOCH:124, ======================ACC:65.59====================
+BEST EPOCH:112, BEST ACC:65.64
+Epoch: 125 [12800/40310 (32%)]	 Training Loss: 0.384 ACC: 88.52
+Epoch: 125 [25600/40310 (64%)]	 Training Loss: 0.391 ACC: 88.35
+Epoch: 125 [38400/40310 (95%)]	 Training Loss: 0.403 ACC: 87.95
+EPOCH:125, ======================ACC:65.57====================
+BEST EPOCH:112, BEST ACC:65.64
+Epoch: 126 [12800/40310 (32%)]	 Training Loss: 0.361 ACC: 89.38
+Epoch: 126 [25600/40310 (64%)]	 Training Loss: 0.367 ACC: 88.96
+Epoch: 126 [38400/40310 (95%)]	 Training Loss: 0.386 ACC: 88.46
+EPOCH:126, ======================ACC:64.48====================
+BEST EPOCH:112, BEST ACC:65.64
+Epoch: 127 [12800/40310 (32%)]	 Training Loss: 0.359 ACC: 89.69
+Epoch: 127 [25600/40310 (64%)]	 Training Loss: 0.362 ACC: 89.37
+Epoch: 127 [38400/40310 (95%)]	 Training Loss: 0.376 ACC: 88.89
+EPOCH:127, ======================ACC:65.86====================
+BEST EPOCH:127, BEST ACC:65.86
+Epoch: 128 [12800/40310 (32%)]	 Training Loss: 0.347 ACC: 89.63
+Epoch: 128 [25600/40310 (64%)]	 Training Loss: 0.365 ACC: 89.08
+Epoch: 128 [38400/40310 (95%)]	 Training Loss: 0.379 ACC: 88.66
+EPOCH:128, ======================ACC:66.46====================
+BEST EPOCH:128, BEST ACC:66.46
+Epoch: 129 [12800/40310 (32%)]	 Training Loss: 0.344 ACC: 89.72
+Epoch: 129 [25600/40310 (64%)]	 Training Loss: 0.351 ACC: 89.43
+Epoch: 129 [38400/40310 (95%)]	 Training Loss: 0.366 ACC: 89.02
+EPOCH:129, ======================ACC:65.51====================
+BEST EPOCH:128, BEST ACC:66.46
+Epoch: 130 [12800/40310 (32%)]	 Training Loss: 0.335 ACC: 90.20
+Epoch: 130 [25600/40310 (64%)]	 Training Loss: 0.346 ACC: 89.81
+Epoch: 130 [38400/40310 (95%)]	 Training Loss: 0.354 ACC: 89.42
+EPOCH:130, ======================ACC:67.27====================
+BEST EPOCH:130, BEST ACC:67.27
+Epoch: 131 [12800/40310 (32%)]	 Training Loss: 0.335 ACC: 89.95
+Epoch: 131 [25600/40310 (64%)]	 Training Loss: 0.340 ACC: 89.95
+Epoch: 131 [38400/40310 (95%)]	 Training Loss: 0.350 ACC: 89.65
+EPOCH:131, ======================ACC:66.83====================
+BEST EPOCH:130, BEST ACC:67.27
+Epoch: 132 [12800/40310 (32%)]	 Training Loss: 0.307 ACC: 90.98
+Epoch: 132 [25600/40310 (64%)]	 Training Loss: 0.331 ACC: 90.17
+Epoch: 132 [38400/40310 (95%)]	 Training Loss: 0.340 ACC: 89.90
+EPOCH:132, ======================ACC:66.56====================
+BEST EPOCH:130, BEST ACC:67.27
+Epoch: 133 [12800/40310 (32%)]	 Training Loss: 0.303 ACC: 90.77
+Epoch: 133 [25600/40310 (64%)]	 Training Loss: 0.306 ACC: 90.80
+Epoch: 133 [38400/40310 (95%)]	 Training Loss: 0.316 ACC: 90.56
+EPOCH:133, ======================ACC:67.01====================
+BEST EPOCH:130, BEST ACC:67.27
+Epoch: 134 [12800/40310 (32%)]	 Training Loss: 0.312 ACC: 90.56
+Epoch: 134 [25600/40310 (64%)]	 Training Loss: 0.312 ACC: 90.75
+Epoch: 134 [38400/40310 (95%)]	 Training Loss: 0.320 ACC: 90.48
+EPOCH:134, ======================ACC:66.38====================
+BEST EPOCH:130, BEST ACC:67.27
+Epoch: 135 [12800/40310 (32%)]	 Training Loss: 0.293 ACC: 91.66
+Epoch: 135 [25600/40310 (64%)]	 Training Loss: 0.295 ACC: 91.36
+Epoch: 135 [38400/40310 (95%)]	 Training Loss: 0.301 ACC: 91.24
+EPOCH:135, ======================ACC:66.77====================
+BEST EPOCH:130, BEST ACC:67.27
+Epoch: 136 [12800/40310 (32%)]	 Training Loss: 0.291 ACC: 91.51
+Epoch: 136 [25600/40310 (64%)]	 Training Loss: 0.295 ACC: 91.30
+Epoch: 136 [38400/40310 (95%)]	 Training Loss: 0.303 ACC: 90.97
+EPOCH:136, ======================ACC:66.66====================
+BEST EPOCH:130, BEST ACC:67.27
+Epoch: 137 [12800/40310 (32%)]	 Training Loss: 0.279 ACC: 91.61
+Epoch: 137 [25600/40310 (64%)]	 Training Loss: 0.269 ACC: 91.91
+Epoch: 137 [38400/40310 (95%)]	 Training Loss: 0.277 ACC: 91.70
+EPOCH:137, ======================ACC:67.98====================
+BEST EPOCH:137, BEST ACC:67.98
+Epoch: 138 [12800/40310 (32%)]	 Training Loss: 0.254 ACC: 92.48
+Epoch: 138 [25600/40310 (64%)]	 Training Loss: 0.266 ACC: 92.11
+Epoch: 138 [38400/40310 (95%)]	 Training Loss: 0.275 ACC: 91.86
+EPOCH:138, ======================ACC:68.3====================
+BEST EPOCH:138, BEST ACC:68.3
+Epoch: 139 [12800/40310 (32%)]	 Training Loss: 0.256 ACC: 92.57
+Epoch: 139 [25600/40310 (64%)]	 Training Loss: 0.256 ACC: 92.42
+Epoch: 139 [38400/40310 (95%)]	 Training Loss: 0.265 ACC: 92.15
+EPOCH:139, ======================ACC:66.05====================
+BEST EPOCH:138, BEST ACC:68.3
+Epoch: 140 [12800/40310 (32%)]	 Training Loss: 0.255 ACC: 92.30
+Epoch: 140 [25600/40310 (64%)]	 Training Loss: 0.262 ACC: 92.18
+Epoch: 140 [38400/40310 (95%)]	 Training Loss: 0.262 ACC: 92.23
+EPOCH:140, ======================ACC:67.1====================
+BEST EPOCH:138, BEST ACC:68.3
+Epoch: 141 [12800/40310 (32%)]	 Training Loss: 0.247 ACC: 92.71
+Epoch: 141 [25600/40310 (64%)]	 Training Loss: 0.242 ACC: 92.79
+Epoch: 141 [38400/40310 (95%)]	 Training Loss: 0.244 ACC: 92.76
+EPOCH:141, ======================ACC:68.08====================
+BEST EPOCH:138, BEST ACC:68.3
+Epoch: 142 [12800/40310 (32%)]	 Training Loss: 0.209 ACC: 93.94
+Epoch: 142 [25600/40310 (64%)]	 Training Loss: 0.223 ACC: 93.44
+Epoch: 142 [38400/40310 (95%)]	 Training Loss: 0.228 ACC: 93.31
+EPOCH:142, ======================ACC:67.92====================
+BEST EPOCH:138, BEST ACC:68.3
+Epoch: 143 [12800/40310 (32%)]	 Training Loss: 0.211 ACC: 93.96
+Epoch: 143 [25600/40310 (64%)]	 Training Loss: 0.215 ACC: 93.81
+Epoch: 143 [38400/40310 (95%)]	 Training Loss: 0.215 ACC: 93.82
+EPOCH:143, ======================ACC:68.8====================
+BEST EPOCH:143, BEST ACC:68.8
+Epoch: 144 [12800/40310 (32%)]	 Training Loss: 0.206 ACC: 93.95
+Epoch: 144 [25600/40310 (64%)]	 Training Loss: 0.209 ACC: 93.87
+Epoch: 144 [38400/40310 (95%)]	 Training Loss: 0.218 ACC: 93.58
+EPOCH:144, ======================ACC:69.22====================
+BEST EPOCH:144, BEST ACC:69.22
+Epoch: 145 [12800/40310 (32%)]	 Training Loss: 0.212 ACC: 93.89
+Epoch: 145 [25600/40310 (64%)]	 Training Loss: 0.216 ACC: 93.71
+Epoch: 145 [38400/40310 (95%)]	 Training Loss: 0.215 ACC: 93.76
+EPOCH:145, ======================ACC:67.41====================
+BEST EPOCH:144, BEST ACC:69.22
+Epoch: 146 [12800/40310 (32%)]	 Training Loss: 0.206 ACC: 94.09
+Epoch: 146 [25600/40310 (64%)]	 Training Loss: 0.205 ACC: 94.09
+Epoch: 146 [38400/40310 (95%)]	 Training Loss: 0.206 ACC: 93.96
+EPOCH:146, ======================ACC:69.36====================
+BEST EPOCH:146, BEST ACC:69.36
+Epoch: 147 [12800/40310 (32%)]	 Training Loss: 0.193 ACC: 94.36
+Epoch: 147 [25600/40310 (64%)]	 Training Loss: 0.188 ACC: 94.50
+Epoch: 147 [38400/40310 (95%)]	 Training Loss: 0.193 ACC: 94.36
+EPOCH:147, ======================ACC:69.39====================
+BEST EPOCH:147, BEST ACC:69.39
+Epoch: 148 [12800/40310 (32%)]	 Training Loss: 0.180 ACC: 94.95
+Epoch: 148 [25600/40310 (64%)]	 Training Loss: 0.181 ACC: 94.80
+Epoch: 148 [38400/40310 (95%)]	 Training Loss: 0.190 ACC: 94.57
+EPOCH:148, ======================ACC:67.75====================
+BEST EPOCH:147, BEST ACC:69.39
+Epoch: 149 [12800/40310 (32%)]	 Training Loss: 0.178 ACC: 94.86
+Epoch: 149 [25600/40310 (64%)]	 Training Loss: 0.176 ACC: 94.98
+Epoch: 149 [38400/40310 (95%)]	 Training Loss: 0.181 ACC: 94.82
+EPOCH:149, ======================ACC:69.6====================
+BEST EPOCH:149, BEST ACC:69.6
+Epoch: 150 [12800/40310 (32%)]	 Training Loss: 0.169 ACC: 95.19
+Epoch: 150 [25600/40310 (64%)]	 Training Loss: 0.171 ACC: 95.15
+Epoch: 150 [38400/40310 (95%)]	 Training Loss: 0.175 ACC: 95.02
+EPOCH:150, ======================ACC:69.52====================
+BEST EPOCH:149, BEST ACC:69.6
+Epoch: 151 [12800/40310 (32%)]	 Training Loss: 0.160 ACC: 95.59
+Epoch: 151 [25600/40310 (64%)]	 Training Loss: 0.155 ACC: 95.68
+Epoch: 151 [38400/40310 (95%)]	 Training Loss: 0.158 ACC: 95.55
+EPOCH:151, ======================ACC:69.56====================
+BEST EPOCH:149, BEST ACC:69.6
+Epoch: 152 [12800/40310 (32%)]	 Training Loss: 0.149 ACC: 96.02
+Epoch: 152 [25600/40310 (64%)]	 Training Loss: 0.149 ACC: 95.88
+Epoch: 152 [38400/40310 (95%)]	 Training Loss: 0.153 ACC: 95.78
+EPOCH:152, ======================ACC:69.24====================
+BEST EPOCH:149, BEST ACC:69.6
+Epoch: 153 [12800/40310 (32%)]	 Training Loss: 0.143 ACC: 95.98
+Epoch: 153 [25600/40310 (64%)]	 Training Loss: 0.142 ACC: 95.96
+Epoch: 153 [38400/40310 (95%)]	 Training Loss: 0.149 ACC: 95.72
+EPOCH:153, ======================ACC:69.99====================
+BEST EPOCH:153, BEST ACC:69.99
+Epoch: 154 [12800/40310 (32%)]	 Training Loss: 0.140 ACC: 96.16
+Epoch: 154 [25600/40310 (64%)]	 Training Loss: 0.140 ACC: 96.16
+Epoch: 154 [38400/40310 (95%)]	 Training Loss: 0.138 ACC: 96.14
+EPOCH:154, ======================ACC:70.32====================
+BEST EPOCH:154, BEST ACC:70.32
+Epoch: 155 [12800/40310 (32%)]	 Training Loss: 0.136 ACC: 96.19
+Epoch: 155 [25600/40310 (64%)]	 Training Loss: 0.133 ACC: 96.22
+Epoch: 155 [38400/40310 (95%)]	 Training Loss: 0.135 ACC: 96.18
+EPOCH:155, ======================ACC:70.92====================
+BEST EPOCH:155, BEST ACC:70.92
+Epoch: 156 [12800/40310 (32%)]	 Training Loss: 0.116 ACC: 96.71
+Epoch: 156 [25600/40310 (64%)]	 Training Loss: 0.115 ACC: 96.75
+Epoch: 156 [38400/40310 (95%)]	 Training Loss: 0.118 ACC: 96.66
+EPOCH:156, ======================ACC:70.63====================
+BEST EPOCH:155, BEST ACC:70.92
+Epoch: 157 [12800/40310 (32%)]	 Training Loss: 0.107 ACC: 96.99
+Epoch: 157 [25600/40310 (64%)]	 Training Loss: 0.114 ACC: 96.79
+Epoch: 157 [38400/40310 (95%)]	 Training Loss: 0.117 ACC: 96.69
+EPOCH:157, ======================ACC:71.14====================
+BEST EPOCH:157, BEST ACC:71.14
+Epoch: 158 [12800/40310 (32%)]	 Training Loss: 0.106 ACC: 97.08
+Epoch: 158 [25600/40310 (64%)]	 Training Loss: 0.113 ACC: 96.80
+Epoch: 158 [38400/40310 (95%)]	 Training Loss: 0.112 ACC: 96.86
+EPOCH:158, ======================ACC:70.97====================
+BEST EPOCH:157, BEST ACC:71.14
+Epoch: 159 [12800/40310 (32%)]	 Training Loss: 0.104 ACC: 97.21
+Epoch: 159 [25600/40310 (64%)]	 Training Loss: 0.104 ACC: 97.14
+Epoch: 159 [38400/40310 (95%)]	 Training Loss: 0.105 ACC: 97.15
+EPOCH:159, ======================ACC:71.52====================
+BEST EPOCH:159, BEST ACC:71.52
+Epoch: 160 [12800/40310 (32%)]	 Training Loss: 0.094 ACC: 97.50
+Epoch: 160 [25600/40310 (64%)]	 Training Loss: 0.098 ACC: 97.36
+Epoch: 160 [38400/40310 (95%)]	 Training Loss: 0.100 ACC: 97.29
+EPOCH:160, ======================ACC:70.91====================
+BEST EPOCH:159, BEST ACC:71.52
+Epoch: 161 [12800/40310 (32%)]	 Training Loss: 0.092 ACC: 97.58
+Epoch: 161 [25600/40310 (64%)]	 Training Loss: 0.093 ACC: 97.50
+Epoch: 161 [38400/40310 (95%)]	 Training Loss: 0.094 ACC: 97.46
+EPOCH:161, ======================ACC:71.85====================
+BEST EPOCH:161, BEST ACC:71.85
+Epoch: 162 [12800/40310 (32%)]	 Training Loss: 0.090 ACC: 97.55
+Epoch: 162 [25600/40310 (64%)]	 Training Loss: 0.086 ACC: 97.72
+Epoch: 162 [38400/40310 (95%)]	 Training Loss: 0.086 ACC: 97.70
+EPOCH:162, ======================ACC:71.94====================
+BEST EPOCH:162, BEST ACC:71.94
+Epoch: 163 [12800/40310 (32%)]	 Training Loss: 0.078 ACC: 97.97
+Epoch: 163 [25600/40310 (64%)]	 Training Loss: 0.080 ACC: 97.93
+Epoch: 163 [38400/40310 (95%)]	 Training Loss: 0.081 ACC: 97.89
+EPOCH:163, ======================ACC:72.2====================
+BEST EPOCH:163, BEST ACC:72.2
+Epoch: 164 [12800/40310 (32%)]	 Training Loss: 0.077 ACC: 98.02
+Epoch: 164 [25600/40310 (64%)]	 Training Loss: 0.075 ACC: 98.11
+Epoch: 164 [38400/40310 (95%)]	 Training Loss: 0.078 ACC: 98.01
+EPOCH:164, ======================ACC:72.24====================
+BEST EPOCH:164, BEST ACC:72.24
+Epoch: 165 [12800/40310 (32%)]	 Training Loss: 0.078 ACC: 97.95
+Epoch: 165 [25600/40310 (64%)]	 Training Loss: 0.077 ACC: 97.96
+Epoch: 165 [38400/40310 (95%)]	 Training Loss: 0.079 ACC: 97.88
+EPOCH:165, ======================ACC:71.62====================
+BEST EPOCH:164, BEST ACC:72.24
+Epoch: 166 [12800/40310 (32%)]	 Training Loss: 0.069 ACC: 98.20
+Epoch: 166 [25600/40310 (64%)]	 Training Loss: 0.066 ACC: 98.33
+Epoch: 166 [38400/40310 (95%)]	 Training Loss: 0.067 ACC: 98.29
+EPOCH:166, ======================ACC:72.53====================
+BEST EPOCH:166, BEST ACC:72.53
+Epoch: 167 [12800/40310 (32%)]	 Training Loss: 0.066 ACC: 98.36
+Epoch: 167 [25600/40310 (64%)]	 Training Loss: 0.065 ACC: 98.36
+Epoch: 167 [38400/40310 (95%)]	 Training Loss: 0.067 ACC: 98.29
+EPOCH:167, ======================ACC:72.34====================
+BEST EPOCH:166, BEST ACC:72.53
+Epoch: 168 [12800/40310 (32%)]	 Training Loss: 0.061 ACC: 98.48
+Epoch: 168 [25600/40310 (64%)]	 Training Loss: 0.060 ACC: 98.51
+Epoch: 168 [38400/40310 (95%)]	 Training Loss: 0.063 ACC: 98.43
+EPOCH:168, ======================ACC:72.15====================
+BEST EPOCH:166, BEST ACC:72.53
+Epoch: 169 [12800/40310 (32%)]	 Training Loss: 0.061 ACC: 98.51
+Epoch: 169 [25600/40310 (64%)]	 Training Loss: 0.059 ACC: 98.58
+Epoch: 169 [38400/40310 (95%)]	 Training Loss: 0.059 ACC: 98.58
+EPOCH:169, ======================ACC:72.68====================
+BEST EPOCH:169, BEST ACC:72.68
+Epoch: 170 [12800/40310 (32%)]	 Training Loss: 0.055 ACC: 98.55
+Epoch: 170 [25600/40310 (64%)]	 Training Loss: 0.056 ACC: 98.55
+Epoch: 170 [38400/40310 (95%)]	 Training Loss: 0.058 ACC: 98.52
+EPOCH:170, ======================ACC:73.11====================
+BEST EPOCH:170, BEST ACC:73.11
+Epoch: 171 [12800/40310 (32%)]	 Training Loss: 0.055 ACC: 98.56
+Epoch: 171 [25600/40310 (64%)]	 Training Loss: 0.053 ACC: 98.69
+Epoch: 171 [38400/40310 (95%)]	 Training Loss: 0.054 ACC: 98.67
+EPOCH:171, ======================ACC:72.73====================
+BEST EPOCH:170, BEST ACC:73.11
+Epoch: 172 [12800/40310 (32%)]	 Training Loss: 0.051 ACC: 98.73
+Epoch: 172 [25600/40310 (64%)]	 Training Loss: 0.052 ACC: 98.71
+Epoch: 172 [38400/40310 (95%)]	 Training Loss: 0.052 ACC: 98.72
+EPOCH:172, ======================ACC:72.7====================
+BEST EPOCH:170, BEST ACC:73.11
+Epoch: 173 [12800/40310 (32%)]	 Training Loss: 0.048 ACC: 98.91
+Epoch: 173 [25600/40310 (64%)]	 Training Loss: 0.050 ACC: 98.84
+Epoch: 173 [38400/40310 (95%)]	 Training Loss: 0.049 ACC: 98.86
+EPOCH:173, ======================ACC:72.91====================
+BEST EPOCH:170, BEST ACC:73.11
+Epoch: 174 [12800/40310 (32%)]	 Training Loss: 0.051 ACC: 98.68
+Epoch: 174 [25600/40310 (64%)]	 Training Loss: 0.049 ACC: 98.77
+Epoch: 174 [38400/40310 (95%)]	 Training Loss: 0.049 ACC: 98.80
+EPOCH:174, ======================ACC:73.06====================
+BEST EPOCH:170, BEST ACC:73.11
+Epoch: 175 [12800/40310 (32%)]	 Training Loss: 0.044 ACC: 98.84
+Epoch: 175 [25600/40310 (64%)]	 Training Loss: 0.044 ACC: 98.90
+Epoch: 175 [38400/40310 (95%)]	 Training Loss: 0.043 ACC: 98.97
+EPOCH:175, ======================ACC:73.44====================
+BEST EPOCH:175, BEST ACC:73.44
+Epoch: 176 [12800/40310 (32%)]	 Training Loss: 0.041 ACC: 99.16
+Epoch: 176 [25600/40310 (64%)]	 Training Loss: 0.041 ACC: 99.07
+Epoch: 176 [38400/40310 (95%)]	 Training Loss: 0.041 ACC: 99.08
+EPOCH:176, ======================ACC:73.5====================
+BEST EPOCH:176, BEST ACC:73.5
+Epoch: 177 [12800/40310 (32%)]	 Training Loss: 0.037 ACC: 99.20
+Epoch: 177 [25600/40310 (64%)]	 Training Loss: 0.038 ACC: 99.17
+Epoch: 177 [38400/40310 (95%)]	 Training Loss: 0.039 ACC: 99.13
+EPOCH:177, ======================ACC:73.06====================
+BEST EPOCH:176, BEST ACC:73.5
+Epoch: 178 [12800/40310 (32%)]	 Training Loss: 0.035 ACC: 99.21
+Epoch: 178 [25600/40310 (64%)]	 Training Loss: 0.036 ACC: 99.19
+Epoch: 178 [38400/40310 (95%)]	 Training Loss: 0.037 ACC: 99.17
+EPOCH:178, ======================ACC:72.98====================
+BEST EPOCH:176, BEST ACC:73.5
+Epoch: 179 [12800/40310 (32%)]	 Training Loss: 0.035 ACC: 99.28
+Epoch: 179 [25600/40310 (64%)]	 Training Loss: 0.035 ACC: 99.24
+Epoch: 179 [38400/40310 (95%)]	 Training Loss: 0.037 ACC: 99.14
+EPOCH:179, ======================ACC:72.95====================
+BEST EPOCH:176, BEST ACC:73.5
+Epoch: 180 [12800/40310 (32%)]	 Training Loss: 0.035 ACC: 99.19
+Epoch: 180 [25600/40310 (64%)]	 Training Loss: 0.034 ACC: 99.27
+Epoch: 180 [38400/40310 (95%)]	 Training Loss: 0.033 ACC: 99.24
+EPOCH:180, ======================ACC:73.91====================
+BEST EPOCH:180, BEST ACC:73.91
+Epoch: 181 [12800/40310 (32%)]	 Training Loss: 0.034 ACC: 99.24
+Epoch: 181 [25600/40310 (64%)]	 Training Loss: 0.034 ACC: 99.20
+Epoch: 181 [38400/40310 (95%)]	 Training Loss: 0.034 ACC: 99.22
+EPOCH:181, ======================ACC:73.64====================
+BEST EPOCH:180, BEST ACC:73.91
+Epoch: 182 [12800/40310 (32%)]	 Training Loss: 0.032 ACC: 99.20
+Epoch: 182 [25600/40310 (64%)]	 Training Loss: 0.032 ACC: 99.22
+Epoch: 182 [38400/40310 (95%)]	 Training Loss: 0.032 ACC: 99.27
+EPOCH:182, ======================ACC:73.58====================
+BEST EPOCH:180, BEST ACC:73.91
+Epoch: 183 [12800/40310 (32%)]	 Training Loss: 0.029 ACC: 99.44
+Epoch: 183 [25600/40310 (64%)]	 Training Loss: 0.030 ACC: 99.38
+Epoch: 183 [38400/40310 (95%)]	 Training Loss: 0.030 ACC: 99.39
+EPOCH:183, ======================ACC:74.05====================
+BEST EPOCH:183, BEST ACC:74.05
+Epoch: 184 [12800/40310 (32%)]	 Training Loss: 0.029 ACC: 99.36
+Epoch: 184 [25600/40310 (64%)]	 Training Loss: 0.027 ACC: 99.40
+Epoch: 184 [38400/40310 (95%)]	 Training Loss: 0.027 ACC: 99.38
+EPOCH:184, ======================ACC:74.02====================
+BEST EPOCH:183, BEST ACC:74.05
+Epoch: 185 [12800/40310 (32%)]	 Training Loss: 0.027 ACC: 99.44
+Epoch: 185 [25600/40310 (64%)]	 Training Loss: 0.027 ACC: 99.40
+Epoch: 185 [38400/40310 (95%)]	 Training Loss: 0.027 ACC: 99.42
+EPOCH:185, ======================ACC:74.14====================
+BEST EPOCH:185, BEST ACC:74.14
+Epoch: 186 [12800/40310 (32%)]	 Training Loss: 0.026 ACC: 99.48
+Epoch: 186 [25600/40310 (64%)]	 Training Loss: 0.027 ACC: 99.45
+Epoch: 186 [38400/40310 (95%)]	 Training Loss: 0.027 ACC: 99.45
+EPOCH:186, ======================ACC:74.03====================
+BEST EPOCH:185, BEST ACC:74.14
+Epoch: 187 [12800/40310 (32%)]	 Training Loss: 0.027 ACC: 99.46
+Epoch: 187 [25600/40310 (64%)]	 Training Loss: 0.028 ACC: 99.41
+Epoch: 187 [38400/40310 (95%)]	 Training Loss: 0.028 ACC: 99.43
+EPOCH:187, ======================ACC:74.31====================
+BEST EPOCH:187, BEST ACC:74.31
+Epoch: 188 [12800/40310 (32%)]	 Training Loss: 0.028 ACC: 99.41
+Epoch: 188 [25600/40310 (64%)]	 Training Loss: 0.027 ACC: 99.45
+Epoch: 188 [38400/40310 (95%)]	 Training Loss: 0.027 ACC: 99.43
+EPOCH:188, ======================ACC:74.1====================
+BEST EPOCH:187, BEST ACC:74.31
+Epoch: 189 [12800/40310 (32%)]	 Training Loss: 0.027 ACC: 99.40
+Epoch: 189 [25600/40310 (64%)]	 Training Loss: 0.026 ACC: 99.45
+Epoch: 189 [38400/40310 (95%)]	 Training Loss: 0.025 ACC: 99.50
+EPOCH:189, ======================ACC:73.93====================
+BEST EPOCH:187, BEST ACC:74.31
+Epoch: 190 [12800/40310 (32%)]	 Training Loss: 0.027 ACC: 99.41
+Epoch: 190 [25600/40310 (64%)]	 Training Loss: 0.026 ACC: 99.47
+Epoch: 190 [38400/40310 (95%)]	 Training Loss: 0.025 ACC: 99.51
+EPOCH:190, ======================ACC:74.03====================
+BEST EPOCH:187, BEST ACC:74.31
+Epoch: 191 [12800/40310 (32%)]	 Training Loss: 0.024 ACC: 99.53
+Epoch: 191 [25600/40310 (64%)]	 Training Loss: 0.024 ACC: 99.50
+Epoch: 191 [38400/40310 (95%)]	 Training Loss: 0.024 ACC: 99.51
+EPOCH:191, ======================ACC:74.05====================
+BEST EPOCH:187, BEST ACC:74.31
+Epoch: 192 [12800/40310 (32%)]	 Training Loss: 0.022 ACC: 99.52
+Epoch: 192 [25600/40310 (64%)]	 Training Loss: 0.023 ACC: 99.54
+Epoch: 192 [38400/40310 (95%)]	 Training Loss: 0.023 ACC: 99.53
+EPOCH:192, ======================ACC:74.28====================
+BEST EPOCH:187, BEST ACC:74.31
+Epoch: 193 [12800/40310 (32%)]	 Training Loss: 0.024 ACC: 99.49
+Epoch: 193 [25600/40310 (64%)]	 Training Loss: 0.024 ACC: 99.48
+Epoch: 193 [38400/40310 (95%)]	 Training Loss: 0.023 ACC: 99.53
+EPOCH:193, ======================ACC:74.19====================
+BEST EPOCH:187, BEST ACC:74.31
+Epoch: 194 [12800/40310 (32%)]	 Training Loss: 0.025 ACC: 99.42
+Epoch: 194 [25600/40310 (64%)]	 Training Loss: 0.023 ACC: 99.53
+Epoch: 194 [38400/40310 (95%)]	 Training Loss: 0.023 ACC: 99.53
+EPOCH:194, ======================ACC:74.43====================
+BEST EPOCH:194, BEST ACC:74.43
+Epoch: 195 [12800/40310 (32%)]	 Training Loss: 0.023 ACC: 99.58
+Epoch: 195 [25600/40310 (64%)]	 Training Loss: 0.023 ACC: 99.58
+Epoch: 195 [38400/40310 (95%)]	 Training Loss: 0.022 ACC: 99.57
+EPOCH:195, ======================ACC:74.32====================
+BEST EPOCH:194, BEST ACC:74.43
+Epoch: 196 [12800/40310 (32%)]	 Training Loss: 0.025 ACC: 99.45
+Epoch: 196 [25600/40310 (64%)]	 Training Loss: 0.024 ACC: 99.50
+Epoch: 196 [38400/40310 (95%)]	 Training Loss: 0.024 ACC: 99.52
+EPOCH:196, ======================ACC:74.36====================
+BEST EPOCH:194, BEST ACC:74.43
+Epoch: 197 [12800/40310 (32%)]	 Training Loss: 0.024 ACC: 99.51
+Epoch: 197 [25600/40310 (64%)]	 Training Loss: 0.024 ACC: 99.52
+Epoch: 197 [38400/40310 (95%)]	 Training Loss: 0.023 ACC: 99.54
+EPOCH:197, ======================ACC:74.41====================
+BEST EPOCH:194, BEST ACC:74.43
+Epoch: 198 [12800/40310 (32%)]	 Training Loss: 0.021 ACC: 99.59
+Epoch: 198 [25600/40310 (64%)]	 Training Loss: 0.022 ACC: 99.55
+Epoch: 198 [38400/40310 (95%)]	 Training Loss: 0.022 ACC: 99.57
+EPOCH:198, ======================ACC:74.23====================
+BEST EPOCH:194, BEST ACC:74.43
+Epoch: 199 [12800/40310 (32%)]	 Training Loss: 0.023 ACC: 99.58
+Epoch: 199 [25600/40310 (64%)]	 Training Loss: 0.023 ACC: 99.56
+Epoch: 199 [38400/40310 (95%)]	 Training Loss: 0.023 ACC: 99.54
+EPOCH:199, ======================ACC:74.35====================
+BEST EPOCH:194, BEST ACC:74.43
