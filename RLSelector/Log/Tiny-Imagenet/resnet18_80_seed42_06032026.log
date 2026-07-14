@@ -1,0 +1,998 @@
+2026-06-03 20:26:20 [INFO] Args: {'momentum': 0.9, 'log_interval': 50, 'weight_decay': 0.0001, 'lr': 0.1, 'batch_size': 256, 'seed': 42, 'device': '5', 'resume': False, 'cutout_length': 16, 'root': '/nvme/home/lixiang/baseline/data', 'output_root': '/nvme/home/lixiang/baseline/mask', 'dataset': 'Tiny-Imagenet', 'save_model': False, 'num_worker': 8, 'compression_rate': 0.8, 'keep_ratio': 80, 'epoches': 90, 'model': 'resnet18', 'action_dim': 1, 'state_dim': 512, 'dataset_out': 'tinyimagenet'}
+2026-06-03 20:26:21 [INFO] Loaded dataset Tiny-Imagenet: train=100000, test=10000
+2026-06-03 20:28:05 [INFO] Epoch: 0 [12800/100000 (13%)]	 Training Loss: 2.021 ACC: 12.13 CR: 0.94 Avg R1: 1.66 Avg R2: 9.46 Avg Reward: 11.122757
+2026-06-03 20:28:17 [INFO] Epoch: 0 [25600/100000 (26%)]	 Training Loss: 1.983 ACC: 12.95 CR: 0.87 Avg R1: 3.27 Avg R2: 9.15 Avg Reward: 12.417757
+2026-06-03 20:28:29 [INFO] Epoch: 0 [38400/100000 (38%)]	 Training Loss: 1.968 ACC: 13.33 CR: 0.80 Avg R1: 4.90 Avg R2: 8.83 Avg Reward: 13.729450
+2026-06-03 20:28:41 [INFO] Epoch: 0 [51200/100000 (51%)]	 Training Loss: 1.950 ACC: 13.90 CR: 0.74 Avg R1: 6.08 Avg R2: 8.52 Avg Reward: 14.598469
+2026-06-03 20:28:53 [INFO] Epoch: 0 [64000/100000 (64%)]	 Training Loss: 1.937 ACC: 14.48 CR: 0.68 Avg R1: 6.63 Avg R2: 8.20 Avg Reward: 14.834784
+2026-06-03 20:29:04 [INFO] Epoch: 0 [76800/100000 (77%)]	 Training Loss: 1.926 ACC: 14.87 CR: 0.61 Avg R1: 6.87 Avg R2: 7.89 Avg Reward: 14.755861
+2026-06-03 20:29:16 [INFO] Epoch: 0 [89600/100000 (90%)]	 Training Loss: 1.912 ACC: 15.25 CR: 0.55 Avg R1: 6.92 Avg R2: 7.57 Avg Reward: 14.496207
+2026-06-03 20:29:26 [INFO] EPOCH:0, ======================CR:0.49574====================
+2026-06-03 20:29:26 [INFO] 0.0020641293064773444
+2026-06-03 20:29:29 [INFO] EPOCH:0, ======================ACC:16.02====================
+2026-06-03 20:29:29 [INFO] BEST EPOCH:0,BEST ACC:16.02
+2026-06-03 20:29:42 [INFO] Epoch: 1 [12800/100000 (13%)]	 Training Loss: 1.766 ACC: 19.48 CR: 0.50 Avg R1: 6.19 Avg R2: 4.98 Avg Reward: 11.172704
+2026-06-03 20:29:53 [INFO] Epoch: 1 [25600/100000 (26%)]	 Training Loss: 1.772 ACC: 19.72 CR: 0.50 Avg R1: 6.20 Avg R2: 4.98 Avg Reward: 11.178084
+2026-06-03 20:30:05 [INFO] Epoch: 1 [38400/100000 (38%)]	 Training Loss: 1.760 ACC: 20.01 CR: 0.50 Avg R1: 6.20 Avg R2: 4.98 Avg Reward: 11.183959
+2026-06-03 20:30:17 [INFO] Epoch: 1 [51200/100000 (51%)]	 Training Loss: 1.752 ACC: 20.27 CR: 0.50 Avg R1: 6.20 Avg R2: 4.98 Avg Reward: 11.184179
+2026-06-03 20:30:29 [INFO] Epoch: 1 [64000/100000 (64%)]	 Training Loss: 1.740 ACC: 20.57 CR: 0.50 Avg R1: 6.20 Avg R2: 4.98 Avg Reward: 11.180151
+2026-06-03 20:30:41 [INFO] Epoch: 1 [76800/100000 (77%)]	 Training Loss: 1.727 ACC: 20.96 CR: 0.49 Avg R1: 6.20 Avg R2: 4.98 Avg Reward: 11.176074
+2026-06-03 20:30:53 [INFO] Epoch: 1 [89600/100000 (90%)]	 Training Loss: 1.723 ACC: 21.20 CR: 0.49 Avg R1: 6.20 Avg R2: 4.98 Avg Reward: 11.173223
+2026-06-03 20:31:02 [INFO] EPOCH:1, ======================CR:0.49429====================
+2026-06-03 20:31:02 [INFO] 0.0006831196963563009
+2026-06-03 20:31:06 [INFO] EPOCH:1, ======================ACC:22.13====================
+2026-06-03 20:31:06 [INFO] BEST EPOCH:1,BEST ACC:22.13
+2026-06-03 20:31:18 [INFO] Epoch: 2 [12800/100000 (13%)]	 Training Loss: 1.609 ACC: 25.30 CR: 0.50 Avg R1: 6.18 Avg R2: 5.24 Avg Reward: 11.411611
+2026-06-03 20:31:30 [INFO] Epoch: 2 [25600/100000 (26%)]	 Training Loss: 1.616 ACC: 25.23 CR: 0.50 Avg R1: 6.18 Avg R2: 5.24 Avg Reward: 11.422129
+2026-06-03 20:31:42 [INFO] Epoch: 2 [38400/100000 (38%)]	 Training Loss: 1.611 ACC: 25.35 CR: 0.50 Avg R1: 6.19 Avg R2: 5.24 Avg Reward: 11.428974
+2026-06-03 20:31:53 [INFO] Epoch: 2 [51200/100000 (51%)]	 Training Loss: 1.609 ACC: 25.48 CR: 0.50 Avg R1: 6.19 Avg R2: 5.24 Avg Reward: 11.432610
+2026-06-03 20:32:05 [INFO] Epoch: 2 [64000/100000 (64%)]	 Training Loss: 1.603 ACC: 25.67 CR: 0.50 Avg R1: 6.19 Avg R2: 5.24 Avg Reward: 11.437527
+2026-06-03 20:32:17 [INFO] Epoch: 2 [76800/100000 (77%)]	 Training Loss: 1.599 ACC: 25.84 CR: 0.50 Avg R1: 6.20 Avg R2: 5.25 Avg Reward: 11.446160
+2026-06-03 20:32:29 [INFO] Epoch: 2 [89600/100000 (90%)]	 Training Loss: 1.591 ACC: 26.15 CR: 0.50 Avg R1: 6.21 Avg R2: 5.25 Avg Reward: 11.454247
+2026-06-03 20:32:38 [INFO] EPOCH:2, ======================CR:0.49859====================
+2026-06-03 20:32:38 [INFO] 0.0010284547796442893
+2026-06-03 20:32:42 [INFO] EPOCH:2, ======================ACC:23.05====================
+2026-06-03 20:32:42 [INFO] BEST EPOCH:2,BEST ACC:23.05
+2026-06-03 20:32:54 [INFO] Epoch: 3 [12800/100000 (13%)]	 Training Loss: 1.482 ACC: 29.69 CR: 0.50 Avg R1: 6.23 Avg R2: 5.33 Avg Reward: 11.560522
+2026-06-03 20:33:06 [INFO] Epoch: 3 [25600/100000 (26%)]	 Training Loss: 1.486 ACC: 29.79 CR: 0.50 Avg R1: 6.23 Avg R2: 5.33 Avg Reward: 11.562038
+2026-06-03 20:33:18 [INFO] Epoch: 3 [38400/100000 (38%)]	 Training Loss: 1.481 ACC: 30.09 CR: 0.50 Avg R1: 6.23 Avg R2: 5.33 Avg Reward: 11.560207
+2026-06-03 20:33:29 [INFO] Epoch: 3 [51200/100000 (51%)]	 Training Loss: 1.482 ACC: 30.20 CR: 0.50 Avg R1: 6.23 Avg R2: 5.33 Avg Reward: 11.559585
+2026-06-03 20:33:41 [INFO] Epoch: 3 [64000/100000 (64%)]	 Training Loss: 1.478 ACC: 30.38 CR: 0.50 Avg R1: 6.23 Avg R2: 5.33 Avg Reward: 11.557937
+2026-06-03 20:33:53 [INFO] Epoch: 3 [76800/100000 (77%)]	 Training Loss: 1.473 ACC: 30.74 CR: 0.50 Avg R1: 6.23 Avg R2: 5.33 Avg Reward: 11.556495
+2026-06-03 20:34:05 [INFO] Epoch: 3 [89600/100000 (90%)]	 Training Loss: 1.469 ACC: 30.99 CR: 0.50 Avg R1: 6.23 Avg R2: 5.33 Avg Reward: 11.556137
+2026-06-03 20:34:14 [INFO] EPOCH:3, ======================CR:0.49924====================
+2026-06-03 20:34:14 [INFO] -0.0017248105245280623
+2026-06-03 20:34:18 [INFO] EPOCH:3, ======================ACC:30.38====================
+2026-06-03 20:34:18 [INFO] BEST EPOCH:3,BEST ACC:30.38
+2026-06-03 20:34:30 [INFO] Epoch: 4 [12800/100000 (13%)]	 Training Loss: 1.399 ACC: 34.12 CR: 0.50 Avg R1: 6.25 Avg R2: 5.39 Avg Reward: 11.638714
+2026-06-03 20:34:42 [INFO] Epoch: 4 [25600/100000 (26%)]	 Training Loss: 1.403 ACC: 33.96 CR: 0.50 Avg R1: 6.25 Avg R2: 5.39 Avg Reward: 11.637616
+2026-06-03 20:34:54 [INFO] Epoch: 4 [38400/100000 (38%)]	 Training Loss: 1.406 ACC: 33.88 CR: 0.50 Avg R1: 6.25 Avg R2: 5.39 Avg Reward: 11.643895
+2026-06-03 20:35:06 [INFO] Epoch: 4 [51200/100000 (51%)]	 Training Loss: 1.419 ACC: 34.04 CR: 0.51 Avg R1: 6.26 Avg R2: 5.40 Avg Reward: 11.657688
+2026-06-03 20:35:17 [INFO] Epoch: 4 [64000/100000 (64%)]	 Training Loss: 1.514 ACC: 34.08 CR: 0.54 Avg R1: 6.31 Avg R2: 5.43 Avg Reward: 11.741149
+2026-06-03 20:35:29 [INFO] Epoch: 4 [76800/100000 (77%)]	 Training Loss: 1.601 ACC: 33.94 CR: 0.59 Avg R1: 6.45 Avg R2: 5.50 Avg Reward: 11.948380
+2026-06-03 20:35:40 [INFO] Epoch: 4 [89600/100000 (90%)]	 Training Loss: 1.691 ACC: 33.88 CR: 0.65 Avg R1: 6.63 Avg R2: 5.60 Avg Reward: 12.236448
+2026-06-03 20:35:50 [INFO] EPOCH:4, ======================CR:0.6951====================
+2026-06-03 20:35:50 [INFO] 0.004699068047722545
+2026-06-03 20:35:53 [INFO] EPOCH:4, ======================ACC:30.17====================
+2026-06-03 20:35:53 [INFO] BEST EPOCH:3,BEST ACC:30.38
+2026-06-03 20:36:06 [INFO] Epoch: 5 [12800/100000 (13%)]	 Training Loss: 1.931 ACC: 36.37 CR: 0.72 Avg R1: 8.84 Avg R2: 6.85 Avg Reward: 15.690211
+2026-06-03 20:36:18 [INFO] Epoch: 5 [25600/100000 (26%)]	 Training Loss: 1.897 ACC: 36.36 CR: 0.74 Avg R1: 8.97 Avg R2: 6.92 Avg Reward: 15.885253
+2026-06-03 20:36:30 [INFO] Epoch: 5 [38400/100000 (38%)]	 Training Loss: 1.864 ACC: 36.74 CR: 0.75 Avg R1: 9.08 Avg R2: 6.97 Avg Reward: 16.044292
+2026-06-03 20:36:40 [INFO] Epoch: 5 [51200/100000 (51%)]	 Training Loss: 1.856 ACC: 36.98 CR: 0.77 Avg R1: 9.19 Avg R2: 7.02 Avg Reward: 16.205438
+2026-06-03 20:36:51 [INFO] Epoch: 5 [64000/100000 (64%)]	 Training Loss: 1.845 ACC: 37.17 CR: 0.79 Avg R1: 9.30 Avg R2: 7.07 Avg Reward: 16.369245
+2026-06-03 20:37:02 [INFO] Epoch: 5 [76800/100000 (77%)]	 Training Loss: 1.815 ACC: 37.35 CR: 0.80 Avg R1: 9.40 Avg R2: 7.12 Avg Reward: 16.519322
+2026-06-03 20:37:13 [INFO] Epoch: 5 [89600/100000 (90%)]	 Training Loss: 1.775 ACC: 37.60 CR: 0.80 Avg R1: 9.48 Avg R2: 7.15 Avg Reward: 16.629064
+2026-06-03 20:37:23 [INFO] EPOCH:5, ======================CR:0.80275====================
+2026-06-03 20:37:23 [INFO] 0.016711395572186753
+2026-06-03 20:37:26 [INFO] EPOCH:5, ======================ACC:34.43====================
+2026-06-03 20:37:26 [INFO] BEST EPOCH:5,BEST ACC:34.43
+2026-06-03 20:37:26 [INFO] Saving Masks: current_cr=0.8027, target_cr=0.8000
+2026-06-03 20:37:26 [INFO] Saved standard mask to /nvme/home/lixiang/baseline/mask/tinyimagenet/42/mask_80.npz, epoch=5, acc=34.4300, reason=pretrained-rescale_mask_best-acc_80_06032026_resnet18, selected=80000/100000
+2026-06-03 20:37:26 [INFO] Saved standard mask to /nvme/home/lixiang/baseline/mask/tinyimagenet/42/mask_80.npz, epoch=5, acc=34.4300, reason=pretrained-rescale_mask_best-r2_80_06032026_resnet18, selected=80000/100000
+2026-06-03 20:37:38 [INFO] Epoch: 6 [12800/100000 (13%)]	 Training Loss: 1.628 ACC: 40.70 CR: 0.80 Avg R1: 9.90 Avg R2: 7.27 Avg Reward: 17.168165
+2026-06-03 20:37:47 [INFO] Epoch: 6 [25600/100000 (26%)]	 Training Loss: 1.607 ACC: 40.66 CR: 0.79 Avg R1: 9.92 Avg R2: 7.25 Avg Reward: 17.171079
+2026-06-03 20:37:59 [INFO] Epoch: 6 [38400/100000 (38%)]	 Training Loss: 1.626 ACC: 40.92 CR: 0.79 Avg R1: 9.92 Avg R2: 7.23 Avg Reward: 17.152464
+2026-06-03 20:38:11 [INFO] Epoch: 6 [51200/100000 (51%)]	 Training Loss: 1.637 ACC: 41.07 CR: 0.80 Avg R1: 9.92 Avg R2: 7.23 Avg Reward: 17.151367
+2026-06-03 20:38:23 [INFO] Epoch: 6 [64000/100000 (64%)]	 Training Loss: 1.657 ACC: 41.10 CR: 0.80 Avg R1: 9.93 Avg R2: 7.23 Avg Reward: 17.162849
+2026-06-03 20:38:34 [INFO] Epoch: 6 [76800/100000 (77%)]	 Training Loss: 1.693 ACC: 41.16 CR: 0.82 Avg R1: 9.87 Avg R2: 7.25 Avg Reward: 17.117013
+2026-06-03 20:38:46 [INFO] Epoch: 6 [89600/100000 (90%)]	 Training Loss: 1.714 ACC: 41.17 CR: 0.83 Avg R1: 9.72 Avg R2: 7.28 Avg Reward: 16.995215
+2026-06-03 20:38:56 [INFO] EPOCH:6, ======================CR:0.83978====================
+2026-06-03 20:38:56 [INFO] 0.02120509850461852
+2026-06-03 20:38:59 [INFO] EPOCH:6, ======================ACC:37.3====================
+2026-06-03 20:38:59 [INFO] BEST EPOCH:6,BEST ACC:37.3
+2026-06-03 20:39:12 [INFO] Epoch: 7 [12800/100000 (13%)]	 Training Loss: 1.743 ACC: 44.24 CR: 0.85 Avg R1: 7.78 Avg R2: 7.62 Avg Reward: 15.400333
+2026-06-03 20:39:24 [INFO] Epoch: 7 [25600/100000 (26%)]	 Training Loss: 1.791 ACC: 44.30 CR: 0.86 Avg R1: 7.48 Avg R2: 7.67 Avg Reward: 15.156064
+2026-06-03 20:39:36 [INFO] Epoch: 7 [38400/100000 (38%)]	 Training Loss: 1.797 ACC: 44.11 CR: 0.88 Avg R1: 7.15 Avg R2: 7.73 Avg Reward: 14.881863
+2026-06-03 20:39:48 [INFO] Epoch: 7 [51200/100000 (51%)]	 Training Loss: 1.773 ACC: 43.98 CR: 0.88 Avg R1: 6.89 Avg R2: 7.78 Avg Reward: 14.672948
+2026-06-03 20:40:00 [INFO] Epoch: 7 [64000/100000 (64%)]	 Training Loss: 1.753 ACC: 43.99 CR: 0.88 Avg R1: 6.70 Avg R2: 7.81 Avg Reward: 14.517007
+2026-06-03 20:40:12 [INFO] Epoch: 7 [76800/100000 (77%)]	 Training Loss: 1.749 ACC: 44.10 CR: 0.89 Avg R1: 6.54 Avg R2: 7.84 Avg Reward: 14.380509
+2026-06-03 20:40:24 [INFO] Epoch: 7 [89600/100000 (90%)]	 Training Loss: 1.761 ACC: 44.17 CR: 0.90 Avg R1: 6.34 Avg R2: 7.88 Avg Reward: 14.212477
+2026-06-03 20:40:34 [INFO] EPOCH:7, ======================CR:0.9177====================
+2026-06-03 20:40:34 [INFO] 0.02831558755856769
+2026-06-03 20:40:37 [INFO] EPOCH:7, ======================ACC:33.03====================
+2026-06-03 20:40:37 [INFO] BEST EPOCH:6,BEST ACC:37.3
+2026-06-03 20:40:50 [INFO] Epoch: 8 [12800/100000 (13%)]	 Training Loss: 1.745 ACC: 47.61 CR: 0.92 Avg R1: 3.95 Avg R2: 8.30 Avg Reward: 12.250685
+2026-06-03 20:41:02 [INFO] Epoch: 8 [25600/100000 (26%)]	 Training Loss: 1.744 ACC: 47.28 CR: 0.93 Avg R1: 3.81 Avg R2: 8.33 Avg Reward: 12.136109
+2026-06-03 20:41:14 [INFO] Epoch: 8 [38400/100000 (38%)]	 Training Loss: 1.748 ACC: 46.71 CR: 0.93 Avg R1: 3.69 Avg R2: 8.35 Avg Reward: 12.037599
+2026-06-03 20:41:26 [INFO] Epoch: 8 [51200/100000 (51%)]	 Training Loss: 1.722 ACC: 46.81 CR: 0.93 Avg R1: 3.59 Avg R2: 8.37 Avg Reward: 11.957987
+2026-06-03 20:41:38 [INFO] Epoch: 8 [64000/100000 (64%)]	 Training Loss: 1.692 ACC: 46.89 CR: 0.93 Avg R1: 3.56 Avg R2: 8.37 Avg Reward: 11.935439
+2026-06-03 20:41:50 [INFO] Epoch: 8 [76800/100000 (77%)]	 Training Loss: 1.671 ACC: 47.02 CR: 0.92 Avg R1: 3.60 Avg R2: 8.36 Avg Reward: 11.965376
+2026-06-03 20:42:02 [INFO] Epoch: 8 [89600/100000 (90%)]	 Training Loss: 1.646 ACC: 47.20 CR: 0.91 Avg R1: 3.68 Avg R2: 8.35 Avg Reward: 12.032480
+2026-06-03 20:42:12 [INFO] EPOCH:8, ======================CR:0.90482====================
+2026-06-03 20:42:12 [INFO] 0.027322875049711093
+2026-06-03 20:42:15 [INFO] EPOCH:8, ======================ACC:44.39====================
+2026-06-03 20:42:15 [INFO] BEST EPOCH:8,BEST ACC:44.39
+2026-06-03 20:42:27 [INFO] Epoch: 9 [12800/100000 (13%)]	 Training Loss: 1.405 ACC: 50.70 CR: 0.90 Avg R1: 4.98 Avg R2: 8.13 Avg Reward: 13.104613
+2026-06-03 20:42:39 [INFO] Epoch: 9 [25600/100000 (26%)]	 Training Loss: 1.380 ACC: 50.73 CR: 0.88 Avg R1: 5.24 Avg R2: 8.08 Avg Reward: 13.320531
+2026-06-03 20:42:51 [INFO] Epoch: 9 [38400/100000 (38%)]	 Training Loss: 1.371 ACC: 50.36 CR: 0.87 Avg R1: 5.56 Avg R2: 8.03 Avg Reward: 13.589982
+2026-06-03 20:43:03 [INFO] Epoch: 9 [51200/100000 (51%)]	 Training Loss: 1.385 ACC: 50.47 CR: 0.86 Avg R1: 5.85 Avg R2: 7.98 Avg Reward: 13.828761
+2026-06-03 20:43:15 [INFO] Epoch: 9 [64000/100000 (64%)]	 Training Loss: 1.399 ACC: 50.37 CR: 0.86 Avg R1: 6.08 Avg R2: 7.94 Avg Reward: 14.019302
+2026-06-03 20:43:27 [INFO] Epoch: 9 [76800/100000 (77%)]	 Training Loss: 1.396 ACC: 50.47 CR: 0.85 Avg R1: 6.30 Avg R2: 7.90 Avg Reward: 14.207421
+2026-06-03 20:43:39 [INFO] Epoch: 9 [89600/100000 (90%)]	 Training Loss: 1.393 ACC: 50.54 CR: 0.83 Avg R1: 6.55 Avg R2: 7.86 Avg Reward: 14.415658
+2026-06-03 20:43:49 [INFO] EPOCH:9, ======================CR:0.82513====================
+2026-06-03 20:43:49 [INFO] 0.02324522662167694
+2026-06-03 20:43:52 [INFO] EPOCH:9, ======================ACC:42.34====================
+2026-06-03 20:43:52 [INFO] BEST EPOCH:8,BEST ACC:44.39
+2026-06-03 20:44:05 [INFO] Epoch: 10 [12800/100000 (13%)]	 Training Loss: 1.288 ACC: 53.18 CR: 0.82 Avg R1: 8.78 Avg R2: 7.59 Avg Reward: 16.362645
+2026-06-03 20:44:17 [INFO] Epoch: 10 [25600/100000 (26%)]	 Training Loss: 1.257 ACC: 53.43 CR: 0.82 Avg R1: 8.90 Avg R2: 7.57 Avg Reward: 16.470650
+2026-06-03 20:44:29 [INFO] Epoch: 10 [38400/100000 (38%)]	 Training Loss: 1.248 ACC: 53.41 CR: 0.81 Avg R1: 9.08 Avg R2: 7.54 Avg Reward: 16.623344
+2026-06-03 20:44:40 [INFO] Epoch: 10 [51200/100000 (51%)]	 Training Loss: 1.249 ACC: 53.37 CR: 0.80 Avg R1: 9.27 Avg R2: 7.52 Avg Reward: 16.786404
+2026-06-03 20:44:52 [INFO] Epoch: 10 [64000/100000 (64%)]	 Training Loss: 1.259 ACC: 53.50 CR: 0.80 Avg R1: 9.41 Avg R2: 7.50 Avg Reward: 16.910007
+2026-06-03 20:45:04 [INFO] Epoch: 10 [76800/100000 (77%)]	 Training Loss: 1.271 ACC: 53.14 CR: 0.80 Avg R1: 9.51 Avg R2: 7.48 Avg Reward: 16.991228
+2026-06-03 20:45:16 [INFO] Epoch: 10 [89600/100000 (90%)]	 Training Loss: 1.286 ACC: 53.07 CR: 0.80 Avg R1: 9.58 Avg R2: 7.47 Avg Reward: 17.047521
+2026-06-03 20:45:25 [INFO] EPOCH:10, ======================CR:0.803====================
+2026-06-03 20:45:25 [INFO] 0.016140131760738835
+2026-06-03 20:45:29 [INFO] EPOCH:10, ======================ACC:44.15====================
+2026-06-03 20:45:29 [INFO] BEST EPOCH:8,BEST ACC:44.39
+2026-06-03 20:45:29 [INFO] Saving Masks: current_cr=0.8030, target_cr=0.8000
+2026-06-03 20:45:29 [INFO] Saved standard mask to /nvme/home/lixiang/baseline/mask/tinyimagenet/42/mask_80.npz, epoch=10, acc=44.1500, reason=pretrained-rescale_mask_best-acc_80_06032026_resnet18, selected=80000/100000
+2026-06-03 20:45:29 [INFO] Saved standard mask to /nvme/home/lixiang/baseline/mask/tinyimagenet/42/mask_80.npz, epoch=10, acc=44.1500, reason=pretrained-rescale_mask_best-r2_80_06032026_resnet18, selected=80000/100000
+2026-06-03 20:45:41 [INFO] Epoch: 11 [12800/100000 (13%)]	 Training Loss: 1.252 ACC: 56.52 CR: 0.81 Avg R1: 9.70 Avg R2: 7.55 Avg Reward: 17.253422
+2026-06-03 20:45:53 [INFO] Epoch: 11 [25600/100000 (26%)]	 Training Loss: 1.266 ACC: 55.88 CR: 0.82 Avg R1: 9.55 Avg R2: 7.58 Avg Reward: 17.125555
+2026-06-03 20:46:05 [INFO] Epoch: 11 [38400/100000 (38%)]	 Training Loss: 1.301 ACC: 55.56 CR: 0.83 Avg R1: 9.32 Avg R2: 7.61 Avg Reward: 16.929873
+2026-06-03 20:46:17 [INFO] Epoch: 11 [51200/100000 (51%)]	 Training Loss: 1.325 ACC: 55.24 CR: 0.84 Avg R1: 9.03 Avg R2: 7.66 Avg Reward: 16.687198
+2026-06-03 20:46:29 [INFO] Epoch: 11 [64000/100000 (64%)]	 Training Loss: 1.346 ACC: 55.01 CR: 0.86 Avg R1: 8.71 Avg R2: 7.71 Avg Reward: 16.417442
+2026-06-03 20:46:41 [INFO] Epoch: 11 [76800/100000 (77%)]	 Training Loss: 1.355 ACC: 54.92 CR: 0.87 Avg R1: 8.36 Avg R2: 7.76 Avg Reward: 16.129694
+2026-06-03 20:46:53 [INFO] Epoch: 11 [89600/100000 (90%)]	 Training Loss: 1.370 ACC: 54.70 CR: 0.89 Avg R1: 8.01 Avg R2: 7.82 Avg Reward: 15.833414
+2026-06-03 20:47:02 [INFO] EPOCH:11, ======================CR:0.90308====================
+2026-06-03 20:47:02 [INFO] 0.02914526059494123
+2026-06-03 20:47:06 [INFO] EPOCH:11, ======================ACC:46.8====================
+2026-06-03 20:47:06 [INFO] BEST EPOCH:11,BEST ACC:46.8
+2026-06-03 20:47:18 [INFO] Epoch: 12 [12800/100000 (13%)]	 Training Loss: 1.307 ACC: 57.31 CR: 0.90 Avg R1: 4.80 Avg R2: 8.40 Avg Reward: 13.205103
+2026-06-03 20:47:30 [INFO] Epoch: 12 [25600/100000 (26%)]	 Training Loss: 1.302 ACC: 57.11 CR: 0.91 Avg R1: 4.75 Avg R2: 8.41 Avg Reward: 13.160541
+2026-06-03 20:47:42 [INFO] Epoch: 12 [38400/100000 (38%)]	 Training Loss: 1.295 ACC: 57.02 CR: 0.91 Avg R1: 4.71 Avg R2: 8.41 Avg Reward: 13.124978
+2026-06-03 20:47:54 [INFO] Epoch: 12 [51200/100000 (51%)]	 Training Loss: 1.309 ACC: 56.66 CR: 0.91 Avg R1: 4.68 Avg R2: 8.42 Avg Reward: 13.092943
+2026-06-03 20:48:06 [INFO] Epoch: 12 [64000/100000 (64%)]	 Training Loss: 1.316 ACC: 56.76 CR: 0.91 Avg R1: 4.62 Avg R2: 8.42 Avg Reward: 13.046640
+2026-06-03 20:48:18 [INFO] Epoch: 12 [76800/100000 (77%)]	 Training Loss: 1.328 ACC: 56.63 CR: 0.92 Avg R1: 4.55 Avg R2: 8.44 Avg Reward: 12.982513
+2026-06-03 20:48:30 [INFO] Epoch: 12 [89600/100000 (90%)]	 Training Loss: 1.337 ACC: 56.38 CR: 0.92 Avg R1: 4.46 Avg R2: 8.45 Avg Reward: 12.907087
+2026-06-03 20:48:39 [INFO] EPOCH:12, ======================CR:0.92832====================
+2026-06-03 20:48:39 [INFO] 0.03010610066500025
+2026-06-03 20:48:43 [INFO] EPOCH:12, ======================ACC:49.33====================
+2026-06-03 20:48:43 [INFO] BEST EPOCH:12,BEST ACC:49.33
+2026-06-03 20:48:55 [INFO] Epoch: 13 [12800/100000 (13%)]	 Training Loss: 1.222 ACC: 60.48 CR: 0.93 Avg R1: 3.57 Avg R2: 8.68 Avg Reward: 12.252050
+2026-06-03 20:49:07 [INFO] Epoch: 13 [25600/100000 (26%)]	 Training Loss: 1.232 ACC: 59.73 CR: 0.93 Avg R1: 3.58 Avg R2: 8.68 Avg Reward: 12.261122
+2026-06-03 20:49:19 [INFO] Epoch: 13 [38400/100000 (38%)]	 Training Loss: 1.235 ACC: 59.51 CR: 0.93 Avg R1: 3.60 Avg R2: 8.67 Avg Reward: 12.273007
+2026-06-03 20:49:31 [INFO] Epoch: 13 [51200/100000 (51%)]	 Training Loss: 1.242 ACC: 59.19 CR: 0.93 Avg R1: 3.62 Avg R2: 8.67 Avg Reward: 12.294306
+2026-06-03 20:49:43 [INFO] Epoch: 13 [64000/100000 (64%)]	 Training Loss: 1.254 ACC: 59.10 CR: 0.93 Avg R1: 3.63 Avg R2: 8.67 Avg Reward: 12.301126
+2026-06-03 20:49:55 [INFO] Epoch: 13 [76800/100000 (77%)]	 Training Loss: 1.264 ACC: 58.93 CR: 0.93 Avg R1: 3.62 Avg R2: 8.67 Avg Reward: 12.289795
+2026-06-03 20:50:07 [INFO] Epoch: 13 [89600/100000 (90%)]	 Training Loss: 1.275 ACC: 58.68 CR: 0.93 Avg R1: 3.59 Avg R2: 8.68 Avg Reward: 12.268622
+2026-06-03 20:50:17 [INFO] EPOCH:13, ======================CR:0.93503====================
+2026-06-03 20:50:17 [INFO] 0.03956438221988549
+2026-06-03 20:50:20 [INFO] EPOCH:13, ======================ACC:48.62====================
+2026-06-03 20:50:20 [INFO] BEST EPOCH:12,BEST ACC:49.33
+2026-06-03 20:50:32 [INFO] Epoch: 14 [12800/100000 (13%)]	 Training Loss: 1.190 ACC: 62.30 CR: 0.94 Avg R1: 3.18 Avg R2: 8.84 Avg Reward: 12.014260
+2026-06-03 20:50:44 [INFO] Epoch: 14 [25600/100000 (26%)]	 Training Loss: 1.208 ACC: 61.85 CR: 0.94 Avg R1: 3.09 Avg R2: 8.86 Avg Reward: 11.948455
+2026-06-03 20:50:56 [INFO] Epoch: 14 [38400/100000 (38%)]	 Training Loss: 1.221 ACC: 61.23 CR: 0.94 Avg R1: 3.01 Avg R2: 8.88 Avg Reward: 11.886431
+2026-06-03 20:51:08 [INFO] Epoch: 14 [51200/100000 (51%)]	 Training Loss: 1.227 ACC: 60.95 CR: 0.95 Avg R1: 2.95 Avg R2: 8.89 Avg Reward: 11.840418
+2026-06-03 20:51:20 [INFO] Epoch: 14 [64000/100000 (64%)]	 Training Loss: 1.238 ACC: 60.65 CR: 0.95 Avg R1: 2.90 Avg R2: 8.90 Avg Reward: 11.801491
+2026-06-03 20:51:32 [INFO] Epoch: 14 [76800/100000 (77%)]	 Training Loss: 1.248 ACC: 60.47 CR: 0.95 Avg R1: 2.84 Avg R2: 8.91 Avg Reward: 11.755533
+2026-06-03 20:51:44 [INFO] Epoch: 14 [89600/100000 (90%)]	 Training Loss: 1.254 ACC: 60.28 CR: 0.95 Avg R1: 2.77 Avg R2: 8.93 Avg Reward: 11.703059
+2026-06-03 20:51:53 [INFO] EPOCH:14, ======================CR:0.95532====================
+2026-06-03 20:51:53 [INFO] 0.031224328117893215
+2026-06-03 20:51:57 [INFO] EPOCH:14, ======================ACC:50.04====================
+2026-06-03 20:51:57 [INFO] BEST EPOCH:14,BEST ACC:50.04
+2026-06-03 20:52:09 [INFO] Epoch: 15 [12800/100000 (13%)]	 Training Loss: 1.147 ACC: 63.31 CR: 0.96 Avg R1: 2.23 Avg R2: 9.16 Avg Reward: 11.392397
+2026-06-03 20:52:21 [INFO] Epoch: 15 [25600/100000 (26%)]	 Training Loss: 1.153 ACC: 63.16 CR: 0.96 Avg R1: 2.23 Avg R2: 9.16 Avg Reward: 11.389057
+2026-06-03 20:52:33 [INFO] Epoch: 15 [38400/100000 (38%)]	 Training Loss: 1.167 ACC: 62.72 CR: 0.96 Avg R1: 2.22 Avg R2: 9.16 Avg Reward: 11.378853
+2026-06-03 20:52:44 [INFO] Epoch: 15 [51200/100000 (51%)]	 Training Loss: 1.179 ACC: 62.48 CR: 0.96 Avg R1: 2.21 Avg R2: 9.16 Avg Reward: 11.368013
+2026-06-03 20:52:56 [INFO] Epoch: 15 [64000/100000 (64%)]	 Training Loss: 1.185 ACC: 62.26 CR: 0.96 Avg R1: 2.19 Avg R2: 9.16 Avg Reward: 11.357807
+2026-06-03 20:53:08 [INFO] Epoch: 15 [76800/100000 (77%)]	 Training Loss: 1.191 ACC: 62.01 CR: 0.96 Avg R1: 2.19 Avg R2: 9.16 Avg Reward: 11.350741
+2026-06-03 20:53:20 [INFO] Epoch: 15 [89600/100000 (90%)]	 Training Loss: 1.195 ACC: 61.79 CR: 0.96 Avg R1: 2.18 Avg R2: 9.17 Avg Reward: 11.346127
+2026-06-03 20:53:29 [INFO] EPOCH:15, ======================CR:0.95578====================
+2026-06-03 20:53:29 [INFO] 0.04036172329927457
+2026-06-03 20:53:33 [INFO] EPOCH:15, ======================ACC:48.62====================
+2026-06-03 20:53:33 [INFO] BEST EPOCH:14,BEST ACC:50.04
+2026-06-03 20:53:45 [INFO] Epoch: 16 [12800/100000 (13%)]	 Training Loss: 1.051 ACC: 66.03 CR: 0.95 Avg R1: 2.24 Avg R2: 9.23 Avg Reward: 11.464591
+2026-06-03 20:53:57 [INFO] Epoch: 16 [25600/100000 (26%)]	 Training Loss: 1.062 ACC: 65.53 CR: 0.95 Avg R1: 2.24 Avg R2: 9.22 Avg Reward: 11.465556
+2026-06-03 20:54:09 [INFO] Epoch: 16 [38400/100000 (38%)]	 Training Loss: 1.085 ACC: 64.85 CR: 0.96 Avg R1: 2.24 Avg R2: 9.22 Avg Reward: 11.467431
+2026-06-03 20:54:21 [INFO] Epoch: 16 [51200/100000 (51%)]	 Training Loss: 1.093 ACC: 64.54 CR: 0.95 Avg R1: 2.25 Avg R2: 9.22 Avg Reward: 11.469607
+2026-06-03 20:54:32 [INFO] Epoch: 16 [64000/100000 (64%)]	 Training Loss: 1.109 ACC: 64.02 CR: 0.95 Avg R1: 2.26 Avg R2: 9.22 Avg Reward: 11.477735
+2026-06-03 20:54:44 [INFO] Epoch: 16 [76800/100000 (77%)]	 Training Loss: 1.119 ACC: 63.69 CR: 0.95 Avg R1: 2.27 Avg R2: 9.22 Avg Reward: 11.485131
+2026-06-03 20:54:56 [INFO] Epoch: 16 [89600/100000 (90%)]	 Training Loss: 1.124 ACC: 63.51 CR: 0.95 Avg R1: 2.28 Avg R2: 9.22 Avg Reward: 11.496391
+2026-06-03 20:55:06 [INFO] EPOCH:16, ======================CR:0.95089====================
+2026-06-03 20:55:06 [INFO] 0.03853802779064224
+2026-06-03 20:55:09 [INFO] EPOCH:16, ======================ACC:50.39====================
+2026-06-03 20:55:09 [INFO] BEST EPOCH:16,BEST ACC:50.39
+2026-06-03 20:55:21 [INFO] Epoch: 17 [12800/100000 (13%)]	 Training Loss: 1.001 ACC: 66.66 CR: 0.95 Avg R1: 2.46 Avg R2: 9.29 Avg Reward: 11.748804
+2026-06-03 20:55:33 [INFO] Epoch: 17 [25600/100000 (26%)]	 Training Loss: 1.010 ACC: 66.58 CR: 0.95 Avg R1: 2.47 Avg R2: 9.29 Avg Reward: 11.760112
+2026-06-03 20:55:45 [INFO] Epoch: 17 [38400/100000 (38%)]	 Training Loss: 1.022 ACC: 66.41 CR: 0.95 Avg R1: 2.49 Avg R2: 9.28 Avg Reward: 11.770399
+2026-06-03 20:55:57 [INFO] Epoch: 17 [51200/100000 (51%)]	 Training Loss: 1.033 ACC: 65.97 CR: 0.95 Avg R1: 2.50 Avg R2: 9.28 Avg Reward: 11.778669
+2026-06-03 20:56:09 [INFO] Epoch: 17 [64000/100000 (64%)]	 Training Loss: 1.045 ACC: 65.59 CR: 0.95 Avg R1: 2.52 Avg R2: 9.27 Avg Reward: 11.788945
+2026-06-03 20:56:21 [INFO] Epoch: 17 [76800/100000 (77%)]	 Training Loss: 1.056 ACC: 65.24 CR: 0.95 Avg R1: 2.53 Avg R2: 9.27 Avg Reward: 11.797280
+2026-06-03 20:56:33 [INFO] Epoch: 17 [89600/100000 (90%)]	 Training Loss: 1.062 ACC: 65.05 CR: 0.95 Avg R1: 2.54 Avg R2: 9.27 Avg Reward: 11.802437
+2026-06-03 20:56:42 [INFO] EPOCH:17, ======================CR:0.94804====================
+2026-06-03 20:56:42 [INFO] 0.03330836470220203
+2026-06-03 20:56:46 [INFO] EPOCH:17, ======================ACC:52.63====================
+2026-06-03 20:56:46 [INFO] BEST EPOCH:17,BEST ACC:52.63
+2026-06-03 20:56:58 [INFO] Epoch: 18 [12800/100000 (13%)]	 Training Loss: 0.938 ACC: 69.08 CR: 0.95 Avg R1: 2.60 Avg R2: 9.34 Avg Reward: 11.942175
+2026-06-03 20:57:10 [INFO] Epoch: 18 [25600/100000 (26%)]	 Training Loss: 0.959 ACC: 68.44 CR: 0.95 Avg R1: 2.59 Avg R2: 9.34 Avg Reward: 11.930150
+2026-06-03 20:57:22 [INFO] Epoch: 18 [38400/100000 (38%)]	 Training Loss: 0.972 ACC: 67.88 CR: 0.95 Avg R1: 2.57 Avg R2: 9.35 Avg Reward: 11.916348
+2026-06-03 20:57:34 [INFO] Epoch: 18 [51200/100000 (51%)]	 Training Loss: 0.985 ACC: 67.41 CR: 0.95 Avg R1: 2.55 Avg R2: 9.36 Avg Reward: 11.903236
+2026-06-03 20:57:46 [INFO] Epoch: 18 [64000/100000 (64%)]	 Training Loss: 1.000 ACC: 66.91 CR: 0.95 Avg R1: 2.54 Avg R2: 9.36 Avg Reward: 11.894295
+2026-06-03 20:57:58 [INFO] Epoch: 18 [76800/100000 (77%)]	 Training Loss: 1.012 ACC: 66.64 CR: 0.95 Avg R1: 2.53 Avg R2: 9.36 Avg Reward: 11.888342
+2026-06-03 20:58:10 [INFO] Epoch: 18 [89600/100000 (90%)]	 Training Loss: 1.016 ACC: 66.53 CR: 0.95 Avg R1: 2.52 Avg R2: 9.36 Avg Reward: 11.881898
+2026-06-03 20:58:20 [INFO] EPOCH:18, ======================CR:0.95098====================
+2026-06-03 20:58:20 [INFO] 0.03532216120330162
+2026-06-03 20:58:23 [INFO] EPOCH:18, ======================ACC:50.77====================
+2026-06-03 20:58:23 [INFO] BEST EPOCH:17,BEST ACC:52.63
+2026-06-03 20:58:36 [INFO] Epoch: 19 [12800/100000 (13%)]	 Training Loss: 0.906 ACC: 70.43 CR: 0.95 Avg R1: 2.43 Avg R2: 9.53 Avg Reward: 11.955435
+2026-06-03 20:58:48 [INFO] Epoch: 19 [25600/100000 (26%)]	 Training Loss: 0.918 ACC: 69.89 CR: 0.95 Avg R1: 2.38 Avg R2: 9.54 Avg Reward: 11.925115
+2026-06-03 20:58:59 [INFO] Epoch: 19 [38400/100000 (38%)]	 Training Loss: 0.936 ACC: 69.35 CR: 0.96 Avg R1: 2.34 Avg R2: 9.55 Avg Reward: 11.891823
+2026-06-03 20:59:11 [INFO] Epoch: 19 [51200/100000 (51%)]	 Training Loss: 0.955 ACC: 68.79 CR: 0.96 Avg R1: 2.29 Avg R2: 9.56 Avg Reward: 11.856855
+2026-06-03 20:59:23 [INFO] Epoch: 19 [64000/100000 (64%)]	 Training Loss: 0.968 ACC: 68.38 CR: 0.96 Avg R1: 2.24 Avg R2: 9.58 Avg Reward: 11.820200
+2026-06-03 20:59:35 [INFO] Epoch: 19 [76800/100000 (77%)]	 Training Loss: 0.980 ACC: 67.93 CR: 0.96 Avg R1: 2.19 Avg R2: 9.59 Avg Reward: 11.784437
+2026-06-03 20:59:47 [INFO] Epoch: 19 [89600/100000 (90%)]	 Training Loss: 0.991 ACC: 67.71 CR: 0.96 Avg R1: 2.15 Avg R2: 9.60 Avg Reward: 11.749178
+2026-06-03 20:59:57 [INFO] EPOCH:19, ======================CR:0.96534====================
+2026-06-03 20:59:57 [INFO] 0.04271354790909708
+2026-06-03 21:00:00 [INFO] EPOCH:19, ======================ACC:50.44====================
+2026-06-03 21:00:00 [INFO] BEST EPOCH:17,BEST ACC:52.63
+2026-06-03 21:00:13 [INFO] Epoch: 20 [12800/100000 (13%)]	 Training Loss: 0.860 ACC: 71.68 CR: 0.97 Avg R1: 1.73 Avg R2: 9.85 Avg Reward: 11.577935
+2026-06-03 21:00:25 [INFO] Epoch: 20 [25600/100000 (26%)]	 Training Loss: 0.879 ACC: 71.21 CR: 0.97 Avg R1: 1.72 Avg R2: 9.85 Avg Reward: 11.569196
+2026-06-03 21:00:37 [INFO] Epoch: 20 [38400/100000 (38%)]	 Training Loss: 0.897 ACC: 70.66 CR: 0.97 Avg R1: 1.71 Avg R2: 9.85 Avg Reward: 11.564614
+2026-06-03 21:00:48 [INFO] Epoch: 20 [51200/100000 (51%)]	 Training Loss: 0.916 ACC: 70.05 CR: 0.97 Avg R1: 1.70 Avg R2: 9.86 Avg Reward: 11.558508
+2026-06-03 21:01:00 [INFO] Epoch: 20 [64000/100000 (64%)]	 Training Loss: 0.932 ACC: 69.65 CR: 0.97 Avg R1: 1.69 Avg R2: 9.86 Avg Reward: 11.551003
+2026-06-03 21:01:12 [INFO] Epoch: 20 [76800/100000 (77%)]	 Training Loss: 0.943 ACC: 69.26 CR: 0.97 Avg R1: 1.68 Avg R2: 9.86 Avg Reward: 11.541330
+2026-06-03 21:01:24 [INFO] Epoch: 20 [89600/100000 (90%)]	 Training Loss: 0.954 ACC: 68.90 CR: 0.97 Avg R1: 1.67 Avg R2: 9.87 Avg Reward: 11.536403
+2026-06-03 21:01:34 [INFO] EPOCH:20, ======================CR:0.96787====================
+2026-06-03 21:01:34 [INFO] 0.046352902355575994
+2026-06-03 21:01:37 [INFO] EPOCH:20, ======================ACC:52.38====================
+2026-06-03 21:01:37 [INFO] BEST EPOCH:17,BEST ACC:52.63
+2026-06-03 21:01:50 [INFO] Epoch: 21 [12800/100000 (13%)]	 Training Loss: 0.834 ACC: 72.38 CR: 0.97 Avg R1: 1.60 Avg R2: 9.98 Avg Reward: 11.586620
+2026-06-03 21:02:02 [INFO] Epoch: 21 [25600/100000 (26%)]	 Training Loss: 0.837 ACC: 72.46 CR: 0.97 Avg R1: 1.63 Avg R2: 9.98 Avg Reward: 11.606634
+2026-06-03 21:02:13 [INFO] Epoch: 21 [38400/100000 (38%)]	 Training Loss: 0.846 ACC: 72.15 CR: 0.97 Avg R1: 1.64 Avg R2: 9.97 Avg Reward: 11.614001
+2026-06-03 21:02:23 [INFO] Epoch: 21 [51200/100000 (51%)]	 Training Loss: 0.861 ACC: 71.49 CR: 0.97 Avg R1: 1.65 Avg R2: 9.97 Avg Reward: 11.620382
+2026-06-03 21:02:35 [INFO] Epoch: 21 [64000/100000 (64%)]	 Training Loss: 0.879 ACC: 70.96 CR: 0.97 Avg R1: 1.66 Avg R2: 9.97 Avg Reward: 11.623913
+2026-06-03 21:02:46 [INFO] Epoch: 21 [76800/100000 (77%)]	 Training Loss: 0.893 ACC: 70.65 CR: 0.97 Avg R1: 1.66 Avg R2: 9.97 Avg Reward: 11.623199
+2026-06-03 21:02:58 [INFO] Epoch: 21 [89600/100000 (90%)]	 Training Loss: 0.907 ACC: 70.22 CR: 0.97 Avg R1: 1.65 Avg R2: 9.97 Avg Reward: 11.621146
+2026-06-03 21:03:07 [INFO] EPOCH:21, ======================CR:0.96716====================
+2026-06-03 21:03:07 [INFO] 0.04393554311274506
+2026-06-03 21:03:10 [INFO] EPOCH:21, ======================ACC:52.92====================
+2026-06-03 21:03:10 [INFO] BEST EPOCH:21,BEST ACC:52.92
+2026-06-03 21:03:21 [INFO] Epoch: 22 [12800/100000 (13%)]	 Training Loss: 0.816 ACC: 73.56 CR: 0.97 Avg R1: 1.61 Avg R2: 10.10 Avg Reward: 11.712766
+2026-06-03 21:03:32 [INFO] Epoch: 22 [25600/100000 (26%)]	 Training Loss: 0.836 ACC: 73.02 CR: 0.97 Avg R1: 1.57 Avg R2: 10.12 Avg Reward: 11.689467
+2026-06-03 21:03:44 [INFO] Epoch: 22 [38400/100000 (38%)]	 Training Loss: 0.844 ACC: 72.83 CR: 0.97 Avg R1: 1.52 Avg R2: 10.14 Avg Reward: 11.660239
+2026-06-03 21:03:56 [INFO] Epoch: 22 [51200/100000 (51%)]	 Training Loss: 0.857 ACC: 72.31 CR: 0.97 Avg R1: 1.48 Avg R2: 10.16 Avg Reward: 11.630326
+2026-06-03 21:04:08 [INFO] Epoch: 22 [64000/100000 (64%)]	 Training Loss: 0.874 ACC: 71.83 CR: 0.98 Avg R1: 1.42 Avg R2: 10.17 Avg Reward: 11.598509
+2026-06-03 21:04:19 [INFO] Epoch: 22 [76800/100000 (77%)]	 Training Loss: 0.887 ACC: 71.42 CR: 0.98 Avg R1: 1.37 Avg R2: 10.19 Avg Reward: 11.564396
+2026-06-03 21:04:31 [INFO] Epoch: 22 [89600/100000 (90%)]	 Training Loss: 0.898 ACC: 71.04 CR: 0.98 Avg R1: 1.32 Avg R2: 10.21 Avg Reward: 11.531833
+2026-06-03 21:04:41 [INFO] EPOCH:22, ======================CR:0.98218====================
+2026-06-03 21:04:41 [INFO] 0.048073432864039235
+2026-06-03 21:04:44 [INFO] EPOCH:22, ======================ACC:51.2====================
+2026-06-03 21:04:44 [INFO] BEST EPOCH:21,BEST ACC:52.92
+2026-06-03 21:04:57 [INFO] Epoch: 23 [12800/100000 (13%)]	 Training Loss: 0.769 ACC: 74.98 CR: 0.98 Avg R1: 0.89 Avg R2: 10.48 Avg Reward: 11.370881
+2026-06-03 21:05:09 [INFO] Epoch: 23 [25600/100000 (26%)]	 Training Loss: 0.786 ACC: 74.48 CR: 0.98 Avg R1: 0.89 Avg R2: 10.49 Avg Reward: 11.371380
+2026-06-03 21:05:21 [INFO] Epoch: 23 [38400/100000 (38%)]	 Training Loss: 0.818 ACC: 73.73 CR: 0.98 Avg R1: 0.87 Avg R2: 10.49 Avg Reward: 11.366772
+2026-06-03 21:05:32 [INFO] Epoch: 23 [51200/100000 (51%)]	 Training Loss: 0.831 ACC: 73.23 CR: 0.98 Avg R1: 0.86 Avg R2: 10.50 Avg Reward: 11.360440
+2026-06-03 21:05:44 [INFO] Epoch: 23 [64000/100000 (64%)]	 Training Loss: 0.838 ACC: 73.00 CR: 0.98 Avg R1: 0.85 Avg R2: 10.51 Avg Reward: 11.355866
+2026-06-03 21:05:56 [INFO] Epoch: 23 [76800/100000 (77%)]	 Training Loss: 0.851 ACC: 72.63 CR: 0.99 Avg R1: 0.83 Avg R2: 10.52 Avg Reward: 11.349678
+2026-06-03 21:06:08 [INFO] Epoch: 23 [89600/100000 (90%)]	 Training Loss: 0.863 ACC: 72.18 CR: 0.99 Avg R1: 0.82 Avg R2: 10.52 Avg Reward: 11.341707
+2026-06-03 21:06:18 [INFO] EPOCH:23, ======================CR:0.98558====================
+2026-06-03 21:06:18 [INFO] 0.048312288155822676
+2026-06-03 21:06:21 [INFO] EPOCH:23, ======================ACC:52.92====================
+2026-06-03 21:06:21 [INFO] BEST EPOCH:23,BEST ACC:52.92
+2026-06-03 21:06:33 [INFO] Epoch: 24 [12800/100000 (13%)]	 Training Loss: 0.759 ACC: 75.88 CR: 0.99 Avg R1: 0.72 Avg R2: 10.71 Avg Reward: 11.432092
+2026-06-03 21:06:45 [INFO] Epoch: 24 [25600/100000 (26%)]	 Training Loss: 0.773 ACC: 75.55 CR: 0.99 Avg R1: 0.70 Avg R2: 10.72 Avg Reward: 11.420848
+2026-06-03 21:06:57 [INFO] Epoch: 24 [38400/100000 (38%)]	 Training Loss: 0.787 ACC: 75.07 CR: 0.99 Avg R1: 0.67 Avg R2: 10.73 Avg Reward: 11.407663
+2026-06-03 21:07:09 [INFO] Epoch: 24 [51200/100000 (51%)]	 Training Loss: 0.809 ACC: 74.32 CR: 0.99 Avg R1: 0.65 Avg R2: 10.75 Avg Reward: 11.394703
+2026-06-03 21:07:21 [INFO] Epoch: 24 [64000/100000 (64%)]	 Training Loss: 0.831 ACC: 73.65 CR: 0.99 Avg R1: 0.62 Avg R2: 10.76 Avg Reward: 11.384270
+2026-06-03 21:07:33 [INFO] Epoch: 24 [76800/100000 (77%)]	 Training Loss: 0.842 ACC: 73.42 CR: 0.99 Avg R1: 0.59 Avg R2: 10.78 Avg Reward: 11.373271
+2026-06-03 21:07:44 [INFO] Epoch: 24 [89600/100000 (90%)]	 Training Loss: 0.857 ACC: 72.95 CR: 0.99 Avg R1: 0.57 Avg R2: 10.80 Avg Reward: 11.362775
+2026-06-03 21:07:54 [INFO] EPOCH:24, ======================CR:0.99339====================
+2026-06-03 21:07:54 [INFO] 0.04945593592612102
+2026-06-03 21:07:57 [INFO] EPOCH:24, ======================ACC:51.85====================
+2026-06-03 21:07:57 [INFO] BEST EPOCH:23,BEST ACC:52.92
+2026-06-03 21:08:10 [INFO] Epoch: 25 [12800/100000 (13%)]	 Training Loss: 0.771 ACC: 76.01 CR: 0.99 Avg R1: 0.32 Avg R2: 11.05 Avg Reward: 11.370668
+2026-06-03 21:08:22 [INFO] Epoch: 25 [25600/100000 (26%)]	 Training Loss: 0.783 ACC: 75.67 CR: 0.99 Avg R1: 0.31 Avg R2: 11.06 Avg Reward: 11.371582
+2026-06-03 21:08:34 [INFO] Epoch: 25 [38400/100000 (38%)]	 Training Loss: 0.790 ACC: 75.41 CR: 0.99 Avg R1: 0.30 Avg R2: 11.07 Avg Reward: 11.371919
+2026-06-03 21:08:45 [INFO] Epoch: 25 [51200/100000 (51%)]	 Training Loss: 0.805 ACC: 74.96 CR: 1.00 Avg R1: 0.29 Avg R2: 11.08 Avg Reward: 11.371446
+2026-06-03 21:08:57 [INFO] Epoch: 25 [64000/100000 (64%)]	 Training Loss: 0.815 ACC: 74.66 CR: 1.00 Avg R1: 0.28 Avg R2: 11.09 Avg Reward: 11.369850
+2026-06-03 21:09:09 [INFO] Epoch: 25 [76800/100000 (77%)]	 Training Loss: 0.829 ACC: 74.16 CR: 1.00 Avg R1: 0.27 Avg R2: 11.10 Avg Reward: 11.367480
+2026-06-03 21:09:21 [INFO] Epoch: 25 [89600/100000 (90%)]	 Training Loss: 0.843 ACC: 73.78 CR: 1.00 Avg R1: 0.26 Avg R2: 11.11 Avg Reward: 11.365390
+2026-06-03 21:09:31 [INFO] EPOCH:25, ======================CR:0.99637====================
+2026-06-03 21:09:31 [INFO] 0.048314596191384215
+2026-06-03 21:09:34 [INFO] EPOCH:25, ======================ACC:51.83====================
+2026-06-03 21:09:34 [INFO] BEST EPOCH:23,BEST ACC:52.92
+2026-06-03 21:09:47 [INFO] Epoch: 26 [12800/100000 (13%)]	 Training Loss: 0.727 ACC: 77.98 CR: 1.00 Avg R1: 0.18 Avg R2: 11.28 Avg Reward: 11.459342
+2026-06-03 21:09:59 [INFO] Epoch: 26 [25600/100000 (26%)]	 Training Loss: 0.739 ACC: 77.43 CR: 1.00 Avg R1: 0.17 Avg R2: 11.30 Avg Reward: 11.463617
+2026-06-03 21:10:11 [INFO] Epoch: 26 [38400/100000 (38%)]	 Training Loss: 0.760 ACC: 76.67 CR: 1.00 Avg R1: 0.16 Avg R2: 11.31 Avg Reward: 11.470561
+2026-06-03 21:10:23 [INFO] Epoch: 26 [51200/100000 (51%)]	 Training Loss: 0.774 ACC: 76.31 CR: 1.00 Avg R1: 0.15 Avg R2: 11.33 Avg Reward: 11.477916
+2026-06-03 21:10:35 [INFO] Epoch: 26 [64000/100000 (64%)]	 Training Loss: 0.790 ACC: 75.81 CR: 1.00 Avg R1: 0.14 Avg R2: 11.35 Avg Reward: 11.487478
+2026-06-03 21:10:47 [INFO] Epoch: 26 [76800/100000 (77%)]	 Training Loss: 0.809 ACC: 75.31 CR: 1.00 Avg R1: 0.13 Avg R2: 11.37 Avg Reward: 11.500295
+2026-06-03 21:10:59 [INFO] Epoch: 26 [89600/100000 (90%)]	 Training Loss: 0.828 ACC: 74.81 CR: 1.00 Avg R1: 0.12 Avg R2: 11.40 Avg Reward: 11.515730
+2026-06-03 21:11:08 [INFO] EPOCH:26, ======================CR:0.99938====================
+2026-06-03 21:11:08 [INFO] 0.05591047267764431
+2026-06-03 21:11:12 [INFO] EPOCH:26, ======================ACC:51.76====================
+2026-06-03 21:11:12 [INFO] BEST EPOCH:23,BEST ACC:52.92
+2026-06-03 21:11:24 [INFO] Epoch: 27 [12800/100000 (13%)]	 Training Loss: 0.784 ACC: 76.58 CR: 1.00 Avg R1: 0.03 Avg R2: 11.77 Avg Reward: 11.794326
+2026-06-03 21:11:36 [INFO] Epoch: 27 [25600/100000 (26%)]	 Training Loss: 0.763 ACC: 77.36 CR: 1.00 Avg R1: 0.03 Avg R2: 11.79 Avg Reward: 11.812308
+2026-06-03 21:11:48 [INFO] Epoch: 27 [38400/100000 (38%)]	 Training Loss: 0.780 ACC: 76.78 CR: 1.00 Avg R1: 0.03 Avg R2: 11.80 Avg Reward: 11.830399
+2026-06-03 21:12:00 [INFO] Epoch: 27 [51200/100000 (51%)]	 Training Loss: 0.794 ACC: 76.43 CR: 1.00 Avg R1: 0.02 Avg R2: 11.83 Avg Reward: 11.848288
+2026-06-03 21:12:12 [INFO] Epoch: 27 [64000/100000 (64%)]	 Training Loss: 0.810 ACC: 76.02 CR: 1.00 Avg R1: 0.02 Avg R2: 11.85 Avg Reward: 11.866539
+2026-06-03 21:12:24 [INFO] Epoch: 27 [76800/100000 (77%)]	 Training Loss: 0.830 ACC: 75.53 CR: 1.00 Avg R1: 0.02 Avg R2: 11.87 Avg Reward: 11.885060
+2026-06-03 21:12:36 [INFO] Epoch: 27 [89600/100000 (90%)]	 Training Loss: 0.847 ACC: 75.00 CR: 1.00 Avg R1: 0.02 Avg R2: 11.89 Avg Reward: 11.904228
+2026-06-03 21:12:45 [INFO] EPOCH:27, ======================CR:0.99998====================
+2026-06-03 21:12:45 [INFO] 0.05913389418379012
+2026-06-03 21:12:49 [INFO] EPOCH:27, ======================ACC:50.34====================
+2026-06-03 21:12:49 [INFO] BEST EPOCH:23,BEST ACC:52.92
+2026-06-03 21:13:01 [INFO] Epoch: 28 [12800/100000 (13%)]	 Training Loss: 0.736 ACC: 77.55 CR: 1.00 Avg R1: 0.00 Avg R2: 12.11 Avg Reward: 12.113739
+2026-06-03 21:13:13 [INFO] Epoch: 28 [25600/100000 (26%)]	 Training Loss: 0.731 ACC: 78.05 CR: 1.00 Avg R1: 0.00 Avg R2: 12.11 Avg Reward: 12.106859
+2026-06-03 21:13:25 [INFO] Epoch: 28 [38400/100000 (38%)]	 Training Loss: 0.737 ACC: 77.87 CR: 1.00 Avg R1: 0.00 Avg R2: 12.10 Avg Reward: 12.100146
+2026-06-03 21:13:37 [INFO] Epoch: 28 [51200/100000 (51%)]	 Training Loss: 0.749 ACC: 77.36 CR: 1.00 Avg R1: 0.00 Avg R2: 12.09 Avg Reward: 12.093714
+2026-06-03 21:13:49 [INFO] Epoch: 28 [64000/100000 (64%)]	 Training Loss: 0.760 ACC: 77.05 CR: 1.00 Avg R1: 0.00 Avg R2: 12.09 Avg Reward: 12.086844
+2026-06-03 21:14:01 [INFO] Epoch: 28 [76800/100000 (77%)]	 Training Loss: 0.774 ACC: 76.61 CR: 1.00 Avg R1: 0.00 Avg R2: 12.08 Avg Reward: 12.079162
+2026-06-03 21:14:13 [INFO] Epoch: 28 [89600/100000 (90%)]	 Training Loss: 0.785 ACC: 76.26 CR: 1.00 Avg R1: 0.00 Avg R2: 12.07 Avg Reward: 12.071171
+2026-06-03 21:14:22 [INFO] EPOCH:28, ======================CR:0.99996====================
+2026-06-03 21:14:22 [INFO] 0.059755462211332266
+2026-06-03 21:14:25 [INFO] EPOCH:28, ======================ACC:49.63====================
+2026-06-03 21:14:25 [INFO] BEST EPOCH:23,BEST ACC:52.92
+2026-06-03 21:14:38 [INFO] Epoch: 29 [12800/100000 (13%)]	 Training Loss: 0.646 ACC: 80.44 CR: 1.00 Avg R1: 0.00 Avg R2: 12.06 Avg Reward: 12.064699
+2026-06-03 21:14:50 [INFO] Epoch: 29 [25600/100000 (26%)]	 Training Loss: 0.655 ACC: 80.23 CR: 1.00 Avg R1: 0.00 Avg R2: 12.06 Avg Reward: 12.064528
+2026-06-03 21:15:01 [INFO] Epoch: 29 [38400/100000 (38%)]	 Training Loss: 0.670 ACC: 79.71 CR: 1.00 Avg R1: 0.00 Avg R2: 12.06 Avg Reward: 12.064312
+2026-06-03 21:15:13 [INFO] Epoch: 29 [51200/100000 (51%)]	 Training Loss: 0.692 ACC: 79.12 CR: 1.00 Avg R1: 0.00 Avg R2: 12.06 Avg Reward: 12.064541
+2026-06-03 21:15:25 [INFO] Epoch: 29 [64000/100000 (64%)]	 Training Loss: 0.714 ACC: 78.47 CR: 1.00 Avg R1: 0.00 Avg R2: 12.06 Avg Reward: 12.067410
+2026-06-03 21:15:37 [INFO] Epoch: 29 [76800/100000 (77%)]	 Training Loss: 0.732 ACC: 77.99 CR: 1.00 Avg R1: 0.00 Avg R2: 12.07 Avg Reward: 12.071535
+2026-06-03 21:15:49 [INFO] Epoch: 29 [89600/100000 (90%)]	 Training Loss: 0.751 ACC: 77.43 CR: 1.00 Avg R1: 0.00 Avg R2: 12.07 Avg Reward: 12.076361
+2026-06-03 21:15:58 [INFO] EPOCH:29, ======================CR:0.99996====================
+2026-06-03 21:15:58 [INFO] 0.06878054092505359
+2026-06-03 21:16:02 [INFO] EPOCH:29, ======================ACC:53.55====================
+2026-06-03 21:16:02 [INFO] BEST EPOCH:29,BEST ACC:53.55
+2026-06-03 21:16:14 [INFO] Epoch: 30 [12800/100000 (13%)]	 Training Loss: 0.557 ACC: 83.69 CR: 1.00 Avg R1: 0.00 Avg R2: 12.28 Avg Reward: 12.280720
+2026-06-03 21:16:26 [INFO] Epoch: 30 [25600/100000 (26%)]	 Training Loss: 0.491 ACC: 85.68 CR: 1.00 Avg R1: 0.00 Avg R2: 12.27 Avg Reward: 12.272952
+2026-06-03 21:16:38 [INFO] Epoch: 30 [38400/100000 (38%)]	 Training Loss: 0.464 ACC: 86.63 CR: 1.00 Avg R1: 0.00 Avg R2: 12.26 Avg Reward: 12.264301
+2026-06-03 21:16:49 [INFO] Epoch: 30 [51200/100000 (51%)]	 Training Loss: 0.443 ACC: 87.31 CR: 1.00 Avg R1: 0.00 Avg R2: 12.25 Avg Reward: 12.255432
+2026-06-03 21:17:01 [INFO] Epoch: 30 [64000/100000 (64%)]	 Training Loss: 0.428 ACC: 87.77 CR: 1.00 Avg R1: 0.00 Avg R2: 12.24 Avg Reward: 12.245539
+2026-06-03 21:17:13 [INFO] Epoch: 30 [76800/100000 (77%)]	 Training Loss: 0.416 ACC: 88.13 CR: 1.00 Avg R1: 0.00 Avg R2: 12.23 Avg Reward: 12.234368
+2026-06-03 21:17:25 [INFO] Epoch: 30 [89600/100000 (90%)]	 Training Loss: 0.406 ACC: 88.45 CR: 1.00 Avg R1: 0.01 Avg R2: 12.22 Avg Reward: 12.221731
+2026-06-03 21:17:35 [INFO] EPOCH:30, ======================CR:0.9997====================
+2026-06-03 21:17:35 [INFO] 0.06111871929973897
+2026-06-03 21:17:38 [INFO] EPOCH:30, ======================ACC:61.69====================
+2026-06-03 21:17:38 [INFO] BEST EPOCH:30,BEST ACC:61.69
+2026-06-03 21:17:51 [INFO] Epoch: 31 [12800/100000 (13%)]	 Training Loss: 0.306 ACC: 92.02 CR: 1.00 Avg R1: 0.02 Avg R2: 11.88 Avg Reward: 11.899422
+2026-06-03 21:18:03 [INFO] Epoch: 31 [25600/100000 (26%)]	 Training Loss: 0.303 ACC: 91.90 CR: 1.00 Avg R1: 0.02 Avg R2: 11.87 Avg Reward: 11.887513
+2026-06-03 21:18:14 [INFO] Epoch: 31 [38400/100000 (38%)]	 Training Loss: 0.300 ACC: 91.93 CR: 1.00 Avg R1: 0.03 Avg R2: 11.85 Avg Reward: 11.874760
+2026-06-03 21:18:26 [INFO] Epoch: 31 [51200/100000 (51%)]	 Training Loss: 0.298 ACC: 91.92 CR: 1.00 Avg R1: 0.04 Avg R2: 11.83 Avg Reward: 11.861678
+2026-06-03 21:18:38 [INFO] Epoch: 31 [64000/100000 (64%)]	 Training Loss: 0.294 ACC: 92.03 CR: 1.00 Avg R1: 0.04 Avg R2: 11.80 Avg Reward: 11.846503
+2026-06-03 21:18:50 [INFO] Epoch: 31 [76800/100000 (77%)]	 Training Loss: 0.292 ACC: 92.06 CR: 1.00 Avg R1: 0.05 Avg R2: 11.78 Avg Reward: 11.830309
+2026-06-03 21:19:02 [INFO] Epoch: 31 [89600/100000 (90%)]	 Training Loss: 0.289 ACC: 92.14 CR: 1.00 Avg R1: 0.06 Avg R2: 11.75 Avg Reward: 11.813581
+2026-06-03 21:19:12 [INFO] EPOCH:31, ======================CR:0.99678====================
+2026-06-03 21:19:12 [INFO] 0.06376112626035219
+2026-06-03 21:19:15 [INFO] EPOCH:31, ======================ACC:61.8====================
+2026-06-03 21:19:15 [INFO] BEST EPOCH:31,BEST ACC:61.8
+2026-06-03 21:19:27 [INFO] Epoch: 32 [12800/100000 (13%)]	 Training Loss: 0.235 ACC: 93.65 CR: 1.00 Avg R1: 0.19 Avg R2: 11.56 Avg Reward: 11.743987
+2026-06-03 21:19:39 [INFO] Epoch: 32 [25600/100000 (26%)]	 Training Loss: 0.238 ACC: 93.49 CR: 0.99 Avg R1: 0.22 Avg R2: 11.53 Avg Reward: 11.749435
+2026-06-03 21:19:51 [INFO] Epoch: 32 [38400/100000 (38%)]	 Training Loss: 0.237 ACC: 93.66 CR: 0.99 Avg R1: 0.26 Avg R2: 11.50 Avg Reward: 11.756713
+2026-06-03 21:20:03 [INFO] Epoch: 32 [51200/100000 (51%)]	 Training Loss: 0.238 ACC: 93.59 CR: 0.99 Avg R1: 0.30 Avg R2: 11.47 Avg Reward: 11.763527
+2026-06-03 21:20:15 [INFO] Epoch: 32 [64000/100000 (64%)]	 Training Loss: 0.238 ACC: 93.58 CR: 0.99 Avg R1: 0.33 Avg R2: 11.44 Avg Reward: 11.770124
+2026-06-03 21:20:27 [INFO] Epoch: 32 [76800/100000 (77%)]	 Training Loss: 0.237 ACC: 93.53 CR: 0.99 Avg R1: 0.37 Avg R2: 11.41 Avg Reward: 11.776905
+2026-06-03 21:20:38 [INFO] Epoch: 32 [89600/100000 (90%)]	 Training Loss: 0.236 ACC: 93.52 CR: 0.99 Avg R1: 0.41 Avg R2: 11.38 Avg Reward: 11.786347
+2026-06-03 21:20:48 [INFO] EPOCH:32, ======================CR:0.98024====================
+2026-06-03 21:20:48 [INFO] 0.05773371831972525
+2026-06-03 21:20:51 [INFO] EPOCH:32, ======================ACC:61.68====================
+2026-06-03 21:20:51 [INFO] BEST EPOCH:31,BEST ACC:61.8
+2026-06-03 21:21:04 [INFO] Epoch: 33 [12800/100000 (13%)]	 Training Loss: 0.197 ACC: 94.63 CR: 0.98 Avg R1: 1.11 Avg R2: 11.06 Avg Reward: 12.173602
+2026-06-03 21:21:16 [INFO] Epoch: 33 [25600/100000 (26%)]	 Training Loss: 0.205 ACC: 94.40 CR: 0.98 Avg R1: 1.15 Avg R2: 11.04 Avg Reward: 12.192232
+2026-06-03 21:21:27 [INFO] Epoch: 33 [38400/100000 (38%)]	 Training Loss: 0.205 ACC: 94.50 CR: 0.98 Avg R1: 1.17 Avg R2: 11.03 Avg Reward: 12.202682
+2026-06-03 21:21:39 [INFO] Epoch: 33 [51200/100000 (51%)]	 Training Loss: 0.206 ACC: 94.42 CR: 0.97 Avg R1: 1.19 Avg R2: 11.02 Avg Reward: 12.211979
+2026-06-03 21:21:51 [INFO] Epoch: 33 [64000/100000 (64%)]	 Training Loss: 0.206 ACC: 94.37 CR: 0.97 Avg R1: 1.22 Avg R2: 11.01 Avg Reward: 12.228740
+2026-06-03 21:22:03 [INFO] Epoch: 33 [76800/100000 (77%)]	 Training Loss: 0.204 ACC: 94.36 CR: 0.96 Avg R1: 1.28 Avg R2: 10.98 Avg Reward: 12.262216
+2026-06-03 21:22:15 [INFO] Epoch: 33 [89600/100000 (90%)]	 Training Loss: 0.203 ACC: 94.34 CR: 0.96 Avg R1: 1.37 Avg R2: 10.95 Avg Reward: 12.318034
+2026-06-03 21:22:25 [INFO] EPOCH:33, ======================CR:0.95594====================
+2026-06-03 21:22:25 [INFO] 0.06100198651779644
+2026-06-03 21:22:28 [INFO] EPOCH:33, ======================ACC:62.09====================
+2026-06-03 21:22:28 [INFO] BEST EPOCH:33,BEST ACC:62.09
+2026-06-03 21:22:41 [INFO] Epoch: 34 [12800/100000 (13%)]	 Training Loss: 0.172 ACC: 94.97 CR: 0.95 Avg R1: 2.28 Avg R2: 10.68 Avg Reward: 12.968664
+2026-06-03 21:22:52 [INFO] Epoch: 34 [25600/100000 (26%)]	 Training Loss: 0.180 ACC: 94.91 CR: 0.95 Avg R1: 2.41 Avg R2: 10.65 Avg Reward: 13.063340
+2026-06-03 21:23:04 [INFO] Epoch: 34 [38400/100000 (38%)]	 Training Loss: 0.185 ACC: 94.89 CR: 0.95 Avg R1: 2.43 Avg R2: 10.65 Avg Reward: 13.079732
+2026-06-03 21:23:16 [INFO] Epoch: 34 [51200/100000 (51%)]	 Training Loss: 0.186 ACC: 94.91 CR: 0.95 Avg R1: 2.41 Avg R2: 10.66 Avg Reward: 13.069516
+2026-06-03 21:23:28 [INFO] Epoch: 34 [64000/100000 (64%)]	 Training Loss: 0.187 ACC: 94.92 CR: 0.96 Avg R1: 2.38 Avg R2: 10.68 Avg Reward: 13.053738
+2026-06-03 21:23:40 [INFO] Epoch: 34 [76800/100000 (77%)]	 Training Loss: 0.189 ACC: 94.87 CR: 0.96 Avg R1: 2.34 Avg R2: 10.69 Avg Reward: 13.029858
+2026-06-03 21:23:52 [INFO] Epoch: 34 [89600/100000 (90%)]	 Training Loss: 0.190 ACC: 94.90 CR: 0.96 Avg R1: 2.28 Avg R2: 10.71 Avg Reward: 12.995243
+2026-06-03 21:24:01 [INFO] EPOCH:34, ======================CR:0.96759====================
+2026-06-03 21:24:01 [INFO] 0.05966706248037675
+2026-06-03 21:24:05 [INFO] EPOCH:34, ======================ACC:62.11====================
+2026-06-03 21:24:05 [INFO] BEST EPOCH:34,BEST ACC:62.11
+2026-06-03 21:24:17 [INFO] Epoch: 35 [12800/100000 (13%)]	 Training Loss: 0.179 ACC: 95.43 CR: 0.97 Avg R1: 1.56 Avg R2: 11.06 Avg Reward: 12.617424
+2026-06-03 21:24:29 [INFO] Epoch: 35 [25600/100000 (26%)]	 Training Loss: 0.180 ACC: 95.46 CR: 0.97 Avg R1: 1.51 Avg R2: 11.07 Avg Reward: 12.579001
+2026-06-03 21:24:41 [INFO] Epoch: 35 [38400/100000 (38%)]	 Training Loss: 0.181 ACC: 95.39 CR: 0.98 Avg R1: 1.44 Avg R2: 11.09 Avg Reward: 12.538401
+2026-06-03 21:24:53 [INFO] Epoch: 35 [51200/100000 (51%)]	 Training Loss: 0.182 ACC: 95.38 CR: 0.98 Avg R1: 1.38 Avg R2: 11.12 Avg Reward: 12.493833
+2026-06-03 21:25:05 [INFO] Epoch: 35 [64000/100000 (64%)]	 Training Loss: 0.182 ACC: 95.37 CR: 0.98 Avg R1: 1.31 Avg R2: 11.14 Avg Reward: 12.451449
+2026-06-03 21:25:16 [INFO] Epoch: 35 [76800/100000 (77%)]	 Training Loss: 0.181 ACC: 95.39 CR: 0.98 Avg R1: 1.25 Avg R2: 11.16 Avg Reward: 12.411981
+2026-06-03 21:25:28 [INFO] Epoch: 35 [89600/100000 (90%)]	 Training Loss: 0.182 ACC: 95.39 CR: 0.98 Avg R1: 1.19 Avg R2: 11.18 Avg Reward: 12.373919
+2026-06-03 21:25:38 [INFO] EPOCH:35, ======================CR:0.98692====================
+2026-06-03 21:25:38 [INFO] 0.061593677993005004
+2026-06-03 21:25:41 [INFO] EPOCH:35, ======================ACC:61.97====================
+2026-06-03 21:25:41 [INFO] BEST EPOCH:34,BEST ACC:62.11
+2026-06-03 21:25:54 [INFO] Epoch: 36 [12800/100000 (13%)]	 Training Loss: 0.165 ACC: 95.99 CR: 0.99 Avg R1: 0.63 Avg R2: 11.47 Avg Reward: 12.098278
+2026-06-03 21:26:05 [INFO] Epoch: 36 [25600/100000 (26%)]	 Training Loss: 0.165 ACC: 95.88 CR: 0.99 Avg R1: 0.62 Avg R2: 11.48 Avg Reward: 12.094643
+2026-06-03 21:26:17 [INFO] Epoch: 36 [38400/100000 (38%)]	 Training Loss: 0.167 ACC: 95.89 CR: 0.99 Avg R1: 0.61 Avg R2: 11.48 Avg Reward: 12.091279
+2026-06-03 21:26:29 [INFO] Epoch: 36 [51200/100000 (51%)]	 Training Loss: 0.168 ACC: 95.84 CR: 0.99 Avg R1: 0.61 Avg R2: 11.48 Avg Reward: 12.089140
+2026-06-03 21:26:40 [INFO] Epoch: 36 [64000/100000 (64%)]	 Training Loss: 0.169 ACC: 95.77 CR: 0.99 Avg R1: 0.60 Avg R2: 11.48 Avg Reward: 12.085084
+2026-06-03 21:26:52 [INFO] Epoch: 36 [76800/100000 (77%)]	 Training Loss: 0.170 ACC: 95.72 CR: 0.99 Avg R1: 0.60 Avg R2: 11.48 Avg Reward: 12.083127
+2026-06-03 21:27:04 [INFO] Epoch: 36 [89600/100000 (90%)]	 Training Loss: 0.170 ACC: 95.74 CR: 0.99 Avg R1: 0.60 Avg R2: 11.48 Avg Reward: 12.082087
+2026-06-03 21:27:13 [INFO] EPOCH:36, ======================CR:0.9882====================
+2026-06-03 21:27:13 [INFO] 0.05802303030773259
+2026-06-03 21:27:17 [INFO] EPOCH:36, ======================ACC:61.64====================
+2026-06-03 21:27:17 [INFO] BEST EPOCH:34,BEST ACC:62.11
+2026-06-03 21:27:29 [INFO] Epoch: 37 [12800/100000 (13%)]	 Training Loss: 0.160 ACC: 96.21 CR: 0.99 Avg R1: 0.59 Avg R2: 11.56 Avg Reward: 12.145752
+2026-06-03 21:27:40 [INFO] Epoch: 37 [25600/100000 (26%)]	 Training Loss: 0.159 ACC: 96.19 CR: 0.99 Avg R1: 0.59 Avg R2: 11.56 Avg Reward: 12.146421
+2026-06-03 21:27:52 [INFO] Epoch: 37 [38400/100000 (38%)]	 Training Loss: 0.160 ACC: 96.14 CR: 0.99 Avg R1: 0.59 Avg R2: 11.56 Avg Reward: 12.143787
+2026-06-03 21:28:03 [INFO] Epoch: 37 [51200/100000 (51%)]	 Training Loss: 0.160 ACC: 96.11 CR: 0.99 Avg R1: 0.59 Avg R2: 11.55 Avg Reward: 12.141825
+2026-06-03 21:28:13 [INFO] Epoch: 37 [64000/100000 (64%)]	 Training Loss: 0.159 ACC: 96.09 CR: 0.99 Avg R1: 0.60 Avg R2: 11.55 Avg Reward: 12.144005
+2026-06-03 21:28:25 [INFO] Epoch: 37 [76800/100000 (77%)]	 Training Loss: 0.158 ACC: 96.12 CR: 0.98 Avg R1: 0.62 Avg R2: 11.54 Avg Reward: 12.153383
+2026-06-03 21:28:36 [INFO] Epoch: 37 [89600/100000 (90%)]	 Training Loss: 0.157 ACC: 96.13 CR: 0.98 Avg R1: 0.65 Avg R2: 11.52 Avg Reward: 12.167527
+2026-06-03 21:28:46 [INFO] EPOCH:37, ======================CR:0.98171====================
+2026-06-03 21:28:46 [INFO] 0.057579034724950004
+2026-06-03 21:28:49 [INFO] EPOCH:37, ======================ACC:61.83====================
+2026-06-03 21:28:49 [INFO] BEST EPOCH:34,BEST ACC:62.11
+2026-06-03 21:29:01 [INFO] Epoch: 38 [12800/100000 (13%)]	 Training Loss: 0.142 ACC: 96.56 CR: 0.98 Avg R1: 0.92 Avg R2: 11.44 Avg Reward: 12.359866
+2026-06-03 21:29:11 [INFO] Epoch: 38 [25600/100000 (26%)]	 Training Loss: 0.143 ACC: 96.56 CR: 0.98 Avg R1: 0.92 Avg R2: 11.44 Avg Reward: 12.361374
+2026-06-03 21:29:22 [INFO] Epoch: 38 [38400/100000 (38%)]	 Training Loss: 0.145 ACC: 96.55 CR: 0.98 Avg R1: 0.93 Avg R2: 11.44 Avg Reward: 12.362094
+2026-06-03 21:29:34 [INFO] Epoch: 38 [51200/100000 (51%)]	 Training Loss: 0.143 ACC: 96.61 CR: 0.98 Avg R1: 0.93 Avg R2: 11.43 Avg Reward: 12.364676
+2026-06-03 21:29:46 [INFO] Epoch: 38 [64000/100000 (64%)]	 Training Loss: 0.145 ACC: 96.52 CR: 0.98 Avg R1: 0.95 Avg R2: 11.42 Avg Reward: 12.369720
+2026-06-03 21:29:57 [INFO] Epoch: 38 [76800/100000 (77%)]	 Training Loss: 0.145 ACC: 96.51 CR: 0.98 Avg R1: 0.96 Avg R2: 11.41 Avg Reward: 12.376426
+2026-06-03 21:30:09 [INFO] Epoch: 38 [89600/100000 (90%)]	 Training Loss: 0.146 ACC: 96.51 CR: 0.98 Avg R1: 0.97 Avg R2: 11.41 Avg Reward: 12.378273
+2026-06-03 21:30:19 [INFO] EPOCH:38, ======================CR:0.9828====================
+2026-06-03 21:30:19 [INFO] 0.05321894067671713
+2026-06-03 21:30:22 [INFO] EPOCH:38, ======================ACC:61.8====================
+2026-06-03 21:30:22 [INFO] BEST EPOCH:34,BEST ACC:62.11
+2026-06-03 21:30:35 [INFO] Epoch: 39 [12800/100000 (13%)]	 Training Loss: 0.142 ACC: 96.94 CR: 0.98 Avg R1: 0.82 Avg R2: 11.57 Avg Reward: 12.391583
+2026-06-03 21:30:47 [INFO] Epoch: 39 [25600/100000 (26%)]	 Training Loss: 0.140 ACC: 96.93 CR: 0.99 Avg R1: 0.78 Avg R2: 11.60 Avg Reward: 12.382061
+2026-06-03 21:30:59 [INFO] Epoch: 39 [38400/100000 (38%)]	 Training Loss: 0.140 ACC: 96.92 CR: 0.99 Avg R1: 0.74 Avg R2: 11.63 Avg Reward: 12.370213
+2026-06-03 21:31:10 [INFO] Epoch: 39 [51200/100000 (51%)]	 Training Loss: 0.142 ACC: 96.88 CR: 0.99 Avg R1: 0.69 Avg R2: 11.66 Avg Reward: 12.356315
+2026-06-03 21:31:22 [INFO] Epoch: 39 [64000/100000 (64%)]	 Training Loss: 0.143 ACC: 96.81 CR: 0.99 Avg R1: 0.65 Avg R2: 11.69 Avg Reward: 12.342092
+2026-06-03 21:31:34 [INFO] Epoch: 39 [76800/100000 (77%)]	 Training Loss: 0.144 ACC: 96.77 CR: 0.99 Avg R1: 0.61 Avg R2: 11.72 Avg Reward: 12.326904
+2026-06-03 21:31:46 [INFO] Epoch: 39 [89600/100000 (90%)]	 Training Loss: 0.145 ACC: 96.74 CR: 0.99 Avg R1: 0.56 Avg R2: 11.75 Avg Reward: 12.313307
+2026-06-03 21:31:56 [INFO] EPOCH:39, ======================CR:0.99643====================
+2026-06-03 21:31:56 [INFO] 0.051299963155650524
+2026-06-03 21:31:59 [INFO] EPOCH:39, ======================ACC:61.65====================
+2026-06-03 21:31:59 [INFO] BEST EPOCH:34,BEST ACC:62.11
+2026-06-03 21:32:11 [INFO] Epoch: 40 [12800/100000 (13%)]	 Training Loss: 0.135 ACC: 97.29 CR: 1.00 Avg R1: 0.17 Avg R2: 12.11 Avg Reward: 12.280793
+2026-06-03 21:32:23 [INFO] Epoch: 40 [25600/100000 (26%)]	 Training Loss: 0.135 ACC: 97.34 CR: 1.00 Avg R1: 0.17 Avg R2: 12.12 Avg Reward: 12.283576
+2026-06-03 21:32:35 [INFO] Epoch: 40 [38400/100000 (38%)]	 Training Loss: 0.136 ACC: 97.24 CR: 1.00 Avg R1: 0.16 Avg R2: 12.13 Avg Reward: 12.287306
+2026-06-03 21:32:47 [INFO] Epoch: 40 [51200/100000 (51%)]	 Training Loss: 0.138 ACC: 97.14 CR: 1.00 Avg R1: 0.15 Avg R2: 12.14 Avg Reward: 12.290237
+2026-06-03 21:32:59 [INFO] Epoch: 40 [64000/100000 (64%)]	 Training Loss: 0.138 ACC: 97.12 CR: 1.00 Avg R1: 0.15 Avg R2: 12.15 Avg Reward: 12.293687
+2026-06-03 21:33:11 [INFO] Epoch: 40 [76800/100000 (77%)]	 Training Loss: 0.139 ACC: 97.08 CR: 1.00 Avg R1: 0.14 Avg R2: 12.16 Avg Reward: 12.297217
+2026-06-03 21:33:22 [INFO] Epoch: 40 [89600/100000 (90%)]	 Training Loss: 0.140 ACC: 97.04 CR: 1.00 Avg R1: 0.13 Avg R2: 12.17 Avg Reward: 12.301204
+2026-06-03 21:33:32 [INFO] EPOCH:40, ======================CR:0.99861====================
+2026-06-03 21:33:32 [INFO] 0.0479146972753265
+2026-06-03 21:33:35 [INFO] EPOCH:40, ======================ACC:61.72====================
+2026-06-03 21:33:35 [INFO] BEST EPOCH:34,BEST ACC:62.11
+2026-06-03 21:33:48 [INFO] Epoch: 41 [12800/100000 (13%)]	 Training Loss: 0.130 ACC: 97.23 CR: 1.00 Avg R1: 0.07 Avg R2: 12.32 Avg Reward: 12.392783
+2026-06-03 21:34:00 [INFO] Epoch: 41 [25600/100000 (26%)]	 Training Loss: 0.132 ACC: 97.11 CR: 1.00 Avg R1: 0.07 Avg R2: 12.31 Avg Reward: 12.385986
+2026-06-03 21:34:12 [INFO] Epoch: 41 [38400/100000 (38%)]	 Training Loss: 0.129 ACC: 97.25 CR: 1.00 Avg R1: 0.08 Avg R2: 12.30 Avg Reward: 12.379075
+2026-06-03 21:34:24 [INFO] Epoch: 41 [51200/100000 (51%)]	 Training Loss: 0.129 ACC: 97.25 CR: 1.00 Avg R1: 0.08 Avg R2: 12.29 Avg Reward: 12.371070
+2026-06-03 21:34:36 [INFO] Epoch: 41 [64000/100000 (64%)]	 Training Loss: 0.130 ACC: 97.24 CR: 1.00 Avg R1: 0.09 Avg R2: 12.27 Avg Reward: 12.363261
+2026-06-03 21:34:47 [INFO] Epoch: 41 [76800/100000 (77%)]	 Training Loss: 0.130 ACC: 97.24 CR: 1.00 Avg R1: 0.10 Avg R2: 12.26 Avg Reward: 12.356005
+2026-06-03 21:34:59 [INFO] Epoch: 41 [89600/100000 (90%)]	 Training Loss: 0.130 ACC: 97.24 CR: 1.00 Avg R1: 0.10 Avg R2: 12.24 Avg Reward: 12.349234
+2026-06-03 21:35:09 [INFO] EPOCH:41, ======================CR:0.99697====================
+2026-06-03 21:35:09 [INFO] 0.05306265832381286
+2026-06-03 21:35:12 [INFO] EPOCH:41, ======================ACC:61.63====================
+2026-06-03 21:35:12 [INFO] BEST EPOCH:34,BEST ACC:62.11
+2026-06-03 21:35:25 [INFO] Epoch: 42 [12800/100000 (13%)]	 Training Loss: 0.118 ACC: 97.66 CR: 1.00 Avg R1: 0.14 Avg R2: 12.21 Avg Reward: 12.352099
+2026-06-03 21:35:36 [INFO] Epoch: 42 [25600/100000 (26%)]	 Training Loss: 0.119 ACC: 97.62 CR: 1.00 Avg R1: 0.14 Avg R2: 12.22 Avg Reward: 12.357572
+2026-06-03 21:35:48 [INFO] Epoch: 42 [38400/100000 (38%)]	 Training Loss: 0.121 ACC: 97.54 CR: 1.00 Avg R1: 0.13 Avg R2: 12.24 Avg Reward: 12.364775
+2026-06-03 21:36:00 [INFO] Epoch: 42 [51200/100000 (51%)]	 Training Loss: 0.121 ACC: 97.52 CR: 1.00 Avg R1: 0.12 Avg R2: 12.25 Avg Reward: 12.371189
+2026-06-03 21:36:12 [INFO] Epoch: 42 [64000/100000 (64%)]	 Training Loss: 0.122 ACC: 97.54 CR: 1.00 Avg R1: 0.11 Avg R2: 12.26 Avg Reward: 12.377953
+2026-06-03 21:36:24 [INFO] Epoch: 42 [76800/100000 (77%)]	 Training Loss: 0.123 ACC: 97.51 CR: 1.00 Avg R1: 0.11 Avg R2: 12.28 Avg Reward: 12.387617
+2026-06-03 21:36:35 [INFO] Epoch: 42 [89600/100000 (90%)]	 Training Loss: 0.124 ACC: 97.47 CR: 1.00 Avg R1: 0.10 Avg R2: 12.30 Avg Reward: 12.400733
+2026-06-03 21:36:45 [INFO] EPOCH:42, ======================CR:0.99943====================
+2026-06-03 21:36:45 [INFO] 0.04418553956928667
+2026-06-03 21:36:48 [INFO] EPOCH:42, ======================ACC:61.81====================
+2026-06-03 21:36:48 [INFO] BEST EPOCH:34,BEST ACC:62.11
+2026-06-03 21:37:01 [INFO] Epoch: 43 [12800/100000 (13%)]	 Training Loss: 0.121 ACC: 97.66 CR: 1.00 Avg R1: 0.03 Avg R2: 12.56 Avg Reward: 12.588383
+2026-06-03 21:37:13 [INFO] Epoch: 43 [25600/100000 (26%)]	 Training Loss: 0.121 ACC: 97.59 CR: 1.00 Avg R1: 0.03 Avg R2: 12.57 Avg Reward: 12.595436
+2026-06-03 21:37:25 [INFO] Epoch: 43 [38400/100000 (38%)]	 Training Loss: 0.121 ACC: 97.55 CR: 1.00 Avg R1: 0.03 Avg R2: 12.58 Avg Reward: 12.600971
+2026-06-03 21:37:36 [INFO] Epoch: 43 [51200/100000 (51%)]	 Training Loss: 0.121 ACC: 97.60 CR: 1.00 Avg R1: 0.03 Avg R2: 12.58 Avg Reward: 12.605691
+2026-06-03 21:37:48 [INFO] Epoch: 43 [64000/100000 (64%)]	 Training Loss: 0.120 ACC: 97.62 CR: 1.00 Avg R1: 0.03 Avg R2: 12.58 Avg Reward: 12.608568
+2026-06-03 21:38:00 [INFO] Epoch: 43 [76800/100000 (77%)]	 Training Loss: 0.121 ACC: 97.63 CR: 1.00 Avg R1: 0.02 Avg R2: 12.59 Avg Reward: 12.610086
+2026-06-03 21:38:12 [INFO] Epoch: 43 [89600/100000 (90%)]	 Training Loss: 0.120 ACC: 97.63 CR: 1.00 Avg R1: 0.03 Avg R2: 12.59 Avg Reward: 12.610604
+2026-06-03 21:38:22 [INFO] EPOCH:43, ======================CR:0.99919====================
+2026-06-03 21:38:22 [INFO] 0.054393069574922084
+2026-06-03 21:38:25 [INFO] EPOCH:43, ======================ACC:61.7====================
+2026-06-03 21:38:25 [INFO] BEST EPOCH:34,BEST ACC:62.11
+2026-06-03 21:38:38 [INFO] Epoch: 44 [12800/100000 (13%)]	 Training Loss: 0.105 ACC: 97.95 CR: 1.00 Avg R1: 0.05 Avg R2: 12.60 Avg Reward: 12.645322
+2026-06-03 21:38:50 [INFO] Epoch: 44 [25600/100000 (26%)]	 Training Loss: 0.106 ACC: 97.93 CR: 1.00 Avg R1: 0.05 Avg R2: 12.59 Avg Reward: 12.639420
+2026-06-03 21:39:02 [INFO] Epoch: 44 [38400/100000 (38%)]	 Training Loss: 0.108 ACC: 97.90 CR: 1.00 Avg R1: 0.05 Avg R2: 12.58 Avg Reward: 12.632894
+2026-06-03 21:39:14 [INFO] Epoch: 44 [51200/100000 (51%)]	 Training Loss: 0.109 ACC: 97.87 CR: 1.00 Avg R1: 0.05 Avg R2: 12.58 Avg Reward: 12.626589
+2026-06-03 21:39:25 [INFO] Epoch: 44 [64000/100000 (64%)]	 Training Loss: 0.109 ACC: 97.87 CR: 1.00 Avg R1: 0.05 Avg R2: 12.57 Avg Reward: 12.621247
+2026-06-03 21:39:37 [INFO] Epoch: 44 [76800/100000 (77%)]	 Training Loss: 0.111 ACC: 97.82 CR: 1.00 Avg R1: 0.05 Avg R2: 12.57 Avg Reward: 12.617771
+2026-06-03 21:39:49 [INFO] Epoch: 44 [89600/100000 (90%)]	 Training Loss: 0.112 ACC: 97.79 CR: 1.00 Avg R1: 0.05 Avg R2: 12.56 Avg Reward: 12.615845
+2026-06-03 21:39:59 [INFO] EPOCH:44, ======================CR:0.99902====================
+2026-06-03 21:39:59 [INFO] 0.057287108466398146
+2026-06-03 21:40:02 [INFO] EPOCH:44, ======================ACC:61.58====================
+2026-06-03 21:40:02 [INFO] BEST EPOCH:34,BEST ACC:62.11
+2026-06-03 21:40:15 [INFO] Epoch: 45 [12800/100000 (13%)]	 Training Loss: 0.107 ACC: 97.83 CR: 1.00 Avg R1: 0.05 Avg R2: 12.61 Avg Reward: 12.652873
+2026-06-03 21:40:27 [INFO] Epoch: 45 [25600/100000 (26%)]	 Training Loss: 0.105 ACC: 97.98 CR: 1.00 Avg R1: 0.04 Avg R2: 12.61 Avg Reward: 12.657558
+2026-06-03 21:40:39 [INFO] Epoch: 45 [38400/100000 (38%)]	 Training Loss: 0.106 ACC: 97.97 CR: 1.00 Avg R1: 0.04 Avg R2: 12.62 Avg Reward: 12.663482
+2026-06-03 21:40:51 [INFO] Epoch: 45 [51200/100000 (51%)]	 Training Loss: 0.107 ACC: 97.94 CR: 1.00 Avg R1: 0.04 Avg R2: 12.63 Avg Reward: 12.669135
+2026-06-03 21:41:03 [INFO] Epoch: 45 [64000/100000 (64%)]	 Training Loss: 0.106 ACC: 97.93 CR: 1.00 Avg R1: 0.04 Avg R2: 12.63 Avg Reward: 12.670199
+2026-06-03 21:41:14 [INFO] Epoch: 45 [76800/100000 (77%)]	 Training Loss: 0.106 ACC: 97.89 CR: 1.00 Avg R1: 0.05 Avg R2: 12.62 Avg Reward: 12.667334
+2026-06-03 21:41:26 [INFO] Epoch: 45 [89600/100000 (90%)]	 Training Loss: 0.106 ACC: 97.90 CR: 1.00 Avg R1: 0.06 Avg R2: 12.60 Avg Reward: 12.661671
+2026-06-03 21:41:36 [INFO] EPOCH:45, ======================CR:0.9963====================
+2026-06-03 21:41:36 [INFO] 0.05263670207599942
+2026-06-03 21:41:40 [INFO] EPOCH:45, ======================ACC:61.82====================
+2026-06-03 21:41:40 [INFO] BEST EPOCH:34,BEST ACC:62.11
+2026-06-03 21:41:52 [INFO] Epoch: 46 [12800/100000 (13%)]	 Training Loss: 0.092 ACC: 98.34 CR: 1.00 Avg R1: 0.20 Avg R2: 12.44 Avg Reward: 12.635657
+2026-06-03 21:42:04 [INFO] Epoch: 46 [25600/100000 (26%)]	 Training Loss: 0.094 ACC: 98.20 CR: 1.00 Avg R1: 0.21 Avg R2: 12.42 Avg Reward: 12.624397
+2026-06-03 21:42:16 [INFO] Epoch: 46 [38400/100000 (38%)]	 Training Loss: 0.094 ACC: 98.20 CR: 0.99 Avg R1: 0.22 Avg R2: 12.40 Avg Reward: 12.616909
+2026-06-03 21:42:28 [INFO] Epoch: 46 [51200/100000 (51%)]	 Training Loss: 0.095 ACC: 98.15 CR: 0.99 Avg R1: 0.24 Avg R2: 12.37 Avg Reward: 12.611928
+2026-06-03 21:42:40 [INFO] Epoch: 46 [64000/100000 (64%)]	 Training Loss: 0.095 ACC: 98.13 CR: 0.99 Avg R1: 0.27 Avg R2: 12.34 Avg Reward: 12.609226
+2026-06-03 21:42:51 [INFO] Epoch: 46 [76800/100000 (77%)]	 Training Loss: 0.095 ACC: 98.13 CR: 0.99 Avg R1: 0.30 Avg R2: 12.31 Avg Reward: 12.607135
+2026-06-03 21:43:03 [INFO] Epoch: 46 [89600/100000 (90%)]	 Training Loss: 0.096 ACC: 98.11 CR: 0.99 Avg R1: 0.32 Avg R2: 12.28 Avg Reward: 12.604046
+2026-06-03 21:43:13 [INFO] EPOCH:46, ======================CR:0.98976====================
+2026-06-03 21:43:13 [INFO] 0.05792395100221477
+2026-06-03 21:43:16 [INFO] EPOCH:46, ======================ACC:61.78====================
+2026-06-03 21:43:16 [INFO] BEST EPOCH:34,BEST ACC:62.11
+2026-06-03 21:43:29 [INFO] Epoch: 47 [12800/100000 (13%)]	 Training Loss: 0.094 ACC: 98.16 CR: 0.99 Avg R1: 0.50 Avg R2: 12.10 Avg Reward: 12.600016
+2026-06-03 21:43:41 [INFO] Epoch: 47 [25600/100000 (26%)]	 Training Loss: 0.095 ACC: 98.18 CR: 0.99 Avg R1: 0.48 Avg R2: 12.12 Avg Reward: 12.595215
+2026-06-03 21:43:53 [INFO] Epoch: 47 [38400/100000 (38%)]	 Training Loss: 0.094 ACC: 98.22 CR: 0.99 Avg R1: 0.46 Avg R2: 12.13 Avg Reward: 12.589729
+2026-06-03 21:44:05 [INFO] Epoch: 47 [51200/100000 (51%)]	 Training Loss: 0.095 ACC: 98.22 CR: 0.99 Avg R1: 0.43 Avg R2: 12.15 Avg Reward: 12.585153
+2026-06-03 21:44:17 [INFO] Epoch: 47 [64000/100000 (64%)]	 Training Loss: 0.095 ACC: 98.21 CR: 0.99 Avg R1: 0.42 Avg R2: 12.17 Avg Reward: 12.581490
+2026-06-03 21:44:29 [INFO] Epoch: 47 [76800/100000 (77%)]	 Training Loss: 0.095 ACC: 98.20 CR: 0.99 Avg R1: 0.40 Avg R2: 12.18 Avg Reward: 12.577938
+2026-06-03 21:44:41 [INFO] Epoch: 47 [89600/100000 (90%)]	 Training Loss: 0.095 ACC: 98.19 CR: 0.99 Avg R1: 0.38 Avg R2: 12.19 Avg Reward: 12.575174
+2026-06-03 21:44:50 [INFO] EPOCH:47, ======================CR:0.99404====================
+2026-06-03 21:44:50 [INFO] 0.0544427186503554
+2026-06-03 21:44:54 [INFO] EPOCH:47, ======================ACC:61.75====================
+2026-06-03 21:44:54 [INFO] BEST EPOCH:34,BEST ACC:62.11
+2026-06-03 21:45:06 [INFO] Epoch: 48 [12800/100000 (13%)]	 Training Loss: 0.089 ACC: 98.28 CR: 0.99 Avg R1: 0.31 Avg R2: 12.28 Avg Reward: 12.590585
+2026-06-03 21:45:18 [INFO] Epoch: 48 [25600/100000 (26%)]	 Training Loss: 0.088 ACC: 98.26 CR: 0.99 Avg R1: 0.31 Avg R2: 12.28 Avg Reward: 12.590601
+2026-06-03 21:45:30 [INFO] Epoch: 48 [38400/100000 (38%)]	 Training Loss: 0.088 ACC: 98.37 CR: 0.99 Avg R1: 0.32 Avg R2: 12.27 Avg Reward: 12.590015
+2026-06-03 21:45:42 [INFO] Epoch: 48 [51200/100000 (51%)]	 Training Loss: 0.087 ACC: 98.39 CR: 0.99 Avg R1: 0.33 Avg R2: 12.26 Avg Reward: 12.588579
+2026-06-03 21:45:54 [INFO] Epoch: 48 [64000/100000 (64%)]	 Training Loss: 0.088 ACC: 98.34 CR: 0.99 Avg R1: 0.34 Avg R2: 12.25 Avg Reward: 12.587958
+2026-06-03 21:46:06 [INFO] Epoch: 48 [76800/100000 (77%)]	 Training Loss: 0.088 ACC: 98.32 CR: 0.99 Avg R1: 0.35 Avg R2: 12.23 Avg Reward: 12.588169
+2026-06-03 21:46:18 [INFO] Epoch: 48 [89600/100000 (90%)]	 Training Loss: 0.088 ACC: 98.33 CR: 0.99 Avg R1: 0.37 Avg R2: 12.22 Avg Reward: 12.589656
+2026-06-03 21:46:28 [INFO] EPOCH:48, ======================CR:0.98953====================
+2026-06-03 21:46:28 [INFO] 0.05823978024956127
+2026-06-03 21:46:31 [INFO] EPOCH:48, ======================ACC:61.73====================
+2026-06-03 21:46:31 [INFO] BEST EPOCH:34,BEST ACC:62.11
+2026-06-03 21:46:44 [INFO] Epoch: 49 [12800/100000 (13%)]	 Training Loss: 0.084 ACC: 98.45 CR: 0.99 Avg R1: 0.52 Avg R2: 12.14 Avg Reward: 12.663229
+2026-06-03 21:46:56 [INFO] Epoch: 49 [25600/100000 (26%)]	 Training Loss: 0.086 ACC: 98.39 CR: 0.99 Avg R1: 0.51 Avg R2: 12.15 Avg Reward: 12.662059
+2026-06-03 21:47:08 [INFO] Epoch: 49 [38400/100000 (38%)]	 Training Loss: 0.086 ACC: 98.41 CR: 0.99 Avg R1: 0.49 Avg R2: 12.17 Avg Reward: 12.661773
+2026-06-03 21:47:20 [INFO] Epoch: 49 [51200/100000 (51%)]	 Training Loss: 0.088 ACC: 98.42 CR: 0.99 Avg R1: 0.47 Avg R2: 12.19 Avg Reward: 12.663577
+2026-06-03 21:47:32 [INFO] Epoch: 49 [64000/100000 (64%)]	 Training Loss: 0.088 ACC: 98.41 CR: 0.99 Avg R1: 0.45 Avg R2: 12.21 Avg Reward: 12.665355
+2026-06-03 21:47:44 [INFO] Epoch: 49 [76800/100000 (77%)]	 Training Loss: 0.089 ACC: 98.39 CR: 0.99 Avg R1: 0.42 Avg R2: 12.24 Avg Reward: 12.667587
+2026-06-03 21:47:56 [INFO] Epoch: 49 [89600/100000 (90%)]	 Training Loss: 0.089 ACC: 98.37 CR: 1.00 Avg R1: 0.39 Avg R2: 12.28 Avg Reward: 12.670570
+2026-06-03 21:48:06 [INFO] EPOCH:49, ======================CR:0.99735====================
+2026-06-03 21:48:06 [INFO] 0.05047032651583178
+2026-06-03 21:48:09 [INFO] EPOCH:49, ======================ACC:61.77====================
+2026-06-03 21:48:09 [INFO] BEST EPOCH:34,BEST ACC:62.11
+2026-06-03 21:48:21 [INFO] Epoch: 50 [12800/100000 (13%)]	 Training Loss: 0.087 ACC: 98.36 CR: 1.00 Avg R1: 0.12 Avg R2: 12.63 Avg Reward: 12.754720
+2026-06-03 21:48:33 [INFO] Epoch: 50 [25600/100000 (26%)]	 Training Loss: 0.086 ACC: 98.45 CR: 1.00 Avg R1: 0.11 Avg R2: 12.65 Avg Reward: 12.764755
+2026-06-03 21:48:45 [INFO] Epoch: 50 [38400/100000 (38%)]	 Training Loss: 0.086 ACC: 98.51 CR: 1.00 Avg R1: 0.11 Avg R2: 12.67 Avg Reward: 12.775094
+2026-06-03 21:48:57 [INFO] Epoch: 50 [51200/100000 (51%)]	 Training Loss: 0.087 ACC: 98.53 CR: 1.00 Avg R1: 0.10 Avg R2: 12.69 Avg Reward: 12.785011
+2026-06-03 21:49:09 [INFO] Epoch: 50 [64000/100000 (64%)]	 Training Loss: 0.086 ACC: 98.55 CR: 1.00 Avg R1: 0.09 Avg R2: 12.70 Avg Reward: 12.793834
+2026-06-03 21:49:21 [INFO] Epoch: 50 [76800/100000 (77%)]	 Training Loss: 0.086 ACC: 98.54 CR: 1.00 Avg R1: 0.08 Avg R2: 12.72 Avg Reward: 12.802186
+2026-06-03 21:49:33 [INFO] Epoch: 50 [89600/100000 (90%)]	 Training Loss: 0.087 ACC: 98.52 CR: 1.00 Avg R1: 0.08 Avg R2: 12.73 Avg Reward: 12.811604
+2026-06-03 21:49:43 [INFO] EPOCH:50, ======================CR:0.9997====================
+2026-06-03 21:49:43 [INFO] 0.05548161436612278
+2026-06-03 21:49:46 [INFO] EPOCH:50, ======================ACC:61.69====================
+2026-06-03 21:49:46 [INFO] BEST EPOCH:34,BEST ACC:62.11
+2026-06-03 21:49:59 [INFO] Epoch: 51 [12800/100000 (13%)]	 Training Loss: 0.085 ACC: 98.30 CR: 1.00 Avg R1: 0.01 Avg R2: 12.96 Avg Reward: 12.970401
+2026-06-03 21:50:10 [INFO] Epoch: 51 [25600/100000 (26%)]	 Training Loss: 0.083 ACC: 98.43 CR: 1.00 Avg R1: 0.01 Avg R2: 12.97 Avg Reward: 12.979091
+2026-06-03 21:50:22 [INFO] Epoch: 51 [38400/100000 (38%)]	 Training Loss: 0.083 ACC: 98.43 CR: 1.00 Avg R1: 0.01 Avg R2: 12.98 Avg Reward: 12.987084
+2026-06-03 21:50:34 [INFO] Epoch: 51 [51200/100000 (51%)]	 Training Loss: 0.085 ACC: 98.44 CR: 1.00 Avg R1: 0.01 Avg R2: 12.98 Avg Reward: 12.995195
+2026-06-03 21:50:46 [INFO] Epoch: 51 [64000/100000 (64%)]	 Training Loss: 0.086 ACC: 98.43 CR: 1.00 Avg R1: 0.01 Avg R2: 12.99 Avg Reward: 13.002581
+2026-06-03 21:50:58 [INFO] Epoch: 51 [76800/100000 (77%)]	 Training Loss: 0.085 ACC: 98.49 CR: 1.00 Avg R1: 0.01 Avg R2: 13.00 Avg Reward: 13.010361
+2026-06-03 21:51:10 [INFO] Epoch: 51 [89600/100000 (90%)]	 Training Loss: 0.086 ACC: 98.47 CR: 1.00 Avg R1: 0.01 Avg R2: 13.01 Avg Reward: 13.017857
+2026-06-03 21:51:20 [INFO] EPOCH:51, ======================CR:0.99992====================
+2026-06-03 21:51:20 [INFO] 0.05458349830935614
+2026-06-03 21:51:24 [INFO] EPOCH:51, ======================ACC:61.59====================
+2026-06-03 21:51:24 [INFO] BEST EPOCH:34,BEST ACC:62.11
+2026-06-03 21:51:36 [INFO] Epoch: 52 [12800/100000 (13%)]	 Training Loss: 0.080 ACC: 98.70 CR: 1.00 Avg R1: 0.00 Avg R2: 13.10 Avg Reward: 13.100195
+2026-06-03 21:51:48 [INFO] Epoch: 52 [25600/100000 (26%)]	 Training Loss: 0.079 ACC: 98.76 CR: 1.00 Avg R1: 0.00 Avg R2: 13.09 Avg Reward: 13.095278
+2026-06-03 21:52:00 [INFO] Epoch: 52 [38400/100000 (38%)]	 Training Loss: 0.080 ACC: 98.72 CR: 1.00 Avg R1: 0.00 Avg R2: 13.09 Avg Reward: 13.090714
+2026-06-03 21:52:12 [INFO] Epoch: 52 [51200/100000 (51%)]	 Training Loss: 0.081 ACC: 98.67 CR: 1.00 Avg R1: 0.01 Avg R2: 13.08 Avg Reward: 13.086241
+2026-06-03 21:52:24 [INFO] Epoch: 52 [64000/100000 (64%)]	 Training Loss: 0.081 ACC: 98.64 CR: 1.00 Avg R1: 0.01 Avg R2: 13.07 Avg Reward: 13.079820
+2026-06-03 21:52:36 [INFO] Epoch: 52 [76800/100000 (77%)]	 Training Loss: 0.082 ACC: 98.60 CR: 1.00 Avg R1: 0.01 Avg R2: 13.06 Avg Reward: 13.071879
+2026-06-03 21:52:48 [INFO] Epoch: 52 [89600/100000 (90%)]	 Training Loss: 0.082 ACC: 98.59 CR: 1.00 Avg R1: 0.01 Avg R2: 13.06 Avg Reward: 13.062828
+2026-06-03 21:52:58 [INFO] EPOCH:52, ======================CR:0.9997====================
+2026-06-03 21:52:58 [INFO] 0.053942263187815656
+2026-06-03 21:53:01 [INFO] EPOCH:52, ======================ACC:61.36====================
+2026-06-03 21:53:01 [INFO] BEST EPOCH:34,BEST ACC:62.11
+2026-06-03 21:53:14 [INFO] Epoch: 53 [12800/100000 (13%)]	 Training Loss: 0.076 ACC: 98.77 CR: 1.00 Avg R1: 0.02 Avg R2: 12.99 Avg Reward: 13.004247
+2026-06-03 21:53:26 [INFO] Epoch: 53 [25600/100000 (26%)]	 Training Loss: 0.076 ACC: 98.69 CR: 1.00 Avg R1: 0.02 Avg R2: 12.98 Avg Reward: 13.001009
+2026-06-03 21:53:37 [INFO] Epoch: 53 [38400/100000 (38%)]	 Training Loss: 0.076 ACC: 98.69 CR: 1.00 Avg R1: 0.02 Avg R2: 12.98 Avg Reward: 12.996588
+2026-06-03 21:53:47 [INFO] Epoch: 53 [51200/100000 (51%)]	 Training Loss: 0.076 ACC: 98.68 CR: 1.00 Avg R1: 0.02 Avg R2: 12.97 Avg Reward: 12.992784
+2026-06-03 21:53:59 [INFO] Epoch: 53 [64000/100000 (64%)]	 Training Loss: 0.077 ACC: 98.68 CR: 1.00 Avg R1: 0.02 Avg R2: 12.97 Avg Reward: 12.989507
+2026-06-03 21:54:11 [INFO] Epoch: 53 [76800/100000 (77%)]	 Training Loss: 0.078 ACC: 98.65 CR: 1.00 Avg R1: 0.02 Avg R2: 12.96 Avg Reward: 12.986720
+2026-06-03 21:54:22 [INFO] Epoch: 53 [89600/100000 (90%)]	 Training Loss: 0.078 ACC: 98.67 CR: 1.00 Avg R1: 0.02 Avg R2: 12.96 Avg Reward: 12.983862
+2026-06-03 21:54:32 [INFO] EPOCH:53, ======================CR:0.99943====================
+2026-06-03 21:54:32 [INFO] 0.04903010095044597
+2026-06-03 21:54:35 [INFO] EPOCH:53, ======================ACC:61.91====================
+2026-06-03 21:54:35 [INFO] BEST EPOCH:34,BEST ACC:62.11
+2026-06-03 21:54:46 [INFO] Epoch: 54 [12800/100000 (13%)]	 Training Loss: 0.067 ACC: 99.08 CR: 1.00 Avg R1: 0.03 Avg R2: 12.96 Avg Reward: 12.985879
+2026-06-03 21:54:57 [INFO] Epoch: 54 [25600/100000 (26%)]	 Training Loss: 0.070 ACC: 98.91 CR: 1.00 Avg R1: 0.03 Avg R2: 12.95 Avg Reward: 12.985379
+2026-06-03 21:55:09 [INFO] Epoch: 54 [38400/100000 (38%)]	 Training Loss: 0.070 ACC: 98.92 CR: 1.00 Avg R1: 0.03 Avg R2: 12.95 Avg Reward: 12.984547
+2026-06-03 21:55:21 [INFO] Epoch: 54 [51200/100000 (51%)]	 Training Loss: 0.071 ACC: 98.88 CR: 1.00 Avg R1: 0.03 Avg R2: 12.95 Avg Reward: 12.982321
+2026-06-03 21:55:33 [INFO] Epoch: 54 [64000/100000 (64%)]	 Training Loss: 0.072 ACC: 98.84 CR: 1.00 Avg R1: 0.03 Avg R2: 12.95 Avg Reward: 12.980241
+2026-06-03 21:55:45 [INFO] Epoch: 54 [76800/100000 (77%)]	 Training Loss: 0.073 ACC: 98.77 CR: 1.00 Avg R1: 0.04 Avg R2: 12.94 Avg Reward: 12.977905
+2026-06-03 21:55:56 [INFO] Epoch: 54 [89600/100000 (90%)]	 Training Loss: 0.073 ACC: 98.78 CR: 1.00 Avg R1: 0.04 Avg R2: 12.94 Avg Reward: 12.974155
+2026-06-03 21:56:06 [INFO] EPOCH:54, ======================CR:0.99904====================
+2026-06-03 21:56:06 [INFO] 0.051020999421008184
+2026-06-03 21:56:10 [INFO] EPOCH:54, ======================ACC:61.49====================
+2026-06-03 21:56:10 [INFO] BEST EPOCH:34,BEST ACC:62.11
+2026-06-03 21:56:22 [INFO] Epoch: 55 [12800/100000 (13%)]	 Training Loss: 0.072 ACC: 98.78 CR: 1.00 Avg R1: 0.05 Avg R2: 12.91 Avg Reward: 12.961025
+2026-06-03 21:56:34 [INFO] Epoch: 55 [25600/100000 (26%)]	 Training Loss: 0.071 ACC: 98.82 CR: 1.00 Avg R1: 0.05 Avg R2: 12.91 Avg Reward: 12.957310
+2026-06-03 21:56:46 [INFO] Epoch: 55 [38400/100000 (38%)]	 Training Loss: 0.071 ACC: 98.82 CR: 1.00 Avg R1: 0.05 Avg R2: 12.90 Avg Reward: 12.954145
+2026-06-03 21:56:58 [INFO] Epoch: 55 [51200/100000 (51%)]	 Training Loss: 0.071 ACC: 98.84 CR: 1.00 Avg R1: 0.05 Avg R2: 12.90 Avg Reward: 12.950470
+2026-06-03 21:57:09 [INFO] Epoch: 55 [64000/100000 (64%)]	 Training Loss: 0.071 ACC: 98.84 CR: 1.00 Avg R1: 0.05 Avg R2: 12.89 Avg Reward: 12.946819
+2026-06-03 21:57:21 [INFO] Epoch: 55 [76800/100000 (77%)]	 Training Loss: 0.071 ACC: 98.80 CR: 1.00 Avg R1: 0.06 Avg R2: 12.89 Avg Reward: 12.943851
+2026-06-03 21:57:33 [INFO] Epoch: 55 [89600/100000 (90%)]	 Training Loss: 0.072 ACC: 98.79 CR: 1.00 Avg R1: 0.06 Avg R2: 12.88 Avg Reward: 12.940951
+2026-06-03 21:57:43 [INFO] EPOCH:55, ======================CR:0.99854====================
+2026-06-03 21:57:43 [INFO] 0.060153083643865575
+2026-06-03 21:57:46 [INFO] EPOCH:55, ======================ACC:61.67====================
+2026-06-03 21:57:46 [INFO] BEST EPOCH:34,BEST ACC:62.11
+2026-06-03 21:57:59 [INFO] Epoch: 56 [12800/100000 (13%)]	 Training Loss: 0.067 ACC: 99.02 CR: 1.00 Avg R1: 0.07 Avg R2: 12.87 Avg Reward: 12.944324
+2026-06-03 21:58:11 [INFO] Epoch: 56 [25600/100000 (26%)]	 Training Loss: 0.065 ACC: 99.11 CR: 1.00 Avg R1: 0.07 Avg R2: 12.88 Avg Reward: 12.948583
+2026-06-03 21:58:22 [INFO] Epoch: 56 [38400/100000 (38%)]	 Training Loss: 0.066 ACC: 99.07 CR: 1.00 Avg R1: 0.07 Avg R2: 12.88 Avg Reward: 12.952801
+2026-06-03 21:58:34 [INFO] Epoch: 56 [51200/100000 (51%)]	 Training Loss: 0.067 ACC: 98.99 CR: 1.00 Avg R1: 0.07 Avg R2: 12.88 Avg Reward: 12.954460
+2026-06-03 21:58:46 [INFO] Epoch: 56 [64000/100000 (64%)]	 Training Loss: 0.068 ACC: 98.96 CR: 1.00 Avg R1: 0.07 Avg R2: 12.88 Avg Reward: 12.954977
+2026-06-03 21:58:58 [INFO] Epoch: 56 [76800/100000 (77%)]	 Training Loss: 0.068 ACC: 98.95 CR: 1.00 Avg R1: 0.07 Avg R2: 12.88 Avg Reward: 12.954681
+2026-06-03 21:59:10 [INFO] Epoch: 56 [89600/100000 (90%)]	 Training Loss: 0.068 ACC: 98.95 CR: 1.00 Avg R1: 0.07 Avg R2: 12.88 Avg Reward: 12.954155
+2026-06-03 21:59:20 [INFO] EPOCH:56, ======================CR:0.99891====================
+2026-06-03 21:59:20 [INFO] 0.055573966469114854
+2026-06-03 21:59:23 [INFO] EPOCH:56, ======================ACC:61.51====================
+2026-06-03 21:59:23 [INFO] BEST EPOCH:34,BEST ACC:62.11
+2026-06-03 21:59:36 [INFO] Epoch: 57 [12800/100000 (13%)]	 Training Loss: 0.067 ACC: 98.99 CR: 1.00 Avg R1: 0.05 Avg R2: 12.95 Avg Reward: 12.997347
+2026-06-03 21:59:48 [INFO] Epoch: 57 [25600/100000 (26%)]	 Training Loss: 0.067 ACC: 98.89 CR: 1.00 Avg R1: 0.05 Avg R2: 12.95 Avg Reward: 12.998400
+2026-06-03 22:00:00 [INFO] Epoch: 57 [38400/100000 (38%)]	 Training Loss: 0.067 ACC: 98.97 CR: 1.00 Avg R1: 0.05 Avg R2: 12.95 Avg Reward: 13.000120
+2026-06-03 22:00:12 [INFO] Epoch: 57 [51200/100000 (51%)]	 Training Loss: 0.067 ACC: 98.94 CR: 1.00 Avg R1: 0.05 Avg R2: 12.95 Avg Reward: 13.000578
+2026-06-03 22:00:23 [INFO] Epoch: 57 [64000/100000 (64%)]	 Training Loss: 0.067 ACC: 98.94 CR: 1.00 Avg R1: 0.05 Avg R2: 12.95 Avg Reward: 12.999660
+2026-06-03 22:00:35 [INFO] Epoch: 57 [76800/100000 (77%)]	 Training Loss: 0.067 ACC: 98.93 CR: 1.00 Avg R1: 0.05 Avg R2: 12.95 Avg Reward: 12.998834
+2026-06-03 22:00:47 [INFO] Epoch: 57 [89600/100000 (90%)]	 Training Loss: 0.067 ACC: 98.92 CR: 1.00 Avg R1: 0.05 Avg R2: 12.95 Avg Reward: 12.997109
+2026-06-03 22:00:57 [INFO] EPOCH:57, ======================CR:0.99914====================
+2026-06-03 22:00:57 [INFO] 0.05054835272590203
+2026-06-03 22:01:00 [INFO] EPOCH:57, ======================ACC:61.37====================
+2026-06-03 22:01:00 [INFO] BEST EPOCH:34,BEST ACC:62.11
+2026-06-03 22:01:13 [INFO] Epoch: 58 [12800/100000 (13%)]	 Training Loss: 0.063 ACC: 99.04 CR: 1.00 Avg R1: 0.04 Avg R2: 12.97 Avg Reward: 13.014514
+2026-06-03 22:01:25 [INFO] Epoch: 58 [25600/100000 (26%)]	 Training Loss: 0.064 ACC: 99.00 CR: 1.00 Avg R1: 0.04 Avg R2: 12.98 Avg Reward: 13.018524
+2026-06-03 22:01:37 [INFO] Epoch: 58 [38400/100000 (38%)]	 Training Loss: 0.065 ACC: 98.98 CR: 1.00 Avg R1: 0.04 Avg R2: 12.98 Avg Reward: 13.022065
+2026-06-03 22:01:49 [INFO] Epoch: 58 [51200/100000 (51%)]	 Training Loss: 0.065 ACC: 99.00 CR: 1.00 Avg R1: 0.04 Avg R2: 12.99 Avg Reward: 13.027716
+2026-06-03 22:02:01 [INFO] Epoch: 58 [64000/100000 (64%)]	 Training Loss: 0.065 ACC: 99.00 CR: 1.00 Avg R1: 0.03 Avg R2: 13.00 Avg Reward: 13.035119
+2026-06-03 22:02:13 [INFO] Epoch: 58 [76800/100000 (77%)]	 Training Loss: 0.065 ACC: 99.02 CR: 1.00 Avg R1: 0.03 Avg R2: 13.01 Avg Reward: 13.043695
+2026-06-03 22:02:25 [INFO] Epoch: 58 [89600/100000 (90%)]	 Training Loss: 0.065 ACC: 99.02 CR: 1.00 Avg R1: 0.03 Avg R2: 13.02 Avg Reward: 13.053249
+2026-06-03 22:02:34 [INFO] EPOCH:58, ======================CR:0.99974====================
+2026-06-03 22:02:34 [INFO] 0.053810595439859915
+2026-06-03 22:02:38 [INFO] EPOCH:58, ======================ACC:61.53====================
+2026-06-03 22:02:38 [INFO] BEST EPOCH:34,BEST ACC:62.11
+2026-06-03 22:02:50 [INFO] Epoch: 59 [12800/100000 (13%)]	 Training Loss: 0.063 ACC: 99.06 CR: 1.00 Avg R1: 0.01 Avg R2: 13.16 Avg Reward: 13.170980
+2026-06-03 22:03:02 [INFO] Epoch: 59 [25600/100000 (26%)]	 Training Loss: 0.062 ACC: 99.07 CR: 1.00 Avg R1: 0.01 Avg R2: 13.16 Avg Reward: 13.174383
+2026-06-03 22:03:14 [INFO] Epoch: 59 [38400/100000 (38%)]	 Training Loss: 0.063 ACC: 99.11 CR: 1.00 Avg R1: 0.01 Avg R2: 13.17 Avg Reward: 13.177825
+2026-06-03 22:03:26 [INFO] Epoch: 59 [51200/100000 (51%)]	 Training Loss: 0.063 ACC: 99.07 CR: 1.00 Avg R1: 0.01 Avg R2: 13.17 Avg Reward: 13.181264
+2026-06-03 22:03:38 [INFO] Epoch: 59 [64000/100000 (64%)]	 Training Loss: 0.064 ACC: 99.06 CR: 1.00 Avg R1: 0.01 Avg R2: 13.17 Avg Reward: 13.185778
+2026-06-03 22:03:50 [INFO] Epoch: 59 [76800/100000 (77%)]	 Training Loss: 0.064 ACC: 99.05 CR: 1.00 Avg R1: 0.01 Avg R2: 13.18 Avg Reward: 13.190964
+2026-06-03 22:04:02 [INFO] Epoch: 59 [89600/100000 (90%)]	 Training Loss: 0.065 ACC: 99.02 CR: 1.00 Avg R1: 0.01 Avg R2: 13.19 Avg Reward: 13.197521
+2026-06-03 22:04:12 [INFO] EPOCH:59, ======================CR:0.99993====================
+2026-06-03 22:04:12 [INFO] 0.05090782458539609
+2026-06-03 22:04:15 [INFO] EPOCH:59, ======================ACC:61.48====================
+2026-06-03 22:04:15 [INFO] BEST EPOCH:34,BEST ACC:62.11
+2026-06-03 22:04:28 [INFO] Epoch: 60 [12800/100000 (13%)]	 Training Loss: 0.062 ACC: 99.02 CR: 1.00 Avg R1: 0.00 Avg R2: 13.30 Avg Reward: 13.299980
+2026-06-03 22:04:40 [INFO] Epoch: 60 [25600/100000 (26%)]	 Training Loss: 0.061 ACC: 99.07 CR: 1.00 Avg R1: 0.00 Avg R2: 13.30 Avg Reward: 13.306364
+2026-06-03 22:04:52 [INFO] Epoch: 60 [38400/100000 (38%)]	 Training Loss: 0.061 ACC: 99.11 CR: 1.00 Avg R1: 0.00 Avg R2: 13.31 Avg Reward: 13.312917
+2026-06-03 22:05:04 [INFO] Epoch: 60 [51200/100000 (51%)]	 Training Loss: 0.061 ACC: 99.12 CR: 1.00 Avg R1: 0.00 Avg R2: 13.32 Avg Reward: 13.318497
+2026-06-03 22:05:16 [INFO] Epoch: 60 [64000/100000 (64%)]	 Training Loss: 0.061 ACC: 99.12 CR: 1.00 Avg R1: 0.00 Avg R2: 13.32 Avg Reward: 13.324602
+2026-06-03 22:05:27 [INFO] Epoch: 60 [76800/100000 (77%)]	 Training Loss: 0.061 ACC: 99.12 CR: 1.00 Avg R1: 0.00 Avg R2: 13.33 Avg Reward: 13.330731
+2026-06-03 22:05:39 [INFO] Epoch: 60 [89600/100000 (90%)]	 Training Loss: 0.061 ACC: 99.11 CR: 1.00 Avg R1: 0.00 Avg R2: 13.33 Avg Reward: 13.336994
+2026-06-03 22:05:49 [INFO] EPOCH:60, ======================CR:0.99998====================
+2026-06-03 22:05:49 [INFO] 0.05437254129570772
+2026-06-03 22:05:52 [INFO] EPOCH:60, ======================ACC:61.7====================
+2026-06-03 22:05:52 [INFO] BEST EPOCH:34,BEST ACC:62.11
+2026-06-03 22:06:05 [INFO] Epoch: 61 [12800/100000 (13%)]	 Training Loss: 0.057 ACC: 99.25 CR: 1.00 Avg R1: 0.00 Avg R2: 13.40 Avg Reward: 13.400456
+2026-06-03 22:06:17 [INFO] Epoch: 61 [25600/100000 (26%)]	 Training Loss: 0.058 ACC: 99.20 CR: 1.00 Avg R1: 0.00 Avg R2: 13.40 Avg Reward: 13.402630
+2026-06-03 22:06:29 [INFO] Epoch: 61 [38400/100000 (38%)]	 Training Loss: 0.058 ACC: 99.22 CR: 1.00 Avg R1: 0.00 Avg R2: 13.40 Avg Reward: 13.404657
+2026-06-03 22:06:41 [INFO] Epoch: 61 [51200/100000 (51%)]	 Training Loss: 0.058 ACC: 99.21 CR: 1.00 Avg R1: 0.00 Avg R2: 13.41 Avg Reward: 13.408290
+2026-06-03 22:06:53 [INFO] Epoch: 61 [64000/100000 (64%)]	 Training Loss: 0.058 ACC: 99.20 CR: 1.00 Avg R1: 0.00 Avg R2: 13.41 Avg Reward: 13.412832
+2026-06-03 22:07:05 [INFO] Epoch: 61 [76800/100000 (77%)]	 Training Loss: 0.058 ACC: 99.19 CR: 1.00 Avg R1: 0.00 Avg R2: 13.42 Avg Reward: 13.418014
+2026-06-03 22:07:17 [INFO] Epoch: 61 [89600/100000 (90%)]	 Training Loss: 0.058 ACC: 99.21 CR: 1.00 Avg R1: 0.00 Avg R2: 13.42 Avg Reward: 13.424127
+2026-06-03 22:07:26 [INFO] EPOCH:61, ======================CR:0.99999====================
+2026-06-03 22:07:26 [INFO] 0.050172456978054926
+2026-06-03 22:07:30 [INFO] EPOCH:61, ======================ACC:61.81====================
+2026-06-03 22:07:30 [INFO] BEST EPOCH:34,BEST ACC:62.11
+2026-06-03 22:07:42 [INFO] Epoch: 62 [12800/100000 (13%)]	 Training Loss: 0.057 ACC: 99.20 CR: 1.00 Avg R1: 0.00 Avg R2: 13.50 Avg Reward: 13.497753
+2026-06-03 22:07:54 [INFO] Epoch: 62 [25600/100000 (26%)]	 Training Loss: 0.058 ACC: 99.21 CR: 1.00 Avg R1: 0.00 Avg R2: 13.50 Avg Reward: 13.500052
+2026-06-03 22:08:06 [INFO] Epoch: 62 [38400/100000 (38%)]	 Training Loss: 0.058 ACC: 99.22 CR: 1.00 Avg R1: 0.00 Avg R2: 13.50 Avg Reward: 13.502844
+2026-06-03 22:08:18 [INFO] Epoch: 62 [51200/100000 (51%)]	 Training Loss: 0.058 ACC: 99.21 CR: 1.00 Avg R1: 0.00 Avg R2: 13.50 Avg Reward: 13.505442
+2026-06-03 22:08:30 [INFO] Epoch: 62 [64000/100000 (64%)]	 Training Loss: 0.058 ACC: 99.19 CR: 1.00 Avg R1: 0.00 Avg R2: 13.51 Avg Reward: 13.508012
+2026-06-03 22:08:42 [INFO] Epoch: 62 [76800/100000 (77%)]	 Training Loss: 0.058 ACC: 99.20 CR: 1.00 Avg R1: 0.00 Avg R2: 13.51 Avg Reward: 13.510772
+2026-06-03 22:08:54 [INFO] Epoch: 62 [89600/100000 (90%)]	 Training Loss: 0.058 ACC: 99.21 CR: 1.00 Avg R1: 0.00 Avg R2: 13.51 Avg Reward: 13.514543
+2026-06-03 22:09:03 [INFO] EPOCH:62, ======================CR:0.99999====================
+2026-06-03 22:09:03 [INFO] 0.05250646649986414
+2026-06-03 22:09:07 [INFO] EPOCH:62, ======================ACC:61.74====================
+2026-06-03 22:09:07 [INFO] BEST EPOCH:34,BEST ACC:62.11
+2026-06-03 22:09:19 [INFO] Epoch: 63 [12800/100000 (13%)]	 Training Loss: 0.058 ACC: 99.31 CR: 1.00 Avg R1: 0.00 Avg R2: 13.56 Avg Reward: 13.558673
+2026-06-03 22:09:31 [INFO] Epoch: 63 [25600/100000 (26%)]	 Training Loss: 0.058 ACC: 99.29 CR: 1.00 Avg R1: 0.00 Avg R2: 13.56 Avg Reward: 13.561632
+2026-06-03 22:09:43 [INFO] Epoch: 63 [38400/100000 (38%)]	 Training Loss: 0.058 ACC: 99.26 CR: 1.00 Avg R1: 0.00 Avg R2: 13.56 Avg Reward: 13.565046
+2026-06-03 22:09:55 [INFO] Epoch: 63 [51200/100000 (51%)]	 Training Loss: 0.058 ACC: 99.27 CR: 1.00 Avg R1: 0.00 Avg R2: 13.57 Avg Reward: 13.568223
+2026-06-03 22:10:07 [INFO] Epoch: 63 [64000/100000 (64%)]	 Training Loss: 0.057 ACC: 99.29 CR: 1.00 Avg R1: 0.00 Avg R2: 13.57 Avg Reward: 13.571496
+2026-06-03 22:10:19 [INFO] Epoch: 63 [76800/100000 (77%)]	 Training Loss: 0.057 ACC: 99.27 CR: 1.00 Avg R1: 0.00 Avg R2: 13.57 Avg Reward: 13.574787
+2026-06-03 22:10:31 [INFO] Epoch: 63 [89600/100000 (90%)]	 Training Loss: 0.058 ACC: 99.25 CR: 1.00 Avg R1: 0.00 Avg R2: 13.58 Avg Reward: 13.578083
+2026-06-03 22:10:40 [INFO] EPOCH:63, ======================CR:1.0====================
+2026-06-03 22:10:40 [INFO] 0.05483063568441698
+2026-06-03 22:10:44 [INFO] EPOCH:63, ======================ACC:61.79====================
+2026-06-03 22:10:44 [INFO] BEST EPOCH:34,BEST ACC:62.11
+2026-06-03 22:10:56 [INFO] Epoch: 64 [12800/100000 (13%)]	 Training Loss: 0.057 ACC: 99.17 CR: 1.00 Avg R1: 0.00 Avg R2: 13.61 Avg Reward: 13.611107
+2026-06-03 22:11:08 [INFO] Epoch: 64 [25600/100000 (26%)]	 Training Loss: 0.057 ACC: 99.21 CR: 1.00 Avg R1: 0.00 Avg R2: 13.61 Avg Reward: 13.611554
+2026-06-03 22:11:20 [INFO] Epoch: 64 [38400/100000 (38%)]	 Training Loss: 0.057 ACC: 99.24 CR: 1.00 Avg R1: 0.00 Avg R2: 13.61 Avg Reward: 13.612175
+2026-06-03 22:11:31 [INFO] Epoch: 64 [51200/100000 (51%)]	 Training Loss: 0.057 ACC: 99.27 CR: 1.00 Avg R1: 0.00 Avg R2: 13.61 Avg Reward: 13.613009
+2026-06-03 22:11:43 [INFO] Epoch: 64 [64000/100000 (64%)]	 Training Loss: 0.057 ACC: 99.26 CR: 1.00 Avg R1: 0.00 Avg R2: 13.61 Avg Reward: 13.613955
+2026-06-03 22:11:55 [INFO] Epoch: 64 [76800/100000 (77%)]	 Training Loss: 0.057 ACC: 99.28 CR: 1.00 Avg R1: 0.00 Avg R2: 13.61 Avg Reward: 13.615267
+2026-06-03 22:12:07 [INFO] Epoch: 64 [89600/100000 (90%)]	 Training Loss: 0.057 ACC: 99.27 CR: 1.00 Avg R1: 0.00 Avg R2: 13.62 Avg Reward: 13.616592
+2026-06-03 22:12:17 [INFO] EPOCH:64, ======================CR:0.99999====================
+2026-06-03 22:12:17 [INFO] 0.05326662289288928
+2026-06-03 22:12:20 [INFO] EPOCH:64, ======================ACC:61.7====================
+2026-06-03 22:12:20 [INFO] BEST EPOCH:34,BEST ACC:62.11
+2026-06-03 22:12:33 [INFO] Epoch: 65 [12800/100000 (13%)]	 Training Loss: 0.056 ACC: 99.28 CR: 1.00 Avg R1: 0.00 Avg R2: 13.63 Avg Reward: 13.630292
+2026-06-03 22:12:45 [INFO] Epoch: 65 [25600/100000 (26%)]	 Training Loss: 0.056 ACC: 99.27 CR: 1.00 Avg R1: 0.00 Avg R2: 13.63 Avg Reward: 13.628898
+2026-06-03 22:12:56 [INFO] Epoch: 65 [38400/100000 (38%)]	 Training Loss: 0.056 ACC: 99.25 CR: 1.00 Avg R1: 0.00 Avg R2: 13.63 Avg Reward: 13.626840
+2026-06-03 22:13:08 [INFO] Epoch: 65 [51200/100000 (51%)]	 Training Loss: 0.057 ACC: 99.24 CR: 1.00 Avg R1: 0.00 Avg R2: 13.62 Avg Reward: 13.624497
+2026-06-03 22:13:20 [INFO] Epoch: 65 [64000/100000 (64%)]	 Training Loss: 0.056 ACC: 99.26 CR: 1.00 Avg R1: 0.00 Avg R2: 13.62 Avg Reward: 13.622007
+2026-06-03 22:13:32 [INFO] Epoch: 65 [76800/100000 (77%)]	 Training Loss: 0.057 ACC: 99.25 CR: 1.00 Avg R1: 0.00 Avg R2: 13.62 Avg Reward: 13.619778
+2026-06-03 22:13:44 [INFO] Epoch: 65 [89600/100000 (90%)]	 Training Loss: 0.057 ACC: 99.26 CR: 1.00 Avg R1: 0.00 Avg R2: 13.62 Avg Reward: 13.617834
+2026-06-03 22:13:54 [INFO] EPOCH:65, ======================CR:0.99999====================
+2026-06-03 22:13:54 [INFO] 0.052336623217338334
+2026-06-03 22:13:57 [INFO] EPOCH:65, ======================ACC:61.71====================
+2026-06-03 22:13:57 [INFO] BEST EPOCH:34,BEST ACC:62.11
+2026-06-03 22:14:09 [INFO] Epoch: 66 [12800/100000 (13%)]	 Training Loss: 0.056 ACC: 99.26 CR: 1.00 Avg R1: 0.00 Avg R2: 13.61 Avg Reward: 13.606752
+2026-06-03 22:14:21 [INFO] Epoch: 66 [25600/100000 (26%)]	 Training Loss: 0.056 ACC: 99.26 CR: 1.00 Avg R1: 0.00 Avg R2: 13.61 Avg Reward: 13.608289
+2026-06-03 22:14:33 [INFO] Epoch: 66 [38400/100000 (38%)]	 Training Loss: 0.056 ACC: 99.24 CR: 1.00 Avg R1: 0.00 Avg R2: 13.61 Avg Reward: 13.609958
+2026-06-03 22:14:45 [INFO] Epoch: 66 [51200/100000 (51%)]	 Training Loss: 0.057 ACC: 99.23 CR: 1.00 Avg R1: 0.00 Avg R2: 13.61 Avg Reward: 13.611485
+2026-06-03 22:14:57 [INFO] Epoch: 66 [64000/100000 (64%)]	 Training Loss: 0.057 ACC: 99.26 CR: 1.00 Avg R1: 0.00 Avg R2: 13.61 Avg Reward: 13.612985
+2026-06-03 22:15:09 [INFO] Epoch: 66 [76800/100000 (77%)]	 Training Loss: 0.056 ACC: 99.27 CR: 1.00 Avg R1: 0.00 Avg R2: 13.61 Avg Reward: 13.614129
+2026-06-03 22:15:21 [INFO] Epoch: 66 [89600/100000 (90%)]	 Training Loss: 0.057 ACC: 99.26 CR: 1.00 Avg R1: 0.00 Avg R2: 13.61 Avg Reward: 13.615124
+2026-06-03 22:15:30 [INFO] EPOCH:66, ======================CR:1.0====================
+2026-06-03 22:15:30 [INFO] 0.05566095292452898
+2026-06-03 22:15:34 [INFO] EPOCH:66, ======================ACC:61.78====================
+2026-06-03 22:15:34 [INFO] BEST EPOCH:34,BEST ACC:62.11
+2026-06-03 22:15:46 [INFO] Epoch: 67 [12800/100000 (13%)]	 Training Loss: 0.056 ACC: 99.29 CR: 1.00 Avg R1: 0.00 Avg R2: 13.63 Avg Reward: 13.625593
+2026-06-03 22:15:58 [INFO] Epoch: 67 [25600/100000 (26%)]	 Training Loss: 0.057 ACC: 99.22 CR: 1.00 Avg R1: 0.00 Avg R2: 13.63 Avg Reward: 13.625689
+2026-06-03 22:16:10 [INFO] Epoch: 67 [38400/100000 (38%)]	 Training Loss: 0.056 ACC: 99.24 CR: 1.00 Avg R1: 0.00 Avg R2: 13.63 Avg Reward: 13.626221
+2026-06-03 22:16:22 [INFO] Epoch: 67 [51200/100000 (51%)]	 Training Loss: 0.056 ACC: 99.22 CR: 1.00 Avg R1: 0.00 Avg R2: 13.63 Avg Reward: 13.626498
+2026-06-03 22:16:34 [INFO] Epoch: 67 [64000/100000 (64%)]	 Training Loss: 0.056 ACC: 99.22 CR: 1.00 Avg R1: 0.00 Avg R2: 13.63 Avg Reward: 13.626894
+2026-06-03 22:16:46 [INFO] Epoch: 67 [76800/100000 (77%)]	 Training Loss: 0.056 ACC: 99.21 CR: 1.00 Avg R1: 0.00 Avg R2: 13.63 Avg Reward: 13.627472
+2026-06-03 22:16:58 [INFO] Epoch: 67 [89600/100000 (90%)]	 Training Loss: 0.056 ACC: 99.22 CR: 1.00 Avg R1: 0.00 Avg R2: 13.63 Avg Reward: 13.628264
+2026-06-03 22:17:07 [INFO] EPOCH:67, ======================CR:1.0====================
+2026-06-03 22:17:07 [INFO] 0.05187293915028437
+2026-06-03 22:17:11 [INFO] EPOCH:67, ======================ACC:61.76====================
+2026-06-03 22:17:11 [INFO] BEST EPOCH:34,BEST ACC:62.11
+2026-06-03 22:17:23 [INFO] Epoch: 68 [12800/100000 (13%)]	 Training Loss: 0.058 ACC: 99.18 CR: 1.00 Avg R1: 0.00 Avg R2: 13.64 Avg Reward: 13.635791
+2026-06-03 22:17:35 [INFO] Epoch: 68 [25600/100000 (26%)]	 Training Loss: 0.057 ACC: 99.23 CR: 1.00 Avg R1: 0.00 Avg R2: 13.64 Avg Reward: 13.636144
+2026-06-03 22:17:47 [INFO] Epoch: 68 [38400/100000 (38%)]	 Training Loss: 0.057 ACC: 99.24 CR: 1.00 Avg R1: 0.00 Avg R2: 13.64 Avg Reward: 13.637095
+2026-06-03 22:17:58 [INFO] Epoch: 68 [51200/100000 (51%)]	 Training Loss: 0.057 ACC: 99.23 CR: 1.00 Avg R1: 0.00 Avg R2: 13.64 Avg Reward: 13.638266
+2026-06-03 22:18:10 [INFO] Epoch: 68 [64000/100000 (64%)]	 Training Loss: 0.057 ACC: 99.22 CR: 1.00 Avg R1: 0.00 Avg R2: 13.64 Avg Reward: 13.639198
+2026-06-03 22:18:22 [INFO] Epoch: 68 [76800/100000 (77%)]	 Training Loss: 0.057 ACC: 99.23 CR: 1.00 Avg R1: 0.00 Avg R2: 13.64 Avg Reward: 13.640399
+2026-06-03 22:18:34 [INFO] Epoch: 68 [89600/100000 (90%)]	 Training Loss: 0.057 ACC: 99.24 CR: 1.00 Avg R1: 0.00 Avg R2: 13.64 Avg Reward: 13.642151
+2026-06-03 22:18:43 [INFO] EPOCH:68, ======================CR:1.0====================
+2026-06-03 22:18:43 [INFO] 0.049254875928993
+2026-06-03 22:18:47 [INFO] EPOCH:68, ======================ACC:61.83====================
+2026-06-03 22:18:47 [INFO] BEST EPOCH:34,BEST ACC:62.11
+2026-06-03 22:18:59 [INFO] Epoch: 69 [12800/100000 (13%)]	 Training Loss: 0.055 ACC: 99.34 CR: 1.00 Avg R1: 0.00 Avg R2: 13.66 Avg Reward: 13.664007
+2026-06-03 22:19:11 [INFO] Epoch: 69 [25600/100000 (26%)]	 Training Loss: 0.055 ACC: 99.34 CR: 1.00 Avg R1: 0.00 Avg R2: 13.66 Avg Reward: 13.663075
+2026-06-03 22:19:21 [INFO] Epoch: 69 [38400/100000 (38%)]	 Training Loss: 0.056 ACC: 99.28 CR: 1.00 Avg R1: 0.00 Avg R2: 13.66 Avg Reward: 13.662342
+2026-06-03 22:19:32 [INFO] Epoch: 69 [51200/100000 (51%)]	 Training Loss: 0.056 ACC: 99.28 CR: 1.00 Avg R1: 0.00 Avg R2: 13.66 Avg Reward: 13.661156
+2026-06-03 22:19:43 [INFO] Epoch: 69 [64000/100000 (64%)]	 Training Loss: 0.056 ACC: 99.28 CR: 1.00 Avg R1: 0.00 Avg R2: 13.66 Avg Reward: 13.659992
+2026-06-03 22:19:55 [INFO] Epoch: 69 [76800/100000 (77%)]	 Training Loss: 0.056 ACC: 99.27 CR: 1.00 Avg R1: 0.00 Avg R2: 13.66 Avg Reward: 13.658960
+2026-06-03 22:20:06 [INFO] Epoch: 69 [89600/100000 (90%)]	 Training Loss: 0.056 ACC: 99.28 CR: 1.00 Avg R1: 0.00 Avg R2: 13.66 Avg Reward: 13.658104
+2026-06-03 22:20:16 [INFO] EPOCH:69, ======================CR:1.0====================
+2026-06-03 22:20:16 [INFO] 0.051541369501591605
+2026-06-03 22:20:19 [INFO] EPOCH:69, ======================ACC:61.81====================
+2026-06-03 22:20:19 [INFO] BEST EPOCH:34,BEST ACC:62.11
+2026-06-03 22:20:29 [INFO] Epoch: 70 [12800/100000 (13%)]	 Training Loss: 0.055 ACC: 99.26 CR: 1.00 Avg R1: 0.00 Avg R2: 13.65 Avg Reward: 13.653938
+2026-06-03 22:20:40 [INFO] Epoch: 70 [25600/100000 (26%)]	 Training Loss: 0.055 ACC: 99.22 CR: 1.00 Avg R1: 0.00 Avg R2: 13.65 Avg Reward: 13.653043
+2026-06-03 22:20:52 [INFO] Epoch: 70 [38400/100000 (38%)]	 Training Loss: 0.055 ACC: 99.28 CR: 1.00 Avg R1: 0.00 Avg R2: 13.65 Avg Reward: 13.652304
+2026-06-03 22:21:04 [INFO] Epoch: 70 [51200/100000 (51%)]	 Training Loss: 0.055 ACC: 99.29 CR: 1.00 Avg R1: 0.00 Avg R2: 13.65 Avg Reward: 13.651608
+2026-06-03 22:21:16 [INFO] Epoch: 70 [64000/100000 (64%)]	 Training Loss: 0.055 ACC: 99.30 CR: 1.00 Avg R1: 0.00 Avg R2: 13.65 Avg Reward: 13.651384
+2026-06-03 22:21:28 [INFO] Epoch: 70 [76800/100000 (77%)]	 Training Loss: 0.055 ACC: 99.30 CR: 1.00 Avg R1: 0.00 Avg R2: 13.65 Avg Reward: 13.650941
+2026-06-03 22:21:40 [INFO] Epoch: 70 [89600/100000 (90%)]	 Training Loss: 0.055 ACC: 99.31 CR: 1.00 Avg R1: 0.00 Avg R2: 13.65 Avg Reward: 13.650173
+2026-06-03 22:21:49 [INFO] EPOCH:70, ======================CR:1.0====================
+2026-06-03 22:21:49 [INFO] 0.049343663748574566
+2026-06-03 22:21:53 [INFO] EPOCH:70, ======================ACC:61.67====================
+2026-06-03 22:21:53 [INFO] BEST EPOCH:34,BEST ACC:62.11
+2026-06-03 22:22:05 [INFO] Epoch: 71 [12800/100000 (13%)]	 Training Loss: 0.052 ACC: 99.35 CR: 1.00 Avg R1: 0.00 Avg R2: 13.65 Avg Reward: 13.646463
+2026-06-03 22:22:17 [INFO] Epoch: 71 [25600/100000 (26%)]	 Training Loss: 0.053 ACC: 99.34 CR: 1.00 Avg R1: 0.00 Avg R2: 13.64 Avg Reward: 13.644526
+2026-06-03 22:22:29 [INFO] Epoch: 71 [38400/100000 (38%)]	 Training Loss: 0.053 ACC: 99.33 CR: 1.00 Avg R1: 0.00 Avg R2: 13.64 Avg Reward: 13.642375
+2026-06-03 22:22:41 [INFO] Epoch: 71 [51200/100000 (51%)]	 Training Loss: 0.054 ACC: 99.33 CR: 1.00 Avg R1: 0.00 Avg R2: 13.64 Avg Reward: 13.640068
+2026-06-03 22:22:53 [INFO] Epoch: 71 [64000/100000 (64%)]	 Training Loss: 0.054 ACC: 99.30 CR: 1.00 Avg R1: 0.00 Avg R2: 13.64 Avg Reward: 13.637726
+2026-06-03 22:23:04 [INFO] Epoch: 71 [76800/100000 (77%)]	 Training Loss: 0.054 ACC: 99.31 CR: 1.00 Avg R1: 0.00 Avg R2: 13.64 Avg Reward: 13.635367
+2026-06-03 22:23:17 [INFO] Epoch: 71 [89600/100000 (90%)]	 Training Loss: 0.054 ACC: 99.30 CR: 1.00 Avg R1: 0.00 Avg R2: 13.63 Avg Reward: 13.633130
+2026-06-03 22:23:26 [INFO] EPOCH:71, ======================CR:1.0====================
+2026-06-03 22:23:26 [INFO] 0.05530010684970527
+2026-06-03 22:23:30 [INFO] EPOCH:71, ======================ACC:61.81====================
+2026-06-03 22:23:30 [INFO] BEST EPOCH:34,BEST ACC:62.11
+2026-06-03 22:23:42 [INFO] Epoch: 72 [12800/100000 (13%)]	 Training Loss: 0.053 ACC: 99.23 CR: 1.00 Avg R1: 0.00 Avg R2: 13.62 Avg Reward: 13.618671
+2026-06-03 22:23:54 [INFO] Epoch: 72 [25600/100000 (26%)]	 Training Loss: 0.053 ACC: 99.26 CR: 1.00 Avg R1: 0.00 Avg R2: 13.62 Avg Reward: 13.619672
+2026-06-03 22:24:06 [INFO] Epoch: 72 [38400/100000 (38%)]	 Training Loss: 0.054 ACC: 99.27 CR: 1.00 Avg R1: 0.00 Avg R2: 13.62 Avg Reward: 13.620381
+2026-06-03 22:24:18 [INFO] Epoch: 72 [51200/100000 (51%)]	 Training Loss: 0.054 ACC: 99.29 CR: 1.00 Avg R1: 0.00 Avg R2: 13.62 Avg Reward: 13.620880
+2026-06-03 22:24:30 [INFO] Epoch: 72 [64000/100000 (64%)]	 Training Loss: 0.054 ACC: 99.31 CR: 1.00 Avg R1: 0.00 Avg R2: 13.62 Avg Reward: 13.621164
+2026-06-03 22:24:42 [INFO] Epoch: 72 [76800/100000 (77%)]	 Training Loss: 0.054 ACC: 99.32 CR: 1.00 Avg R1: 0.00 Avg R2: 13.62 Avg Reward: 13.620903
+2026-06-03 22:24:54 [INFO] Epoch: 72 [89600/100000 (90%)]	 Training Loss: 0.054 ACC: 99.31 CR: 1.00 Avg R1: 0.00 Avg R2: 13.62 Avg Reward: 13.620654
+2026-06-03 22:25:04 [INFO] EPOCH:72, ======================CR:1.0====================
+2026-06-03 22:25:04 [INFO] 0.05724823448876303
+2026-06-03 22:25:07 [INFO] EPOCH:72, ======================ACC:61.72====================
+2026-06-03 22:25:07 [INFO] BEST EPOCH:34,BEST ACC:62.11
+2026-06-03 22:25:20 [INFO] Epoch: 73 [12800/100000 (13%)]	 Training Loss: 0.056 ACC: 99.32 CR: 1.00 Avg R1: 0.00 Avg R2: 13.62 Avg Reward: 13.619974
+2026-06-03 22:25:31 [INFO] Epoch: 73 [25600/100000 (26%)]	 Training Loss: 0.055 ACC: 99.29 CR: 1.00 Avg R1: 0.00 Avg R2: 13.62 Avg Reward: 13.620243
+2026-06-03 22:25:43 [INFO] Epoch: 73 [38400/100000 (38%)]	 Training Loss: 0.055 ACC: 99.30 CR: 1.00 Avg R1: 0.00 Avg R2: 13.62 Avg Reward: 13.620190
+2026-06-03 22:25:55 [INFO] Epoch: 73 [51200/100000 (51%)]	 Training Loss: 0.054 ACC: 99.32 CR: 1.00 Avg R1: 0.00 Avg R2: 13.62 Avg Reward: 13.620103
+2026-06-03 22:26:07 [INFO] Epoch: 73 [64000/100000 (64%)]	 Training Loss: 0.054 ACC: 99.34 CR: 1.00 Avg R1: 0.00 Avg R2: 13.62 Avg Reward: 13.620322
+2026-06-03 22:26:19 [INFO] Epoch: 73 [76800/100000 (77%)]	 Training Loss: 0.054 ACC: 99.32 CR: 1.00 Avg R1: 0.00 Avg R2: 13.62 Avg Reward: 13.620839
+2026-06-03 22:26:30 [INFO] Epoch: 73 [89600/100000 (90%)]	 Training Loss: 0.054 ACC: 99.30 CR: 1.00 Avg R1: 0.00 Avg R2: 13.62 Avg Reward: 13.621730
+2026-06-03 22:26:40 [INFO] EPOCH:73, ======================CR:1.0====================
+2026-06-03 22:26:40 [INFO] 0.05101247767725981
+2026-06-03 22:26:43 [INFO] EPOCH:73, ======================ACC:61.9====================
+2026-06-03 22:26:43 [INFO] BEST EPOCH:34,BEST ACC:62.11
+2026-06-03 22:26:56 [INFO] Epoch: 74 [12800/100000 (13%)]	 Training Loss: 0.055 ACC: 99.23 CR: 1.00 Avg R1: 0.00 Avg R2: 13.64 Avg Reward: 13.636302
+2026-06-03 22:27:08 [INFO] Epoch: 74 [25600/100000 (26%)]	 Training Loss: 0.054 ACC: 99.30 CR: 1.00 Avg R1: 0.00 Avg R2: 13.64 Avg Reward: 13.637731
+2026-06-03 22:27:19 [INFO] Epoch: 74 [38400/100000 (38%)]	 Training Loss: 0.054 ACC: 99.30 CR: 1.00 Avg R1: 0.00 Avg R2: 13.64 Avg Reward: 13.639438
+2026-06-03 22:27:31 [INFO] Epoch: 74 [51200/100000 (51%)]	 Training Loss: 0.053 ACC: 99.30 CR: 1.00 Avg R1: 0.00 Avg R2: 13.64 Avg Reward: 13.641219
+2026-06-03 22:27:43 [INFO] Epoch: 74 [64000/100000 (64%)]	 Training Loss: 0.054 ACC: 99.30 CR: 1.00 Avg R1: 0.00 Avg R2: 13.64 Avg Reward: 13.643440
+2026-06-03 22:27:55 [INFO] Epoch: 74 [76800/100000 (77%)]	 Training Loss: 0.054 ACC: 99.30 CR: 1.00 Avg R1: 0.00 Avg R2: 13.65 Avg Reward: 13.645784
+2026-06-03 22:28:06 [INFO] Epoch: 74 [89600/100000 (90%)]	 Training Loss: 0.054 ACC: 99.31 CR: 1.00 Avg R1: 0.00 Avg R2: 13.65 Avg Reward: 13.648241
+2026-06-03 22:28:16 [INFO] EPOCH:74, ======================CR:1.0====================
+2026-06-03 22:28:16 [INFO] 0.050333312535167596
+2026-06-03 22:28:19 [INFO] EPOCH:74, ======================ACC:61.84====================
+2026-06-03 22:28:19 [INFO] BEST EPOCH:34,BEST ACC:62.11
+2026-06-03 22:28:32 [INFO] Epoch: 75 [12800/100000 (13%)]	 Training Loss: 0.056 ACC: 99.28 CR: 1.00 Avg R1: 0.00 Avg R2: 13.67 Avg Reward: 13.666671
+2026-06-03 22:28:44 [INFO] Epoch: 75 [25600/100000 (26%)]	 Training Loss: 0.055 ACC: 99.29 CR: 1.00 Avg R1: 0.00 Avg R2: 13.67 Avg Reward: 13.665360
+2026-06-03 22:28:56 [INFO] Epoch: 75 [38400/100000 (38%)]	 Training Loss: 0.055 ACC: 99.29 CR: 1.00 Avg R1: 0.00 Avg R2: 13.66 Avg Reward: 13.664092
+2026-06-03 22:29:08 [INFO] Epoch: 75 [51200/100000 (51%)]	 Training Loss: 0.054 ACC: 99.32 CR: 1.00 Avg R1: 0.00 Avg R2: 13.66 Avg Reward: 13.662748
+2026-06-03 22:29:19 [INFO] Epoch: 75 [64000/100000 (64%)]	 Training Loss: 0.054 ACC: 99.30 CR: 1.00 Avg R1: 0.00 Avg R2: 13.66 Avg Reward: 13.661481
+2026-06-03 22:29:31 [INFO] Epoch: 75 [76800/100000 (77%)]	 Training Loss: 0.054 ACC: 99.29 CR: 1.00 Avg R1: 0.00 Avg R2: 13.66 Avg Reward: 13.660188
+2026-06-03 22:29:43 [INFO] Epoch: 75 [89600/100000 (90%)]	 Training Loss: 0.054 ACC: 99.30 CR: 1.00 Avg R1: 0.00 Avg R2: 13.66 Avg Reward: 13.658986
+2026-06-03 22:29:53 [INFO] EPOCH:75, ======================CR:1.0====================
+2026-06-03 22:29:53 [INFO] 0.05176699878532939
+2026-06-03 22:29:57 [INFO] EPOCH:75, ======================ACC:61.76====================
+2026-06-03 22:29:57 [INFO] BEST EPOCH:34,BEST ACC:62.11
+2026-06-03 22:30:09 [INFO] Epoch: 76 [12800/100000 (13%)]	 Training Loss: 0.057 ACC: 99.15 CR: 1.00 Avg R1: 0.00 Avg R2: 13.65 Avg Reward: 13.646010
+2026-06-03 22:30:21 [INFO] Epoch: 76 [25600/100000 (26%)]	 Training Loss: 0.054 ACC: 99.26 CR: 1.00 Avg R1: 0.00 Avg R2: 13.64 Avg Reward: 13.644874
+2026-06-03 22:30:33 [INFO] Epoch: 76 [38400/100000 (38%)]	 Training Loss: 0.053 ACC: 99.30 CR: 1.00 Avg R1: 0.00 Avg R2: 13.64 Avg Reward: 13.643914
+2026-06-03 22:30:45 [INFO] Epoch: 76 [51200/100000 (51%)]	 Training Loss: 0.053 ACC: 99.31 CR: 1.00 Avg R1: 0.00 Avg R2: 13.64 Avg Reward: 13.642961
+2026-06-03 22:30:57 [INFO] Epoch: 76 [64000/100000 (64%)]	 Training Loss: 0.053 ACC: 99.30 CR: 1.00 Avg R1: 0.00 Avg R2: 13.64 Avg Reward: 13.641804
+2026-06-03 22:31:09 [INFO] Epoch: 76 [76800/100000 (77%)]	 Training Loss: 0.053 ACC: 99.31 CR: 1.00 Avg R1: 0.00 Avg R2: 13.64 Avg Reward: 13.640684
+2026-06-03 22:31:21 [INFO] Epoch: 76 [89600/100000 (90%)]	 Training Loss: 0.053 ACC: 99.31 CR: 1.00 Avg R1: 0.00 Avg R2: 13.64 Avg Reward: 13.639621
+2026-06-03 22:31:31 [INFO] EPOCH:76, ======================CR:1.0====================
+2026-06-03 22:31:31 [INFO] 0.05599995745675903
+2026-06-03 22:31:34 [INFO] EPOCH:76, ======================ACC:61.83====================
+2026-06-03 22:31:34 [INFO] BEST EPOCH:34,BEST ACC:62.11
+2026-06-03 22:31:47 [INFO] Epoch: 77 [12800/100000 (13%)]	 Training Loss: 0.052 ACC: 99.32 CR: 1.00 Avg R1: 0.00 Avg R2: 13.64 Avg Reward: 13.637742
+2026-06-03 22:31:58 [INFO] Epoch: 77 [25600/100000 (26%)]	 Training Loss: 0.053 ACC: 99.33 CR: 1.00 Avg R1: 0.00 Avg R2: 13.64 Avg Reward: 13.640537
+2026-06-03 22:32:10 [INFO] Epoch: 77 [38400/100000 (38%)]	 Training Loss: 0.053 ACC: 99.33 CR: 1.00 Avg R1: 0.00 Avg R2: 13.64 Avg Reward: 13.643007
+2026-06-03 22:32:22 [INFO] Epoch: 77 [51200/100000 (51%)]	 Training Loss: 0.054 ACC: 99.35 CR: 1.00 Avg R1: 0.00 Avg R2: 13.65 Avg Reward: 13.645098
+2026-06-03 22:32:34 [INFO] Epoch: 77 [64000/100000 (64%)]	 Training Loss: 0.054 ACC: 99.33 CR: 1.00 Avg R1: 0.00 Avg R2: 13.65 Avg Reward: 13.647094
+2026-06-03 22:32:46 [INFO] Epoch: 77 [76800/100000 (77%)]	 Training Loss: 0.053 ACC: 99.36 CR: 1.00 Avg R1: 0.00 Avg R2: 13.65 Avg Reward: 13.649071
+2026-06-03 22:32:57 [INFO] Epoch: 77 [89600/100000 (90%)]	 Training Loss: 0.053 ACC: 99.37 CR: 1.00 Avg R1: 0.00 Avg R2: 13.65 Avg Reward: 13.651151
+2026-06-03 22:33:07 [INFO] EPOCH:77, ======================CR:1.0====================
+2026-06-03 22:33:07 [INFO] 0.0566238728572562
+2026-06-03 22:33:11 [INFO] EPOCH:77, ======================ACC:61.85====================
+2026-06-03 22:33:11 [INFO] BEST EPOCH:34,BEST ACC:62.11
+2026-06-03 22:33:23 [INFO] Epoch: 78 [12800/100000 (13%)]	 Training Loss: 0.054 ACC: 99.32 CR: 1.00 Avg R1: 0.00 Avg R2: 13.67 Avg Reward: 13.668243
+2026-06-03 22:33:35 [INFO] Epoch: 78 [25600/100000 (26%)]	 Training Loss: 0.054 ACC: 99.31 CR: 1.00 Avg R1: 0.00 Avg R2: 13.67 Avg Reward: 13.666722
+2026-06-03 22:33:47 [INFO] Epoch: 78 [38400/100000 (38%)]	 Training Loss: 0.054 ACC: 99.34 CR: 1.00 Avg R1: 0.00 Avg R2: 13.66 Avg Reward: 13.664956
+2026-06-03 22:33:58 [INFO] Epoch: 78 [51200/100000 (51%)]	 Training Loss: 0.054 ACC: 99.34 CR: 1.00 Avg R1: 0.00 Avg R2: 13.66 Avg Reward: 13.663090
+2026-06-03 22:34:10 [INFO] Epoch: 78 [64000/100000 (64%)]	 Training Loss: 0.054 ACC: 99.32 CR: 1.00 Avg R1: 0.00 Avg R2: 13.66 Avg Reward: 13.661223
+2026-06-03 22:34:22 [INFO] Epoch: 78 [76800/100000 (77%)]	 Training Loss: 0.054 ACC: 99.32 CR: 1.00 Avg R1: 0.00 Avg R2: 13.66 Avg Reward: 13.659679
+2026-06-03 22:34:34 [INFO] Epoch: 78 [89600/100000 (90%)]	 Training Loss: 0.053 ACC: 99.32 CR: 1.00 Avg R1: 0.00 Avg R2: 13.66 Avg Reward: 13.658172
+2026-06-03 22:34:44 [INFO] EPOCH:78, ======================CR:1.0====================
+2026-06-03 22:34:44 [INFO] 0.0539182188040287
+2026-06-03 22:34:47 [INFO] EPOCH:78, ======================ACC:61.73====================
+2026-06-03 22:34:47 [INFO] BEST EPOCH:34,BEST ACC:62.11
+2026-06-03 22:34:59 [INFO] Epoch: 79 [12800/100000 (13%)]	 Training Loss: 0.054 ACC: 99.27 CR: 1.00 Avg R1: 0.00 Avg R2: 13.65 Avg Reward: 13.646406
+2026-06-03 22:35:11 [INFO] Epoch: 79 [25600/100000 (26%)]	 Training Loss: 0.054 ACC: 99.30 CR: 1.00 Avg R1: 0.00 Avg R2: 13.65 Avg Reward: 13.646865
+2026-06-03 22:35:23 [INFO] Epoch: 79 [38400/100000 (38%)]	 Training Loss: 0.054 ACC: 99.30 CR: 1.00 Avg R1: 0.00 Avg R2: 13.65 Avg Reward: 13.646928
+2026-06-03 22:35:35 [INFO] Epoch: 79 [51200/100000 (51%)]	 Training Loss: 0.054 ACC: 99.29 CR: 1.00 Avg R1: 0.00 Avg R2: 13.65 Avg Reward: 13.646962
+2026-06-03 22:35:47 [INFO] Epoch: 79 [64000/100000 (64%)]	 Training Loss: 0.054 ACC: 99.29 CR: 1.00 Avg R1: 0.00 Avg R2: 13.65 Avg Reward: 13.646987
+2026-06-03 22:35:59 [INFO] Epoch: 79 [76800/100000 (77%)]	 Training Loss: 0.054 ACC: 99.30 CR: 1.00 Avg R1: 0.00 Avg R2: 13.65 Avg Reward: 13.646896
+2026-06-03 22:36:10 [INFO] Epoch: 79 [89600/100000 (90%)]	 Training Loss: 0.054 ACC: 99.29 CR: 1.00 Avg R1: 0.00 Avg R2: 13.65 Avg Reward: 13.646836
+2026-06-03 22:36:20 [INFO] EPOCH:79, ======================CR:1.0====================
+2026-06-03 22:36:20 [INFO] 0.04762591141119447
+2026-06-03 22:36:24 [INFO] EPOCH:79, ======================ACC:61.71====================
+2026-06-03 22:36:24 [INFO] BEST EPOCH:34,BEST ACC:62.11
+2026-06-03 22:36:36 [INFO] Epoch: 80 [12800/100000 (13%)]	 Training Loss: 0.052 ACC: 99.30 CR: 1.00 Avg R1: 0.00 Avg R2: 13.66 Avg Reward: 13.655355
+2026-06-03 22:36:48 [INFO] Epoch: 80 [25600/100000 (26%)]	 Training Loss: 0.053 ACC: 99.30 CR: 1.00 Avg R1: 0.00 Avg R2: 13.66 Avg Reward: 13.656829
+2026-06-03 22:37:00 [INFO] Epoch: 80 [38400/100000 (38%)]	 Training Loss: 0.054 ACC: 99.29 CR: 1.00 Avg R1: 0.00 Avg R2: 13.66 Avg Reward: 13.657957
+2026-06-03 22:37:12 [INFO] Epoch: 80 [51200/100000 (51%)]	 Training Loss: 0.054 ACC: 99.29 CR: 1.00 Avg R1: 0.00 Avg R2: 13.66 Avg Reward: 13.659080
+2026-06-03 22:37:24 [INFO] Epoch: 80 [64000/100000 (64%)]	 Training Loss: 0.054 ACC: 99.28 CR: 1.00 Avg R1: 0.00 Avg R2: 13.66 Avg Reward: 13.660182
+2026-06-03 22:37:35 [INFO] Epoch: 80 [76800/100000 (77%)]	 Training Loss: 0.054 ACC: 99.29 CR: 1.00 Avg R1: 0.00 Avg R2: 13.66 Avg Reward: 13.661543
+2026-06-03 22:37:47 [INFO] Epoch: 80 [89600/100000 (90%)]	 Training Loss: 0.054 ACC: 99.27 CR: 1.00 Avg R1: 0.00 Avg R2: 13.66 Avg Reward: 13.662888
+2026-06-03 22:37:57 [INFO] EPOCH:80, ======================CR:1.0====================
+2026-06-03 22:37:57 [INFO] 0.05429846550410729
+2026-06-03 22:38:00 [INFO] EPOCH:80, ======================ACC:61.7====================
+2026-06-03 22:38:00 [INFO] BEST EPOCH:34,BEST ACC:62.11
+2026-06-03 22:38:13 [INFO] Epoch: 81 [12800/100000 (13%)]	 Training Loss: 0.053 ACC: 99.33 CR: 1.00 Avg R1: 0.00 Avg R2: 13.68 Avg Reward: 13.677655
+2026-06-03 22:38:25 [INFO] Epoch: 81 [25600/100000 (26%)]	 Training Loss: 0.053 ACC: 99.38 CR: 1.00 Avg R1: 0.00 Avg R2: 13.68 Avg Reward: 13.677390
+2026-06-03 22:38:37 [INFO] Epoch: 81 [38400/100000 (38%)]	 Training Loss: 0.053 ACC: 99.38 CR: 1.00 Avg R1: 0.00 Avg R2: 13.68 Avg Reward: 13.677081
+2026-06-03 22:38:49 [INFO] Epoch: 81 [51200/100000 (51%)]	 Training Loss: 0.053 ACC: 99.37 CR: 1.00 Avg R1: 0.00 Avg R2: 13.68 Avg Reward: 13.677000
+2026-06-03 22:39:01 [INFO] Epoch: 81 [64000/100000 (64%)]	 Training Loss: 0.054 ACC: 99.36 CR: 1.00 Avg R1: 0.00 Avg R2: 13.68 Avg Reward: 13.676961
+2026-06-03 22:39:12 [INFO] Epoch: 81 [76800/100000 (77%)]	 Training Loss: 0.053 ACC: 99.35 CR: 1.00 Avg R1: 0.00 Avg R2: 13.68 Avg Reward: 13.676824
+2026-06-03 22:39:24 [INFO] Epoch: 81 [89600/100000 (90%)]	 Training Loss: 0.053 ACC: 99.35 CR: 1.00 Avg R1: 0.00 Avg R2: 13.68 Avg Reward: 13.676836
+2026-06-03 22:39:34 [INFO] EPOCH:81, ======================CR:1.0====================
+2026-06-03 22:39:34 [INFO] 0.05597146194221619
+2026-06-03 22:39:37 [INFO] EPOCH:81, ======================ACC:61.9====================
+2026-06-03 22:39:37 [INFO] BEST EPOCH:34,BEST ACC:62.11
+2026-06-03 22:39:50 [INFO] Epoch: 82 [12800/100000 (13%)]	 Training Loss: 0.052 ACC: 99.41 CR: 1.00 Avg R1: 0.00 Avg R2: 13.67 Avg Reward: 13.673156
+2026-06-03 22:40:01 [INFO] Epoch: 82 [25600/100000 (26%)]	 Training Loss: 0.051 ACC: 99.41 CR: 1.00 Avg R1: 0.00 Avg R2: 13.67 Avg Reward: 13.673042
+2026-06-03 22:40:13 [INFO] Epoch: 82 [38400/100000 (38%)]	 Training Loss: 0.052 ACC: 99.40 CR: 1.00 Avg R1: 0.00 Avg R2: 13.67 Avg Reward: 13.673333
+2026-06-03 22:40:24 [INFO] Epoch: 82 [51200/100000 (51%)]	 Training Loss: 0.052 ACC: 99.41 CR: 1.00 Avg R1: 0.00 Avg R2: 13.67 Avg Reward: 13.673658
+2026-06-03 22:40:36 [INFO] Epoch: 82 [64000/100000 (64%)]	 Training Loss: 0.052 ACC: 99.41 CR: 1.00 Avg R1: 0.00 Avg R2: 13.67 Avg Reward: 13.674156
+2026-06-03 22:40:47 [INFO] Epoch: 82 [76800/100000 (77%)]	 Training Loss: 0.052 ACC: 99.39 CR: 1.00 Avg R1: 0.00 Avg R2: 13.67 Avg Reward: 13.674907
+2026-06-03 22:40:59 [INFO] Epoch: 82 [89600/100000 (90%)]	 Training Loss: 0.052 ACC: 99.39 CR: 1.00 Avg R1: 0.00 Avg R2: 13.68 Avg Reward: 13.675924
+2026-06-03 22:41:09 [INFO] EPOCH:82, ======================CR:1.0====================
+2026-06-03 22:41:09 [INFO] 0.0522115066923992
+2026-06-03 22:41:12 [INFO] EPOCH:82, ======================ACC:61.81====================
+2026-06-03 22:41:12 [INFO] BEST EPOCH:34,BEST ACC:62.11
+2026-06-03 22:41:25 [INFO] Epoch: 83 [12800/100000 (13%)]	 Training Loss: 0.050 ACC: 99.36 CR: 1.00 Avg R1: 0.00 Avg R2: 13.69 Avg Reward: 13.688374
+2026-06-03 22:41:37 [INFO] Epoch: 83 [25600/100000 (26%)]	 Training Loss: 0.050 ACC: 99.41 CR: 1.00 Avg R1: 0.00 Avg R2: 13.69 Avg Reward: 13.689003
+2026-06-03 22:41:49 [INFO] Epoch: 83 [38400/100000 (38%)]	 Training Loss: 0.051 ACC: 99.36 CR: 1.00 Avg R1: 0.00 Avg R2: 13.69 Avg Reward: 13.689324
+2026-06-03 22:42:00 [INFO] Epoch: 83 [51200/100000 (51%)]	 Training Loss: 0.052 ACC: 99.33 CR: 1.00 Avg R1: 0.00 Avg R2: 13.69 Avg Reward: 13.689531
+2026-06-03 22:42:12 [INFO] Epoch: 83 [64000/100000 (64%)]	 Training Loss: 0.053 ACC: 99.33 CR: 1.00 Avg R1: 0.00 Avg R2: 13.69 Avg Reward: 13.689981
+2026-06-03 22:42:24 [INFO] Epoch: 83 [76800/100000 (77%)]	 Training Loss: 0.053 ACC: 99.32 CR: 1.00 Avg R1: 0.00 Avg R2: 13.69 Avg Reward: 13.690427
+2026-06-03 22:42:36 [INFO] Epoch: 83 [89600/100000 (90%)]	 Training Loss: 0.053 ACC: 99.31 CR: 1.00 Avg R1: 0.00 Avg R2: 13.69 Avg Reward: 13.690797
+2026-06-03 22:42:46 [INFO] EPOCH:83, ======================CR:1.0====================
+2026-06-03 22:42:46 [INFO] 0.04665837793847129
+2026-06-03 22:42:49 [INFO] EPOCH:83, ======================ACC:61.88====================
+2026-06-03 22:42:49 [INFO] BEST EPOCH:34,BEST ACC:62.11
+2026-06-03 22:43:01 [INFO] Epoch: 84 [12800/100000 (13%)]	 Training Loss: 0.051 ACC: 99.34 CR: 1.00 Avg R1: 0.00 Avg R2: 13.70 Avg Reward: 13.698565
+2026-06-03 22:43:13 [INFO] Epoch: 84 [25600/100000 (26%)]	 Training Loss: 0.051 ACC: 99.34 CR: 1.00 Avg R1: 0.00 Avg R2: 13.70 Avg Reward: 13.699134
+2026-06-03 22:43:25 [INFO] Epoch: 84 [38400/100000 (38%)]	 Training Loss: 0.051 ACC: 99.36 CR: 1.00 Avg R1: 0.00 Avg R2: 13.70 Avg Reward: 13.699541
+2026-06-03 22:43:37 [INFO] Epoch: 84 [51200/100000 (51%)]	 Training Loss: 0.052 ACC: 99.35 CR: 1.00 Avg R1: 0.00 Avg R2: 13.70 Avg Reward: 13.700224
+2026-06-03 22:43:48 [INFO] Epoch: 84 [64000/100000 (64%)]	 Training Loss: 0.052 ACC: 99.36 CR: 1.00 Avg R1: 0.00 Avg R2: 13.70 Avg Reward: 13.700713
+2026-06-03 22:44:00 [INFO] Epoch: 84 [76800/100000 (77%)]	 Training Loss: 0.051 ACC: 99.36 CR: 1.00 Avg R1: 0.00 Avg R2: 13.70 Avg Reward: 13.701113
+2026-06-03 22:44:12 [INFO] Epoch: 84 [89600/100000 (90%)]	 Training Loss: 0.051 ACC: 99.38 CR: 1.00 Avg R1: 0.00 Avg R2: 13.70 Avg Reward: 13.701373
+2026-06-03 22:44:22 [INFO] EPOCH:84, ======================CR:1.0====================
+2026-06-03 22:44:22 [INFO] 0.0536524072929844
+2026-06-03 22:44:25 [INFO] EPOCH:84, ======================ACC:61.77====================
+2026-06-03 22:44:25 [INFO] BEST EPOCH:34,BEST ACC:62.11
+2026-06-03 22:44:37 [INFO] Epoch: 85 [12800/100000 (13%)]	 Training Loss: 0.058 ACC: 99.14 CR: 1.00 Avg R1: 0.00 Avg R2: 13.70 Avg Reward: 13.704204
+2026-06-03 22:44:49 [INFO] Epoch: 85 [25600/100000 (26%)]	 Training Loss: 0.055 ACC: 99.23 CR: 1.00 Avg R1: 0.00 Avg R2: 13.70 Avg Reward: 13.704783
+2026-06-03 22:45:01 [INFO] Epoch: 85 [38400/100000 (38%)]	 Training Loss: 0.054 ACC: 99.31 CR: 1.00 Avg R1: 0.00 Avg R2: 13.71 Avg Reward: 13.705167
+2026-06-03 22:45:13 [INFO] Epoch: 85 [51200/100000 (51%)]	 Training Loss: 0.054 ACC: 99.31 CR: 1.00 Avg R1: 0.00 Avg R2: 13.71 Avg Reward: 13.705508
+2026-06-03 22:45:24 [INFO] Epoch: 85 [64000/100000 (64%)]	 Training Loss: 0.054 ACC: 99.34 CR: 1.00 Avg R1: 0.00 Avg R2: 13.71 Avg Reward: 13.705710
+2026-06-03 22:45:34 [INFO] Epoch: 85 [76800/100000 (77%)]	 Training Loss: 0.054 ACC: 99.33 CR: 1.00 Avg R1: 0.00 Avg R2: 13.71 Avg Reward: 13.705974
+2026-06-03 22:45:46 [INFO] Epoch: 85 [89600/100000 (90%)]	 Training Loss: 0.053 ACC: 99.34 CR: 1.00 Avg R1: 0.00 Avg R2: 13.71 Avg Reward: 13.706189
+2026-06-03 22:45:55 [INFO] EPOCH:85, ======================CR:1.0====================
+2026-06-03 22:45:55 [INFO] 0.05083766351703716
+2026-06-03 22:45:58 [INFO] EPOCH:85, ======================ACC:61.68====================
+2026-06-03 22:45:58 [INFO] BEST EPOCH:34,BEST ACC:62.11
+2026-06-03 22:46:10 [INFO] Epoch: 86 [12800/100000 (13%)]	 Training Loss: 0.050 ACC: 99.37 CR: 1.00 Avg R1: 0.00 Avg R2: 13.71 Avg Reward: 13.713762
+2026-06-03 22:46:21 [INFO] Epoch: 86 [25600/100000 (26%)]	 Training Loss: 0.051 ACC: 99.34 CR: 1.00 Avg R1: 0.00 Avg R2: 13.71 Avg Reward: 13.713805
+2026-06-03 22:46:32 [INFO] Epoch: 86 [38400/100000 (38%)]	 Training Loss: 0.052 ACC: 99.32 CR: 1.00 Avg R1: 0.00 Avg R2: 13.71 Avg Reward: 13.713470
+2026-06-03 22:46:42 [INFO] Epoch: 86 [51200/100000 (51%)]	 Training Loss: 0.052 ACC: 99.32 CR: 1.00 Avg R1: 0.00 Avg R2: 13.71 Avg Reward: 13.713140
+2026-06-03 22:46:53 [INFO] Epoch: 86 [64000/100000 (64%)]	 Training Loss: 0.052 ACC: 99.34 CR: 1.00 Avg R1: 0.00 Avg R2: 13.71 Avg Reward: 13.712820
+2026-06-03 22:47:05 [INFO] Epoch: 86 [76800/100000 (77%)]	 Training Loss: 0.052 ACC: 99.35 CR: 1.00 Avg R1: 0.00 Avg R2: 13.71 Avg Reward: 13.712359
+2026-06-03 22:47:17 [INFO] Epoch: 86 [89600/100000 (90%)]	 Training Loss: 0.052 ACC: 99.34 CR: 1.00 Avg R1: 0.00 Avg R2: 13.71 Avg Reward: 13.711976
+2026-06-03 22:47:26 [INFO] EPOCH:86, ======================CR:1.0====================
+2026-06-03 22:47:26 [INFO] 0.054871370170871445
+2026-06-03 22:47:30 [INFO] EPOCH:86, ======================ACC:61.81====================
+2026-06-03 22:47:30 [INFO] BEST EPOCH:34,BEST ACC:62.11
+2026-06-03 22:47:42 [INFO] Epoch: 87 [12800/100000 (13%)]	 Training Loss: 0.051 ACC: 99.30 CR: 1.00 Avg R1: 0.00 Avg R2: 13.71 Avg Reward: 13.708171
+2026-06-03 22:47:54 [INFO] Epoch: 87 [25600/100000 (26%)]	 Training Loss: 0.052 ACC: 99.28 CR: 1.00 Avg R1: 0.00 Avg R2: 13.71 Avg Reward: 13.708522
+2026-06-03 22:48:06 [INFO] Epoch: 87 [38400/100000 (38%)]	 Training Loss: 0.051 ACC: 99.33 CR: 1.00 Avg R1: 0.00 Avg R2: 13.71 Avg Reward: 13.708337
+2026-06-03 22:48:18 [INFO] Epoch: 87 [51200/100000 (51%)]	 Training Loss: 0.052 ACC: 99.29 CR: 1.00 Avg R1: 0.00 Avg R2: 13.71 Avg Reward: 13.708179
+2026-06-03 22:48:30 [INFO] Epoch: 87 [64000/100000 (64%)]	 Training Loss: 0.051 ACC: 99.33 CR: 1.00 Avg R1: 0.00 Avg R2: 13.71 Avg Reward: 13.708058
+2026-06-03 22:48:42 [INFO] Epoch: 87 [76800/100000 (77%)]	 Training Loss: 0.052 ACC: 99.32 CR: 1.00 Avg R1: 0.00 Avg R2: 13.71 Avg Reward: 13.707882
+2026-06-03 22:48:53 [INFO] Epoch: 87 [89600/100000 (90%)]	 Training Loss: 0.052 ACC: 99.32 CR: 1.00 Avg R1: 0.00 Avg R2: 13.71 Avg Reward: 13.707696
+2026-06-03 22:49:03 [INFO] EPOCH:87, ======================CR:1.0====================
+2026-06-03 22:49:03 [INFO] 0.05281897609654098
+2026-06-03 22:49:07 [INFO] EPOCH:87, ======================ACC:61.74====================
+2026-06-03 22:49:07 [INFO] BEST EPOCH:34,BEST ACC:62.11
+2026-06-03 22:49:19 [INFO] Epoch: 88 [12800/100000 (13%)]	 Training Loss: 0.051 ACC: 99.25 CR: 1.00 Avg R1: 0.00 Avg R2: 13.70 Avg Reward: 13.704628
+2026-06-03 22:49:31 [INFO] Epoch: 88 [25600/100000 (26%)]	 Training Loss: 0.051 ACC: 99.32 CR: 1.00 Avg R1: 0.00 Avg R2: 13.70 Avg Reward: 13.703586
+2026-06-03 22:49:42 [INFO] Epoch: 88 [38400/100000 (38%)]	 Training Loss: 0.051 ACC: 99.36 CR: 1.00 Avg R1: 0.00 Avg R2: 13.70 Avg Reward: 13.702832
+2026-06-03 22:49:54 [INFO] Epoch: 88 [51200/100000 (51%)]	 Training Loss: 0.052 ACC: 99.36 CR: 1.00 Avg R1: 0.00 Avg R2: 13.70 Avg Reward: 13.702052
+2026-06-03 22:50:06 [INFO] Epoch: 88 [64000/100000 (64%)]	 Training Loss: 0.052 ACC: 99.36 CR: 1.00 Avg R1: 0.00 Avg R2: 13.70 Avg Reward: 13.701335
+2026-06-03 22:50:18 [INFO] Epoch: 88 [76800/100000 (77%)]	 Training Loss: 0.051 ACC: 99.37 CR: 1.00 Avg R1: 0.00 Avg R2: 13.70 Avg Reward: 13.700610
+2026-06-03 22:50:29 [INFO] Epoch: 88 [89600/100000 (90%)]	 Training Loss: 0.052 ACC: 99.35 CR: 1.00 Avg R1: 0.00 Avg R2: 13.70 Avg Reward: 13.699948
+2026-06-03 22:50:39 [INFO] EPOCH:88, ======================CR:1.0====================
+2026-06-03 22:50:39 [INFO] 0.054195253485940724
+2026-06-03 22:50:43 [INFO] EPOCH:88, ======================ACC:61.79====================
+2026-06-03 22:50:43 [INFO] BEST EPOCH:34,BEST ACC:62.11
+2026-06-03 22:50:55 [INFO] Epoch: 89 [12800/100000 (13%)]	 Training Loss: 0.053 ACC: 99.29 CR: 1.00 Avg R1: 0.00 Avg R2: 13.70 Avg Reward: 13.701200
+2026-06-03 22:51:07 [INFO] Epoch: 89 [25600/100000 (26%)]	 Training Loss: 0.052 ACC: 99.36 CR: 1.00 Avg R1: 0.00 Avg R2: 13.70 Avg Reward: 13.701192
+2026-06-03 22:51:19 [INFO] Epoch: 89 [38400/100000 (38%)]	 Training Loss: 0.052 ACC: 99.33 CR: 1.00 Avg R1: 0.00 Avg R2: 13.70 Avg Reward: 13.701326
+2026-06-03 22:51:31 [INFO] Epoch: 89 [51200/100000 (51%)]	 Training Loss: 0.052 ACC: 99.33 CR: 1.00 Avg R1: 0.00 Avg R2: 13.70 Avg Reward: 13.701590
+2026-06-03 22:51:43 [INFO] Epoch: 89 [64000/100000 (64%)]	 Training Loss: 0.052 ACC: 99.34 CR: 1.00 Avg R1: 0.00 Avg R2: 13.70 Avg Reward: 13.701288
+2026-06-03 22:51:55 [INFO] Epoch: 89 [76800/100000 (77%)]	 Training Loss: 0.052 ACC: 99.35 CR: 1.00 Avg R1: 0.00 Avg R2: 13.70 Avg Reward: 13.700797
+2026-06-03 22:52:07 [INFO] Epoch: 89 [89600/100000 (90%)]	 Training Loss: 0.052 ACC: 99.35 CR: 1.00 Avg R1: 0.00 Avg R2: 13.70 Avg Reward: 13.700141
+2026-06-03 22:52:17 [INFO] EPOCH:89, ======================CR:1.0====================
+2026-06-03 22:52:17 [INFO] 0.04601380914754459
+2026-06-03 22:52:20 [INFO] EPOCH:89, ======================ACC:61.73====================
+2026-06-03 22:52:20 [INFO] BEST EPOCH:34,BEST ACC:62.11

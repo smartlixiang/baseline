@@ -1,0 +1,10 @@
+2026-06-03 03:24:51 [INFO] Args: {'momentum': 0.9, 'log_interval': 50, 'weight_decay': 0.0005, 'lr': 0.1, 'batch_size': 256, 'seed': 22, 'device': '4', 'resume': False, 'cutout_length': 16, 'root': '/nvme/home/lixiang/baseline/data', 'output_root': '/nvme/home/lixiang/baseline/mask', 'dataset': 'Tiny-Imagenet', 'save_model': False, 'num_worker': 8, 'compression_rate': 0.2, 'keep_ratio': 20, 'epoches': 200, 'model': 'resnet18', 'action_dim': 1, 'state_dim': 512, 'dataset_out': 'tinyimagenet'}
+2026-06-03 03:27:50 [INFO] Epoch: 0 [12800/100000 (13%)]	 Training Loss: 2.092 ACC: 10.85 CR: 0.94 Avg R1: 0.39 Avg R2: 9.32 Avg Reward: 9.716473
+2026-06-03 03:28:10 [INFO] Epoch: 0 [25600/100000 (26%)]	 Training Loss: 2.065 ACC: 11.57 CR: 0.88 Avg R1: 0.78 Avg R2: 9.02 Avg Reward: 9.800236
+2026-06-03 03:28:31 [INFO] Epoch: 0 [38400/100000 (38%)]	 Training Loss: 2.046 ACC: 12.10 CR: 0.81 Avg R1: 1.17 Avg R2: 8.71 Avg Reward: 9.887563
+2026-06-03 03:28:52 [INFO] Epoch: 0 [51200/100000 (51%)]	 Training Loss: 2.037 ACC: 12.68 CR: 0.75 Avg R1: 1.57 Avg R2: 8.41 Avg Reward: 9.974809
+2026-06-03 03:29:11 [INFO] Epoch: 0 [64000/100000 (64%)]	 Training Loss: 2.032 ACC: 13.08 CR: 0.69 Avg R1: 1.95 Avg R2: 8.10 Avg Reward: 10.059113
+2026-06-03 03:29:30 [INFO] Epoch: 0 [76800/100000 (77%)]	 Training Loss: 2.019 ACC: 13.51 CR: 0.63 Avg R1: 2.34 Avg R2: 7.80 Avg Reward: 10.142876
+2026-06-03 03:29:50 [INFO] Epoch: 0 [89600/100000 (90%)]	 Training Loss: 2.025 ACC: 13.84 CR: 0.57 Avg R1: 2.72 Avg R2: 7.50 Avg Reward: 10.223908
+2026-06-03 03:30:06 [INFO] EPOCH:0, ======================CR:0.53034====================
+2026-06-03 03:30:06 [INFO] -0.0020237411899698176
