@@ -32,7 +32,7 @@ Main function:
     4. Sort training data by noisy labels, matching data_diet's class-sorted convention.
     5. Train one proxy model with the same seed for all randomness.
     6. Save checkpoint at score_epoch=20 and at final epoch=200.
-    7. Compute E2LN and GraNd at epoch 20.
+    7. Compute EL2N and GraNd at epoch 20.
     8. Compute Forgetting from full training trajectory.
     9. Map all scores back to torchvision original training order.
     10. Generate mask_30.npz, mask_50.npz, mask_70.npz.
@@ -782,7 +782,7 @@ def train_proxy_model(cfg: ExperimentConfig, data: LoadedData, device: torch.dev
 
 
 # ---------------------------------------------------------------------------
-# E2LN / GraNd scoring
+# EL2N / GraNd scoring
 # ---------------------------------------------------------------------------
 
 def to_torch_batch(x: np.ndarray, y: np.ndarray, device: torch.device) -> Tuple[torch.Tensor, torch.Tensor]:
@@ -919,7 +919,7 @@ def compute_all_scores(cfg: ExperimentConfig, data: LoadedData, device: torch.de
         raise FileNotFoundError(f"Score checkpoint not found: {score_ckpt_path}")
 
     score_paths_orig = {
-        "E2LN": cfg.score_dir / "E2LN_scores_orig.npy",
+        "EL2N": cfg.score_dir / "EL2N_scores_orig.npy",
         "GraNd": cfg.score_dir / "GraNd_scores_orig.npy",
         "Forgetting": cfg.score_dir / "Forgetting_scores_orig.npy",
     }
@@ -935,24 +935,24 @@ def compute_all_scores(cfg: ExperimentConfig, data: LoadedData, device: torch.de
         device=device,
     )
 
-    # E2LN
-    e2ln_sorted_path = cfg.score_dir / f"E2LN_scores_sorted_ckpt_{score_step}.npy"
-    e2ln_orig_path = score_paths_orig["E2LN"]
+    # EL2N
+    el2n_sorted_path = cfg.score_dir / f"EL2N_scores_sorted_ckpt_{score_step}.npy"
+    el2n_orig_path = score_paths_orig["EL2N"]
 
-    if e2ln_orig_path.exists() and not cfg.force:
-        e2ln_orig = np.load(e2ln_orig_path)
+    if el2n_orig_path.exists() and not cfg.force:
+        el2n_orig = np.load(el2n_orig_path)
     else:
-        print(f"[SCORE] computing E2LN at step={score_step}")
-        e2ln_sorted = compute_scores_sorted(
+        print(f"[SCORE] computing EL2N at step={score_step}")
+        el2n_sorted = compute_scores_sorted(
             score_type="el2n",
             model=model,
             data=data,
             batch_size=cfg.el2n_batch_size,
             device=device,
         )
-        e2ln_orig = sorted_scores_to_original(e2ln_sorted, data.orig_ids_sorted)
-        np.save(e2ln_sorted_path, e2ln_sorted)
-        np.save(e2ln_orig_path, e2ln_orig)
+        el2n_orig = sorted_scores_to_original(el2n_sorted, data.orig_ids_sorted)
+        np.save(el2n_sorted_path, el2n_sorted)
+        np.save(el2n_orig_path, el2n_orig)
 
     # GraNd
     grand_sorted_path = cfg.score_dir / f"GraNd_scores_sorted_ckpt_{score_step}.npy"
@@ -989,7 +989,7 @@ def compute_all_scores(cfg: ExperimentConfig, data: LoadedData, device: torch.de
         np.save(forget_orig_path, forget_orig)
 
     return {
-        "E2LN": e2ln_orig.astype(np.float32),
+        "EL2N": el2n_orig.astype(np.float32),
         "GraNd": grand_orig.astype(np.float32),
         "Forgetting": forget_orig.astype(np.float32),
     }
@@ -1164,7 +1164,7 @@ def update_global_summary(path: Path, new_rows: List[dict]) -> None:
 def generate_masks(cfg: ExperimentConfig, data: LoadedData, scores: Dict[str, np.ndarray]) -> None:
     rows: List[dict] = []
 
-    for method in ["E2LN", "GraNd", "Forgetting"]:
+    for method in ["EL2N", "GraNd", "Forgetting"]:
         method_scores = scores[method]
 
         if method_scores.shape[0] != data.num_train:
@@ -1192,7 +1192,7 @@ def generate_masks(cfg: ExperimentConfig, data: LoadedData, scores: Dict[str, np
 
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(
-        description="Run E2LN/GraNd/Forgetting selection on fixed label-noise CIFAR datasets."
+        description="Run EL2N/GraNd/Forgetting selection on fixed label-noise CIFAR datasets."
     )
 
     parser.add_argument(

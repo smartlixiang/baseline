@@ -96,7 +96,7 @@ score_step=int($SCORE_STEP)
 final_step=int($FINAL_STEP)
 ratios=[float(x) for x in "$KEEP_RATIOS_STR".split()]
 methods=[
-    ("E2LN", exp/"error_l2_norm_scores"/f"ckpt_{score_step}.npy", True),
+    ("EL2N", exp/"error_l2_norm_scores"/f"ckpt_{score_step}.npy", True),
     ("GraNd", exp/"grad_norm_scores"/f"ckpt_{score_step}.npy", True),
     ("Forgetting", exp/"forget_scores"/f"ckpt_{final_step}.npy", False),
 ]

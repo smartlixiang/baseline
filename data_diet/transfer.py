@@ -35,7 +35,7 @@ METHOD_ALIASES = {
 
 # Canonical method key -> required output dir name.
 METHOD_OUTPUT_DIR = {
-    "el2n": "E2LN",  # Intentionally E2LN per requirement.
+    "el2n": "EL2N",  # Intentionally EL2N per requirement.
     "grand": "GraNd",
     "forgetting": "Forgetting",
 }

@@ -38,7 +38,7 @@ BASE_SEEDS="22 42 96" SCORE_EPOCH=10 KEEP_RATIOS="0.9 0.8 0.7 0.6 0.5 0.4 0.3 0.
 
 Mask output paths follow:
 
-- `E2LN/tiny-imagenet/<seed>/mask_<keep_ratio>.npz`
+- `EL2N/tiny-imagenet/<seed>/mask_<keep_ratio>.npz`
 - `GraNd/tiny-imagenet/<seed>/mask_<keep_ratio>.npz`
 - `Forgetting/tiny-imagenet/<seed>/mask_<keep_ratio>.npz`
 
