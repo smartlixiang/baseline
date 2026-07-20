@@ -194,10 +194,19 @@ def require_pillow():
         raise RuntimeError("Pillow is required for running corruption experiments")
 
 
+_CORRUPTION_MODULE = None
+
+
 def load_corruption_module():
+    global _CORRUPTION_MODULE
     require_numpy()
     require_pillow()
-    return load_module("corruption_opt_runtime", REPO_ROOT / "corruption_data" / "corruption_opt.py")
+    if _CORRUPTION_MODULE is None:
+        _CORRUPTION_MODULE = load_module(
+            "corruption_opt_runtime",
+            REPO_ROOT / "corruption_data" / "corruption_opt.py",
+        )
+    return _CORRUPTION_MODULE
 
 
 def apply_image_corruption(image: Image.Image, info: CorruptionInfo, sample_index: int) -> Image.Image:
@@ -501,6 +510,75 @@ def augment_tiny_numpy(x: np.ndarray, rng: np.random.RandomState) -> np.ndarray:
     return out
 
 
+def validate_data_diet_corruption_environment(cfg, info: CorruptionInfo) -> None:
+    data_root = Path(cfg.data_root)
+    if not data_root.exists():
+        raise FileNotFoundError(f"Data root not found: {data_root}")
+    if not info.list_path.is_file():
+        raise FileNotFoundError(f"Corruption list not found: {info.list_path}")
+    if info.dataset != TINY_DATASET:
+        raise ValueError(
+            f"data_diet corruption worker only supports {TINY_DATASET}, got {info.dataset}"
+        )
+    if info.seed != int(cfg.seed):
+        raise ValueError(f"Corruption seed mismatch: info={info.seed}, cfg={cfg.seed}")
+    if len(info.corruption_types) != TINY_TRAIN_SIZE:
+        raise ValueError("Corruption metadata length mismatch")
+
+
+def save_data_diet_corruption_meta(module, cfg, data, info: CorruptionInfo) -> None:
+    cfg.meta_dir.mkdir(parents=True, exist_ok=True)
+
+    np.save(
+        cfg.meta_dir / "clean_targets_orig.npy",
+        np.asarray(data.clean_targets_orig, dtype=np.int64),
+    )
+    np.save(
+        cfg.meta_dir / "corrupted_sample_ids_orig.npy",
+        np.asarray(info.corrupted_indices, dtype=np.int64),
+    )
+    np.save(
+        cfg.meta_dir / "is_corrupted_orig.npy",
+        np.asarray(info.is_corrupted, dtype=np.uint8),
+    )
+    np.save(
+        cfg.meta_dir / "train_sort_order.npy",
+        np.asarray(data.train_sort_order, dtype=np.int64),
+    )
+    np.save(
+        cfg.meta_dir / "orig_ids_sorted.npy",
+        np.asarray(data.orig_ids_sorted, dtype=np.int64),
+    )
+
+    type_ids = np.asarray(info.corruption_types[info.is_corrupted], dtype=np.int64)
+    counts = np.bincount(type_ids, minlength=5)
+    names = load_corruption_module().CORRUPTION_ID_TO_NAME
+    type_counts = {str(names[i]): int(counts[i]) for i in range(5)}
+
+    module.save_json(
+        cfg.meta_dir / "corruption_info.json",
+        {
+            "dataset": info.dataset,
+            "seed": int(info.seed),
+            "corruption_rate": float(info.is_corrupted.mean()),
+            "num_train": int(len(info.corruption_types)),
+            "num_corrupted": int(info.is_corrupted.sum()),
+            "corruption_list_path": str(info.list_path),
+            "corruption_type_counts": type_counts,
+        },
+    )
+
+
+def make_herding_corruption_config(original_config):
+    def patched_config(*args, **kwargs):
+        kwargs["noise_root"] = str(REPO_ROOT / "corruption_data")
+        kwargs["cache_root"] = str(REPO_ROOT / "herding" / "corruption_cache")
+        kwargs["mask_root"] = str(REPO_ROOT / "herding" / "corruption_masks")
+        return original_config(*args, **kwargs)
+
+    return patched_config
+
+
 def _run_data_diet(seed: int, force: bool) -> None:
     """Run Tiny-ImageNet data_diet once; labels remain clean."""
     module = load_module("corruption_data_diet_runtime", REPO_ROOT / "data_diet" / "select_from_noise.py")
@@ -563,7 +641,7 @@ def _run_data_diet(seed: int, force: bool) -> None:
     cfg.mask_root = str(REPO_ROOT / "data_diet" / "corruption_masks")
     cfg.force = force
 
-    module.validate_runtime_environment(cfg)
+    validate_data_diet_corruption_environment(cfg, info)
     module.ensure_clean_dir(cfg.run_dir, force=cfg.force)
     module.ensure_clean_dir(cfg.ckpt_dir, force=False)
     module.ensure_clean_dir(cfg.score_dir, force=False)
@@ -574,7 +652,7 @@ def _run_data_diet(seed: int, force: bool) -> None:
     module.set_all_seeds(cfg.seed)
     device = module.get_device()
     data = module.load_noisy_data(cfg)
-    module.save_data_meta(cfg, data)
+    save_data_diet_corruption_meta(module, cfg, data, info)
     stage("data_diet: single proxy training, epochs=90, score_epoch=10")
     module.train_proxy_model(cfg, data, device)
     stage("data_diet: single EL2N/GraNd/Forgetting scoring pass")
@@ -598,10 +676,12 @@ def _run_herding(seed: int, force: bool) -> None:
     module.KEEP_RATIOS = KEEP_RATIOS
     module.NUM_CLASSES = {**module.NUM_CLASSES, TINY_DATASET: TINY_NUM_CLASSES}
     module.CIFAR_STATS = {**module.CIFAR_STATS, TINY_DATASET: ((0.485, 0.456, 0.406), (0.229, 0.224, 0.225))}
+    original_config = module.Config
 
     def patched_build(cfg):
         return build_corrupted_tiny(cfg.seed, tiny_eval_transform())
 
+    module.Config = make_herding_corruption_config(original_config)
     module.build_noisy_train_dataset = patched_build
     argv = [str(path), "--dataset", TINY_DATASET, "--seed", str(seed)]
     if force:
