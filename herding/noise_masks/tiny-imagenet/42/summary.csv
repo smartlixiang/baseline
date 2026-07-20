@@ -1,0 +1,3 @@
+dataset,seed,method,keep_ratio,num_selected,num_noisy_selected,noise_ratio_in_mask,mask_path
+tiny-imagenet,42,herding,30,30000,5943,0.1981,/nvme/home/lixiang/baseline/herding/noise_masks/tiny-imagenet/42/herding/mask_30.npz
+tiny-imagenet,42,herding,50,50000,10030,0.2006,/nvme/home/lixiang/baseline/herding/noise_masks/tiny-imagenet/42/herding/mask_50.npz

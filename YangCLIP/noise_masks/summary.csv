@@ -17,3 +17,9 @@ cifar100,22,YangCLIP,70,35000,342,0.009771428571428572,/nvme/home/lixiang/baseli
 cifar100,96,YangCLIP,30,15000,36,0.0024,/nvme/home/lixiang/baseline/YangCLIP/noise_masks/cifar100/96/YangCLIP/mask_30.npz
 cifar100,96,YangCLIP,50,25000,97,0.00388,/nvme/home/lixiang/baseline/YangCLIP/noise_masks/cifar100/96/YangCLIP/mask_50.npz
 cifar100,96,YangCLIP,70,35000,358,0.010228571428571429,/nvme/home/lixiang/baseline/YangCLIP/noise_masks/cifar100/96/YangCLIP/mask_70.npz
+tiny-imagenet,22,YangCLIP,30,30000,65,0.0021666666666666666,/nvme/home/lixiang/baseline/YangCLIP/noise_masks/tiny-imagenet/22/YangCLIP/mask_30.npz
+tiny-imagenet,22,YangCLIP,50,50000,219,0.00438,/nvme/home/lixiang/baseline/YangCLIP/noise_masks/tiny-imagenet/22/YangCLIP/mask_50.npz
+tiny-imagenet,96,YangCLIP,30,30000,61,0.002033333333333333,/nvme/home/lixiang/baseline/YangCLIP/noise_masks/tiny-imagenet/96/YangCLIP/mask_30.npz
+tiny-imagenet,96,YangCLIP,50,50000,224,0.00448,/nvme/home/lixiang/baseline/YangCLIP/noise_masks/tiny-imagenet/96/YangCLIP/mask_50.npz
+tiny-imagenet,42,YangCLIP,30,30000,60,0.002,/nvme/home/lixiang/baseline/YangCLIP/noise_masks/tiny-imagenet/42/YangCLIP/mask_30.npz
+tiny-imagenet,42,YangCLIP,50,50000,225,0.0045,/nvme/home/lixiang/baseline/YangCLIP/noise_masks/tiny-imagenet/42/YangCLIP/mask_50.npz

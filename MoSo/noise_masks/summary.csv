@@ -17,3 +17,9 @@ cifar100,22,MoSo,70,35000,5273,0.15065714285714285,/nvme/home/lixiang/baseline/M
 cifar100,96,MoSo,30,15000,3077,0.20513333333333333,/nvme/home/lixiang/baseline/MoSo/noise_masks/cifar100/96/MoSo/mask_30.npz
 cifar100,96,MoSo,50,25000,3955,0.1582,/nvme/home/lixiang/baseline/MoSo/noise_masks/cifar100/96/MoSo/mask_50.npz
 cifar100,96,MoSo,70,35000,4580,0.13085714285714287,/nvme/home/lixiang/baseline/MoSo/noise_masks/cifar100/96/MoSo/mask_70.npz
+tiny-imagenet,22,MoSo,30,30000,5555,0.18516666666666667,/nvme/home/lixiang/baseline/MoSo/noise_masks/tiny-imagenet/22/MoSo/mask_30.npz
+tiny-imagenet,22,MoSo,50,50000,8252,0.16504,/nvme/home/lixiang/baseline/MoSo/noise_masks/tiny-imagenet/22/MoSo/mask_50.npz
+tiny-imagenet,96,MoSo,30,30000,8023,0.26743333333333336,/nvme/home/lixiang/baseline/MoSo/noise_masks/tiny-imagenet/96/MoSo/mask_30.npz
+tiny-imagenet,96,MoSo,50,50000,9644,0.19288,/nvme/home/lixiang/baseline/MoSo/noise_masks/tiny-imagenet/96/MoSo/mask_50.npz
+tiny-imagenet,42,MoSo,30,30000,5782,0.19273333333333334,/nvme/home/lixiang/baseline/MoSo/noise_masks/tiny-imagenet/42/MoSo/mask_30.npz
+tiny-imagenet,42,MoSo,50,50000,8464,0.16928,/nvme/home/lixiang/baseline/MoSo/noise_masks/tiny-imagenet/42/MoSo/mask_50.npz

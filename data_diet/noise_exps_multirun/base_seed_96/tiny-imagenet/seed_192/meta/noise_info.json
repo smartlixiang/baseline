@@ -1,0 +1,9 @@
+{
+    "dataset": "tiny-imagenet",
+    "seed": 192,
+    "noise_rate": 0.2,
+    "num_train": 100000,
+    "num_noisy": 20000,
+    "actual_noise_rate": 0.2,
+    "noise_list_path": "/nvme/home/lixiang/baseline/.noise_runtime/data_diet/base_seed_96/noise/tiny-imagenet/noise_list_192.txt"
+}

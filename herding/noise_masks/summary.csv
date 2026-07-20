@@ -17,3 +17,9 @@ cifar100,22,herding,70,35000,7004,0.20011428571428572,/nvme/home/lixiang/baselin
 cifar100,96,herding,30,15000,2988,0.1992,/nvme/home/lixiang/baseline/herding/noise_masks/cifar100/96/herding/mask_30.npz
 cifar100,96,herding,50,25000,5009,0.20036,/nvme/home/lixiang/baseline/herding/noise_masks/cifar100/96/herding/mask_50.npz
 cifar100,96,herding,70,35000,7036,0.20102857142857142,/nvme/home/lixiang/baseline/herding/noise_masks/cifar100/96/herding/mask_70.npz
+tiny-imagenet,22,herding,30,30000,5977,0.19923333333333335,/nvme/home/lixiang/baseline/herding/noise_masks/tiny-imagenet/22/herding/mask_30.npz
+tiny-imagenet,22,herding,50,50000,9987,0.19974,/nvme/home/lixiang/baseline/herding/noise_masks/tiny-imagenet/22/herding/mask_50.npz
+tiny-imagenet,96,herding,30,30000,5905,0.19683333333333333,/nvme/home/lixiang/baseline/herding/noise_masks/tiny-imagenet/96/herding/mask_30.npz
+tiny-imagenet,96,herding,50,50000,9945,0.1989,/nvme/home/lixiang/baseline/herding/noise_masks/tiny-imagenet/96/herding/mask_50.npz
+tiny-imagenet,42,herding,30,30000,5943,0.1981,/nvme/home/lixiang/baseline/herding/noise_masks/tiny-imagenet/42/herding/mask_30.npz
+tiny-imagenet,42,herding,50,50000,10030,0.2006,/nvme/home/lixiang/baseline/herding/noise_masks/tiny-imagenet/42/herding/mask_50.npz

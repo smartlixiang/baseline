@@ -1,0 +1,3 @@
+dataset,seed,method,keep_ratio,num_selected,num_noisy_selected,noise_ratio_in_mask,mask_path
+tiny-imagenet,22,YangCLIP,30,30000,65,0.0021666666666666666,/nvme/home/lixiang/baseline/YangCLIP/noise_masks/tiny-imagenet/22/YangCLIP/mask_30.npz
+tiny-imagenet,22,YangCLIP,50,50000,219,0.00438,/nvme/home/lixiang/baseline/YangCLIP/noise_masks/tiny-imagenet/22/YangCLIP/mask_50.npz

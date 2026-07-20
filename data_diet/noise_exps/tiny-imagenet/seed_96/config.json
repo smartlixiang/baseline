@@ -1,0 +1,31 @@
+{
+    "dataset": "tiny-imagenet",
+    "seed": 96,
+    "data_root": "/nvme/home/lixiang/baseline/data",
+    "noise_root": "/nvme/home/lixiang/baseline/noise",
+    "output_root": "/nvme/home/lixiang/baseline/data_diet/noise_exps",
+    "mask_root": "/nvme/home/lixiang/baseline/data_diet/noise_masks",
+    "model": "resnet34_lowres",
+    "epochs": 90,
+    "score_epoch": 10,
+    "noise_rate": 0.2,
+    "train_batch_size": 64,
+    "test_batch_size": 256,
+    "lr": 0.025,
+    "momentum": 0.9,
+    "weight_decay": 0.0001,
+    "nesterov": true,
+    "decay_factor": 0.1,
+    "decay_epochs": [
+        30,
+        60
+    ],
+    "keep_ratios": [
+        30,
+        50
+    ],
+    "el2n_batch_size": 256,
+    "grand_batch_size": 8,
+    "eval_every_epochs": 10,
+    "force": false
+}
