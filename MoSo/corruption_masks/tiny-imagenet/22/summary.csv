@@ -1,0 +1,4 @@
+dataset,seed,method,keep_ratio,num_selected,num_noisy_selected,noise_ratio_in_mask,mask_path
+tiny-imagenet,22,MoSo,30,30000,4671,0.1557,/nvme/home/lixiang/baseline/MoSo/corruption_masks/tiny-imagenet/22/MoSo/mask_30.npz
+tiny-imagenet,22,MoSo,50,50000,8257,0.16514,/nvme/home/lixiang/baseline/MoSo/corruption_masks/tiny-imagenet/22/MoSo/mask_50.npz
+tiny-imagenet,22,MoSo,70,70000,12342,0.1763142857142857,/nvme/home/lixiang/baseline/MoSo/corruption_masks/tiny-imagenet/22/MoSo/mask_70.npz

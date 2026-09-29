@@ -1,0 +1,10 @@
+dataset,seed,method,keep_ratio,num_selected,num_noisy_selected,noise_ratio_in_mask,mask_path
+tiny-imagenet,22,herding,30,30000,6093,0.2031,/nvme/home/lixiang/baseline/herding/corruption_masks/tiny-imagenet/22/herding/mask_30.npz
+tiny-imagenet,22,herding,50,50000,10058,0.20116,/nvme/home/lixiang/baseline/herding/corruption_masks/tiny-imagenet/22/herding/mask_50.npz
+tiny-imagenet,22,herding,70,70000,14021,0.2003,/nvme/home/lixiang/baseline/herding/corruption_masks/tiny-imagenet/22/herding/mask_70.npz
+tiny-imagenet,42,herding,30,30000,6040,0.20133333333333334,/nvme/home/lixiang/baseline/herding/corruption_masks/tiny-imagenet/42/herding/mask_30.npz
+tiny-imagenet,42,herding,50,50000,10049,0.20098,/nvme/home/lixiang/baseline/herding/corruption_masks/tiny-imagenet/42/herding/mask_50.npz
+tiny-imagenet,42,herding,70,70000,14064,0.2009142857142857,/nvme/home/lixiang/baseline/herding/corruption_masks/tiny-imagenet/42/herding/mask_70.npz
+tiny-imagenet,96,herding,30,30000,6057,0.2019,/nvme/home/lixiang/baseline/herding/corruption_masks/tiny-imagenet/96/herding/mask_30.npz
+tiny-imagenet,96,herding,50,50000,10015,0.2003,/nvme/home/lixiang/baseline/herding/corruption_masks/tiny-imagenet/96/herding/mask_50.npz
+tiny-imagenet,96,herding,70,70000,14010,0.20014285714285715,/nvme/home/lixiang/baseline/herding/corruption_masks/tiny-imagenet/96/herding/mask_70.npz

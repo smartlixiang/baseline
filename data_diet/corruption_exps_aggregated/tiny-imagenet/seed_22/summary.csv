@@ -1,0 +1,10 @@
+dataset,seed,method,keep_ratio,num_train,num_selected,num_noisy_total,noise_ratio_total,num_noisy_selected,noise_ratio_in_mask,mask_path
+tiny-imagenet,22,EL2N,30,100000,30000,20000,0.2,10047,0.3349,/nvme/home/lixiang/baseline/data_diet/corruption_masks/tiny-imagenet/22/EL2N/mask_30.npz
+tiny-imagenet,22,EL2N,50,100000,50000,20000,0.2,15096,0.30192,/nvme/home/lixiang/baseline/data_diet/corruption_masks/tiny-imagenet/22/EL2N/mask_50.npz
+tiny-imagenet,22,EL2N,70,100000,70000,20000,0.2,17919,0.25598571428571426,/nvme/home/lixiang/baseline/data_diet/corruption_masks/tiny-imagenet/22/EL2N/mask_70.npz
+tiny-imagenet,22,GraNd,30,100000,30000,20000,0.2,7461,0.2487,/nvme/home/lixiang/baseline/data_diet/corruption_masks/tiny-imagenet/22/GraNd/mask_30.npz
+tiny-imagenet,22,GraNd,50,100000,50000,20000,0.2,13880,0.2776,/nvme/home/lixiang/baseline/data_diet/corruption_masks/tiny-imagenet/22/GraNd/mask_50.npz
+tiny-imagenet,22,GraNd,70,100000,70000,20000,0.2,17932,0.25617142857142855,/nvme/home/lixiang/baseline/data_diet/corruption_masks/tiny-imagenet/22/GraNd/mask_70.npz
+tiny-imagenet,22,Forgetting,30,100000,30000,20000,0.2,7923,0.2641,/nvme/home/lixiang/baseline/data_diet/corruption_masks/tiny-imagenet/22/Forgetting/mask_30.npz
+tiny-imagenet,22,Forgetting,50,100000,50000,20000,0.2,12591,0.25182,/nvme/home/lixiang/baseline/data_diet/corruption_masks/tiny-imagenet/22/Forgetting/mask_50.npz
+tiny-imagenet,22,Forgetting,70,100000,70000,20000,0.2,16680,0.2382857142857143,/nvme/home/lixiang/baseline/data_diet/corruption_masks/tiny-imagenet/22/Forgetting/mask_70.npz

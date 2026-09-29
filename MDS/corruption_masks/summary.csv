@@ -1,0 +1,10 @@
+dataset,seed,method,keep_ratio,num_selected,num_noisy_selected,noise_ratio_in_mask,mask_path
+tiny-imagenet,22,MDS,30,30000,5970,0.199,/nvme/home/lixiang/baseline/MDS/corruption_masks/tiny-imagenet/22/MDS/mask_30.npz
+tiny-imagenet,22,MDS,50,50000,9954,0.19908,/nvme/home/lixiang/baseline/MDS/corruption_masks/tiny-imagenet/22/MDS/mask_50.npz
+tiny-imagenet,22,MDS,70,70000,13922,0.19888571428571428,/nvme/home/lixiang/baseline/MDS/corruption_masks/tiny-imagenet/22/MDS/mask_70.npz
+tiny-imagenet,42,MDS,30,30000,6166,0.20553333333333335,/nvme/home/lixiang/baseline/MDS/corruption_masks/tiny-imagenet/42/MDS/mask_30.npz
+tiny-imagenet,42,MDS,50,50000,10180,0.2036,/nvme/home/lixiang/baseline/MDS/corruption_masks/tiny-imagenet/42/MDS/mask_50.npz
+tiny-imagenet,42,MDS,70,70000,14081,0.20115714285714287,/nvme/home/lixiang/baseline/MDS/corruption_masks/tiny-imagenet/42/MDS/mask_70.npz
+tiny-imagenet,96,MDS,30,30000,6188,0.20626666666666665,/nvme/home/lixiang/baseline/MDS/corruption_masks/tiny-imagenet/96/MDS/mask_30.npz
+tiny-imagenet,96,MDS,50,50000,10131,0.20262,/nvme/home/lixiang/baseline/MDS/corruption_masks/tiny-imagenet/96/MDS/mask_50.npz
+tiny-imagenet,96,MDS,70,70000,14139,0.2019857142857143,/nvme/home/lixiang/baseline/MDS/corruption_masks/tiny-imagenet/96/MDS/mask_70.npz

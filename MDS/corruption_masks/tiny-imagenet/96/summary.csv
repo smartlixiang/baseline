@@ -1,0 +1,4 @@
+dataset,seed,method,keep_ratio,num_selected,num_noisy_selected,noise_ratio_in_mask,mask_path
+tiny-imagenet,96,MDS,30,30000,6188,0.20626666666666665,/nvme/home/lixiang/baseline/MDS/corruption_masks/tiny-imagenet/96/MDS/mask_30.npz
+tiny-imagenet,96,MDS,50,50000,10131,0.20262,/nvme/home/lixiang/baseline/MDS/corruption_masks/tiny-imagenet/96/MDS/mask_50.npz
+tiny-imagenet,96,MDS,70,70000,14139,0.2019857142857143,/nvme/home/lixiang/baseline/MDS/corruption_masks/tiny-imagenet/96/MDS/mask_70.npz

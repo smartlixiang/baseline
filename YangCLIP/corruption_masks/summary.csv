@@ -1,0 +1,10 @@
+dataset,seed,method,keep_ratio,num_selected,num_noisy_selected,noise_ratio_in_mask,mask_path
+tiny-imagenet,22,YangCLIP,30,30000,2207,0.07356666666666667,/nvme/home/lixiang/baseline/YangCLIP/corruption_masks/tiny-imagenet/22/YangCLIP/mask_30.npz
+tiny-imagenet,22,YangCLIP,50,50000,3758,0.07516,/nvme/home/lixiang/baseline/YangCLIP/corruption_masks/tiny-imagenet/22/YangCLIP/mask_50.npz
+tiny-imagenet,22,YangCLIP,70,70000,6926,0.09894285714285714,/nvme/home/lixiang/baseline/YangCLIP/corruption_masks/tiny-imagenet/22/YangCLIP/mask_70.npz
+tiny-imagenet,42,YangCLIP,30,30000,2377,0.07923333333333334,/nvme/home/lixiang/baseline/YangCLIP/corruption_masks/tiny-imagenet/42/YangCLIP/mask_30.npz
+tiny-imagenet,42,YangCLIP,50,50000,3991,0.07982,/nvme/home/lixiang/baseline/YangCLIP/corruption_masks/tiny-imagenet/42/YangCLIP/mask_50.npz
+tiny-imagenet,42,YangCLIP,70,70000,6859,0.09798571428571429,/nvme/home/lixiang/baseline/YangCLIP/corruption_masks/tiny-imagenet/42/YangCLIP/mask_70.npz
+tiny-imagenet,96,YangCLIP,30,30000,2299,0.07663333333333333,/nvme/home/lixiang/baseline/YangCLIP/corruption_masks/tiny-imagenet/96/YangCLIP/mask_30.npz
+tiny-imagenet,96,YangCLIP,50,50000,3854,0.07708,/nvme/home/lixiang/baseline/YangCLIP/corruption_masks/tiny-imagenet/96/YangCLIP/mask_50.npz
+tiny-imagenet,96,YangCLIP,70,70000,6831,0.09758571428571429,/nvme/home/lixiang/baseline/YangCLIP/corruption_masks/tiny-imagenet/96/YangCLIP/mask_70.npz

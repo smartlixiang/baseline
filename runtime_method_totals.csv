@@ -1,0 +1,10 @@
+﻿rank,method,estimated_seconds,estimated_time,dominant_stage,dominant_ratio,dominant_share,status,warning
+1,Random,0.001949,0.00秒,sample_and_build_four_masks,共享,1.000000,ok,
+2,Herding,255.089965,4分 15.1秒,classwise_greedy_selection,90%,0.255241,ok,
+3,EL2N,300.093954,5分 00.1秒,proxy_training_to_score_epoch,共享,0.989177,ok,
+4,GraNd,459.045796,7分 39.0秒,proxy_training_to_score_epoch,共享,0.583460,ok,
+5,MDS,1141.307755,19分 01.3秒,resnet50_proxy_training,共享,0.994095,ok,
+6,YangCLIP,1257.310606,20分 57.3秒,clip_adapter_training,共享,0.721697,ok,
+7,Forgetting,2759.116443,45分 59.1秒,proxy_training_with_forgetting_tracking,共享,0.999996,ok,
+8,RLSelector,9108.619052,2小时 31分,rl_guided_training,80%,0.236929,ok,
+9,MoSo,14456.781219,4小时 00分,ten_checkpoint_exact_gradient_scoring,60%,0.222744,ok,Conservative convention: the full 8-trial training/scoring pipeline is repeated independently for every target keep ratio.

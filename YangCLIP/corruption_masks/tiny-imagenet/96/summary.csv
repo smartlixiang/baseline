@@ -1,0 +1,4 @@
+dataset,seed,method,keep_ratio,num_selected,num_noisy_selected,noise_ratio_in_mask,mask_path
+tiny-imagenet,96,YangCLIP,30,30000,2299,0.07663333333333333,/nvme/home/lixiang/baseline/YangCLIP/corruption_masks/tiny-imagenet/96/YangCLIP/mask_30.npz
+tiny-imagenet,96,YangCLIP,50,50000,3854,0.07708,/nvme/home/lixiang/baseline/YangCLIP/corruption_masks/tiny-imagenet/96/YangCLIP/mask_50.npz
+tiny-imagenet,96,YangCLIP,70,70000,6831,0.09758571428571429,/nvme/home/lixiang/baseline/YangCLIP/corruption_masks/tiny-imagenet/96/YangCLIP/mask_70.npz

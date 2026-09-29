@@ -1,0 +1,15 @@
+{
+    "dataset": "tiny-imagenet",
+    "seed": 42,
+    "corruption_rate": 0.2,
+    "num_train": 100000,
+    "num_corrupted": 20000,
+    "corruption_list_path": "/nvme/home/lixiang/baseline/corruption_data/tiny-imagenet/corruption_list_42.txt",
+    "corruption_type_counts": {
+        "gaussian_noise": 4000,
+        "partial_occlusion": 4000,
+        "resolution_degradation": 4000,
+        "fog": 4000,
+        "motion_blur": 4000
+    }
+}

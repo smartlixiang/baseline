@@ -1,0 +1,802 @@
+{
+  "metadata": {
+    "generated_at": "2026-08-06 15:40:20 +0000",
+    "repo_root": "/nvme/home/lixiang/baseline",
+    "device": "cuda:0",
+    "gpu_name": "NVIDIA GeForce RTX 3090",
+    "platform": "Linux-6.8.0-106-generic-x86_64-with-glibc2.39",
+    "torch_version": "2.5.1+cu124",
+    "machines": 4,
+    "ratios": [
+      60,
+      70,
+      80,
+      90
+    ],
+    "methods": [
+      "Random",
+      "Herding",
+      "EL2N",
+      "GraNd",
+      "Forgetting",
+      "MDS",
+      "MoSo",
+      "YangCLIP",
+      "RLSelector"
+    ],
+    "exclusions": [
+      "dataset download and construction",
+      "initial checkpoint/model file loading",
+      "checkpoint serialization",
+      "final mask disk writes",
+      "proxy validation unrelated to score computation (except RLSelector)"
+    ]
+  },
+  "results": [
+    {
+      "method": "Random",
+      "estimated_seconds": 0.0019487176090478898,
+      "estimated_human": "0.002s",
+      "status": "ok",
+      "warning": "",
+      "stages": [
+        {
+          "method": "Random",
+          "stage": "sample_and_build_four_masks",
+          "ratio": null,
+          "measured_unit_seconds": 0.0019487176090478898,
+          "multiplier": 1,
+          "estimated_seconds": 0.0019487176090478898,
+          "parallel_waves": 1,
+          "confidence": "high",
+          "note": "3 seeds occupy 1 parallel wave(s).",
+          "estimated_human": "0.002s"
+        }
+      ]
+    },
+    {
+      "method": "Herding",
+      "estimated_seconds": 255.08996505725193,
+      "estimated_human": "4m 15.1s",
+      "status": "ok",
+      "warning": "",
+      "stages": [
+        {
+          "method": "Herding",
+          "stage": "resnet18_feature_extraction",
+          "ratio": null,
+          "measured_unit_seconds": 0.0018147935237114627,
+          "multiplier": 391,
+          "estimated_seconds": 0.7095842677711819,
+          "parallel_waves": 1,
+          "confidence": "medium-high",
+          "note": "ImageNet weight loading is excluded; 3 seeds occupy 1 wave(s).",
+          "estimated_human": "0.710s"
+        },
+        {
+          "method": "Herding",
+          "stage": "classwise_greedy_selection",
+          "ratio": 60,
+          "measured_unit_seconds": 0.20898972498252988,
+          "multiplier": 310.7269503546099,
+          "estimated_seconds": 64.93873989927015,
+          "parallel_waves": 1,
+          "confidence": "medium",
+          "note": "Scaled by the exact candidate-comparison count and 1 seed wave(s), from 8x100 probe classes to 100x500.",
+          "estimated_human": "1m 04.9s"
+        },
+        {
+          "method": "Herding",
+          "stage": "classwise_greedy_selection",
+          "ratio": 70,
+          "measured_unit_seconds": 0.19163330108858645,
+          "multiplier": 310.5916030534351,
+          "estimated_seconds": 59.51969418352566,
+          "parallel_waves": 1,
+          "confidence": "medium",
+          "note": "Scaled by the exact candidate-comparison count and 1 seed wave(s), from 8x100 probe classes to 100x500.",
+          "estimated_human": "59.520s"
+        },
+        {
+          "method": "Herding",
+          "stage": "classwise_greedy_selection",
+          "ratio": 80,
+          "measured_unit_seconds": 0.2087801860179752,
+          "multiplier": 310.4338842975207,
+          "estimated_seconds": 64.81244410991897,
+          "parallel_waves": 1,
+          "confidence": "medium",
+          "note": "Scaled by the exact candidate-comparison count and 1 seed wave(s), from 8x100 probe classes to 100x500.",
+          "estimated_human": "1m 04.8s"
+        },
+        {
+          "method": "Herding",
+          "stage": "classwise_greedy_selection",
+          "ratio": 90,
+          "measured_unit_seconds": 0.20986293395981193,
+          "multiplier": 310.2477477477477,
+          "estimated_seconds": 65.10950259676596,
+          "parallel_waves": 1,
+          "confidence": "medium",
+          "note": "Scaled by the exact candidate-comparison count and 1 seed wave(s), from 8x100 probe classes to 100x500.",
+          "estimated_human": "1m 05.1s"
+        }
+      ]
+    },
+    {
+      "method": "EL2N",
+      "estimated_seconds": 300.0939540749727,
+      "estimated_human": "5m 00.1s",
+      "status": "ok",
+      "warning": "",
+      "stages": [
+        {
+          "method": "EL2N",
+          "stage": "proxy_training_to_score_epoch",
+          "ratio": null,
+          "measured_unit_seconds": 0.00949603501552095,
+          "multiplier": 31260,
+          "estimated_seconds": 296.84605458518496,
+          "parallel_waves": 1,
+          "confidence": "medium-high",
+          "note": "Score checkpoint is epoch 20; 3 runs use 1 parallel wave(s).",
+          "estimated_human": "4m 56.8s"
+        },
+        {
+          "method": "EL2N",
+          "stage": "el2n_full_dataset_scoring",
+          "ratio": null,
+          "measured_unit_seconds": 0.00647429966678222,
+          "multiplier": 500,
+          "estimated_seconds": 3.23714983339111,
+          "parallel_waves": 1,
+          "confidence": "medium-high",
+          "note": "Per-run scoring is parallel across the available machines.",
+          "estimated_human": "3.237s"
+        },
+        {
+          "method": "EL2N",
+          "stage": "mean_aggregation_and_four_masks",
+          "ratio": null,
+          "measured_unit_seconds": 0.010749656396607557,
+          "multiplier": 1.0,
+          "estimated_seconds": 0.010749656396607557,
+          "parallel_waves": 1,
+          "confidence": "high",
+          "note": "The repository sorts independently for every keep ratio.",
+          "estimated_human": "0.011s"
+        }
+      ]
+    },
+    {
+      "method": "GraNd",
+      "estimated_seconds": 459.0457961209274,
+      "estimated_human": "7m 39.0s",
+      "status": "ok",
+      "warning": "",
+      "stages": [
+        {
+          "method": "GraNd",
+          "stage": "proxy_training_to_score_epoch",
+          "ratio": null,
+          "measured_unit_seconds": 0.00856796931475401,
+          "multiplier": 31260,
+          "estimated_seconds": 267.83472077921033,
+          "parallel_waves": 1,
+          "confidence": "medium-high",
+          "note": "Score checkpoint is epoch 20; repeated runs fit in 1 wave(s).",
+          "estimated_human": "4m 27.8s"
+        },
+        {
+          "method": "GraNd",
+          "stage": "per_sample_gradient_norm_scoring",
+          "ratio": null,
+          "measured_unit_seconds": 0.019120048033073545,
+          "multiplier": 10000,
+          "estimated_seconds": 191.20048033073545,
+          "parallel_waves": 1,
+          "confidence": "medium-low",
+          "note": "Uses the repository torch.func/vmap path when available; this is the most hardware-sensitive GraNd stage.",
+          "estimated_human": "3m 11.2s"
+        },
+        {
+          "method": "GraNd",
+          "stage": "mean_aggregation_and_four_masks",
+          "ratio": null,
+          "measured_unit_seconds": 0.010595010981584588,
+          "multiplier": 1.0,
+          "estimated_seconds": 0.010595010981584588,
+          "parallel_waves": 1,
+          "confidence": "high",
+          "note": "Four ratios share the same averaged score but are sorted separately.",
+          "estimated_human": "0.011s"
+        }
+      ]
+    },
+    {
+      "method": "Forgetting",
+      "estimated_seconds": 2759.1164431918096,
+      "estimated_human": "45m 59.1s",
+      "status": "ok",
+      "warning": "",
+      "stages": [
+        {
+          "method": "Forgetting",
+          "stage": "proxy_training_with_forgetting_tracking",
+          "ratio": null,
+          "measured_unit_seconds": 0.008826314161221186,
+          "multiplier": 312600,
+          "estimated_seconds": 2759.1058067977424,
+          "parallel_waves": 1,
+          "confidence": "medium-high",
+          "note": "One measured batch is extrapolated to 200 epochs; forgetting-event updates are inside the measured step.",
+          "estimated_human": "45m 59.1s"
+        },
+        {
+          "method": "Forgetting",
+          "stage": "mean_aggregation_and_four_masks",
+          "ratio": null,
+          "measured_unit_seconds": 0.010636394067356983,
+          "multiplier": 1.0,
+          "estimated_seconds": 0.010636394067356983,
+          "parallel_waves": 1,
+          "confidence": "high",
+          "note": "Final forgetting scores are averaged and then sorted for all four masks.",
+          "estimated_human": "0.011s"
+        }
+      ]
+    },
+    {
+      "method": "MDS",
+      "estimated_seconds": 1141.3077548999051,
+      "estimated_human": "19m 01.3s",
+      "status": "ok",
+      "warning": "",
+      "stages": [
+        {
+          "method": "MDS",
+          "stage": "resnet50_proxy_training",
+          "ratio": null,
+          "measured_unit_seconds": 0.014508551801554859,
+          "multiplier": 78200,
+          "estimated_seconds": 1134.56875088159,
+          "parallel_waves": 1,
+          "confidence": "medium-high",
+          "note": "Three seeds fit in 1 wave(s).",
+          "estimated_human": "18m 54.6s"
+        },
+        {
+          "method": "MDS",
+          "stage": "resnet50_feature_extraction",
+          "ratio": null,
+          "measured_unit_seconds": 0.005823976670702298,
+          "multiplier": 391,
+          "estimated_seconds": 2.2771748782445984,
+          "parallel_waves": 1,
+          "confidence": "medium-high",
+          "note": "One feature pass per seed; checkpoint loading is excluded.",
+          "estimated_human": "2.277s"
+        },
+        {
+          "method": "MDS",
+          "stage": "class_medians_and_distances",
+          "ratio": null,
+          "measured_unit_seconds": 0.008235167944803834,
+          "multiplier": 539.7940008672036,
+          "estimated_seconds": 4.445294252739008,
+          "parallel_waves": 1,
+          "confidence": "medium-low",
+          "note": "Scaled from a balanced synthetic probe; median cost includes an n log n correction.",
+          "estimated_human": "4.445s"
+        },
+        {
+          "method": "MDS",
+          "stage": "four_middle_band_sorts_and_masks",
+          "ratio": null,
+          "measured_unit_seconds": 0.016534887331848342,
+          "multiplier": 1,
+          "estimated_seconds": 0.016534887331848342,
+          "parallel_waves": 1,
+          "confidence": "high",
+          "note": "The current implementation calls argsort independently for each ratio.",
+          "estimated_human": "0.017s"
+        }
+      ]
+    },
+    {
+      "method": "MoSo",
+      "estimated_seconds": 14456.781219475593,
+      "estimated_human": "4h 00m 56.8s",
+      "status": "ok",
+      "warning": "Conservative convention: the full 8-trial training/scoring pipeline is repeated independently for every target keep ratio.",
+      "stages": [
+        {
+          "method": "MoSo",
+          "stage": "eight_trial_surrogate_training",
+          "ratio": 60,
+          "measured_unit_seconds": 0.15761041602430245,
+          "multiplier": 2500,
+          "estimated_seconds": 394.02604006075615,
+          "parallel_waves": 2,
+          "confidence": "medium",
+          "note": "Eight trials are scheduled as 2 waves on 4 machines; each trial trains on about N/8 samples for 50 epochs.",
+          "estimated_human": "6m 34.0s"
+        },
+        {
+          "method": "MoSo",
+          "stage": "ten_checkpoint_exact_gradient_scoring",
+          "ratio": 60,
+          "measured_unit_seconds": 0.012878399109467864,
+          "multiplier": 250000,
+          "estimated_seconds": 3220.165386556182,
+          "parallel_waves": 2,
+          "confidence": "low-medium",
+          "note": "Each sampled checkpoint makes two per-sample gradient passes over one trial support set. This stage is highly sensitive to PyTorch/CUDA versions.",
+          "estimated_human": "53m 40.2s"
+        },
+        {
+          "method": "MoSo",
+          "stage": "mask_export",
+          "ratio": 60,
+          "measured_unit_seconds": 0.0038782519598801932,
+          "multiplier": 1.0,
+          "estimated_seconds": 0.0038782519598801932,
+          "parallel_waves": 1,
+          "confidence": "high",
+          "note": "Sorting and mask construction only; disk writing is excluded.",
+          "estimated_human": "0.004s"
+        },
+        {
+          "method": "MoSo",
+          "stage": "eight_trial_surrogate_training",
+          "ratio": 70,
+          "measured_unit_seconds": 0.15761041602430245,
+          "multiplier": 2500,
+          "estimated_seconds": 394.02604006075615,
+          "parallel_waves": 2,
+          "confidence": "medium",
+          "note": "Eight trials are scheduled as 2 waves on 4 machines; each trial trains on about N/8 samples for 50 epochs.",
+          "estimated_human": "6m 34.0s"
+        },
+        {
+          "method": "MoSo",
+          "stage": "ten_checkpoint_exact_gradient_scoring",
+          "ratio": 70,
+          "measured_unit_seconds": 0.012878399109467864,
+          "multiplier": 250000,
+          "estimated_seconds": 3220.165386556182,
+          "parallel_waves": 2,
+          "confidence": "low-medium",
+          "note": "Each sampled checkpoint makes two per-sample gradient passes over one trial support set. This stage is highly sensitive to PyTorch/CUDA versions.",
+          "estimated_human": "53m 40.2s"
+        },
+        {
+          "method": "MoSo",
+          "stage": "mask_export",
+          "ratio": 70,
+          "measured_unit_seconds": 0.0038782519598801932,
+          "multiplier": 1.0,
+          "estimated_seconds": 0.0038782519598801932,
+          "parallel_waves": 1,
+          "confidence": "high",
+          "note": "Sorting and mask construction only; disk writing is excluded.",
+          "estimated_human": "0.004s"
+        },
+        {
+          "method": "MoSo",
+          "stage": "eight_trial_surrogate_training",
+          "ratio": 80,
+          "measured_unit_seconds": 0.15761041602430245,
+          "multiplier": 2500,
+          "estimated_seconds": 394.02604006075615,
+          "parallel_waves": 2,
+          "confidence": "medium",
+          "note": "Eight trials are scheduled as 2 waves on 4 machines; each trial trains on about N/8 samples for 50 epochs.",
+          "estimated_human": "6m 34.0s"
+        },
+        {
+          "method": "MoSo",
+          "stage": "ten_checkpoint_exact_gradient_scoring",
+          "ratio": 80,
+          "measured_unit_seconds": 0.012878399109467864,
+          "multiplier": 250000,
+          "estimated_seconds": 3220.165386556182,
+          "parallel_waves": 2,
+          "confidence": "low-medium",
+          "note": "Each sampled checkpoint makes two per-sample gradient passes over one trial support set. This stage is highly sensitive to PyTorch/CUDA versions.",
+          "estimated_human": "53m 40.2s"
+        },
+        {
+          "method": "MoSo",
+          "stage": "mask_export",
+          "ratio": 80,
+          "measured_unit_seconds": 0.0038782519598801932,
+          "multiplier": 1.0,
+          "estimated_seconds": 0.0038782519598801932,
+          "parallel_waves": 1,
+          "confidence": "high",
+          "note": "Sorting and mask construction only; disk writing is excluded.",
+          "estimated_human": "0.004s"
+        },
+        {
+          "method": "MoSo",
+          "stage": "eight_trial_surrogate_training",
+          "ratio": 90,
+          "measured_unit_seconds": 0.15761041602430245,
+          "multiplier": 2500,
+          "estimated_seconds": 394.02604006075615,
+          "parallel_waves": 2,
+          "confidence": "medium",
+          "note": "Eight trials are scheduled as 2 waves on 4 machines; each trial trains on about N/8 samples for 50 epochs.",
+          "estimated_human": "6m 34.0s"
+        },
+        {
+          "method": "MoSo",
+          "stage": "ten_checkpoint_exact_gradient_scoring",
+          "ratio": 90,
+          "measured_unit_seconds": 0.012878399109467864,
+          "multiplier": 250000,
+          "estimated_seconds": 3220.165386556182,
+          "parallel_waves": 2,
+          "confidence": "low-medium",
+          "note": "Each sampled checkpoint makes two per-sample gradient passes over one trial support set. This stage is highly sensitive to PyTorch/CUDA versions.",
+          "estimated_human": "53m 40.2s"
+        },
+        {
+          "method": "MoSo",
+          "stage": "mask_export",
+          "ratio": 90,
+          "measured_unit_seconds": 0.0038782519598801932,
+          "multiplier": 1.0,
+          "estimated_seconds": 0.0038782519598801932,
+          "parallel_waves": 1,
+          "confidence": "high",
+          "note": "Sorting and mask construction only; disk writing is excluded.",
+          "estimated_human": "0.004s"
+        }
+      ]
+    },
+    {
+      "method": "YangCLIP",
+      "estimated_seconds": 1257.310606105253,
+      "estimated_human": "20m 57.3s",
+      "status": "ok",
+      "warning": "",
+      "stages": [
+        {
+          "method": "YangCLIP",
+          "stage": "clip_adapter_training",
+          "ratio": null,
+          "measured_unit_seconds": 0.15486255070815483,
+          "multiplier": 5859.375,
+          "estimated_seconds": 907.3977580555947,
+          "parallel_waves": 1,
+          "confidence": "medium",
+          "note": "actual local CLIP ViT-B/32; measured batch=256, target script batch=256. Model loading and image preprocessing are excluded.",
+          "estimated_human": "15m 07.4s"
+        },
+        {
+          "method": "YangCLIP",
+          "stage": "clip_feature_and_semantic_scoring",
+          "ratio": null,
+          "measured_unit_seconds": 0.15712741762399673,
+          "multiplier": 195.3125,
+          "estimated_seconds": 30.688948754686862,
+          "parallel_waves": 1,
+          "confidence": "medium",
+          "note": "One score pass per seed; three seeds fit in one four-machine wave.",
+          "estimated_human": "30.689s"
+        },
+        {
+          "method": "YangCLIP",
+          "stage": "classwise_knn_diversity",
+          "ratio": null,
+          "measured_unit_seconds": 1.0057179110590369,
+          "multiplier": 312.5,
+          "estimated_seconds": 314.286847205949,
+          "parallel_waves": 1,
+          "confidence": "low-medium",
+          "note": "Scaled quadratically in the 500 samples per CIFAR-100 class.",
+          "estimated_human": "5m 14.3s"
+        },
+        {
+          "method": "YangCLIP",
+          "stage": "optimization_based_mask",
+          "ratio": 60,
+          "measured_unit_seconds": 1.5450857491232455,
+          "multiplier": 1,
+          "estimated_seconds": 1.5450857491232455,
+          "parallel_waves": 1,
+          "confidence": "medium",
+          "note": "Converged in 1988 steps on synthetic 50k scores.",
+          "estimated_human": "1.545s"
+        },
+        {
+          "method": "YangCLIP",
+          "stage": "optimization_based_mask",
+          "ratio": 70,
+          "measured_unit_seconds": 1.2904163550119847,
+          "multiplier": 1,
+          "estimated_seconds": 1.2904163550119847,
+          "parallel_waves": 1,
+          "confidence": "medium",
+          "note": "Converged in 1690 steps on synthetic 50k scores.",
+          "estimated_human": "1.290s"
+        },
+        {
+          "method": "YangCLIP",
+          "stage": "optimization_based_mask",
+          "ratio": 80,
+          "measured_unit_seconds": 1.1151736290194094,
+          "multiplier": 1,
+          "estimated_seconds": 1.1151736290194094,
+          "parallel_waves": 1,
+          "confidence": "medium",
+          "note": "Converged in 1463 steps on synthetic 50k scores.",
+          "estimated_human": "1.115s"
+        },
+        {
+          "method": "YangCLIP",
+          "stage": "optimization_based_mask",
+          "ratio": 90,
+          "measured_unit_seconds": 0.9863763558678329,
+          "multiplier": 1,
+          "estimated_seconds": 0.9863763558678329,
+          "parallel_waves": 1,
+          "confidence": "medium",
+          "note": "Converged in 1295 steps on synthetic 50k scores.",
+          "estimated_human": "0.986s"
+        }
+      ]
+    },
+    {
+      "method": "RLSelector",
+      "estimated_seconds": 9108.619051951138,
+      "estimated_human": "2h 31m 48.6s",
+      "status": "ok",
+      "warning": "",
+      "stages": [
+        {
+          "method": "RLSelector",
+          "stage": "one_epoch_feature_warmup",
+          "ratio": 60,
+          "measured_unit_seconds": 0.053860304644331336,
+          "multiplier": 196,
+          "estimated_seconds": 10.556619710288942,
+          "parallel_waves": 1,
+          "confidence": "medium-high",
+          "note": "The script performs this additional full pass only in epoch 0 of each ratio run.",
+          "estimated_human": "10.557s"
+        },
+        {
+          "method": "RLSelector",
+          "stage": "classwise_distance_matrix_each_epoch",
+          "ratio": 60,
+          "measured_unit_seconds": 0.0007225789595395327,
+          "multiplier": 4000.0,
+          "estimated_seconds": 2.8903158381581306,
+          "parallel_waves": 1,
+          "confidence": "medium",
+          "note": "Measured on 5 full 500-sample classes and scaled to 100 classes.",
+          "estimated_human": "2.890s"
+        },
+        {
+          "method": "RLSelector",
+          "stage": "rl_guided_training",
+          "ratio": 60,
+          "measured_unit_seconds": 0.053763347677886486,
+          "multiplier": 39200,
+          "estimated_seconds": 2107.5232289731503,
+          "parallel_waves": 1,
+          "confidence": "medium-high",
+          "note": "Includes ResNet18 backward, mask reward, actor update, and critic update.",
+          "estimated_human": "35m 07.5s"
+        },
+        {
+          "method": "RLSelector",
+          "stage": "validation_each_epoch",
+          "ratio": 60,
+          "measured_unit_seconds": 0.015084877299765745,
+          "multiplier": 8000,
+          "estimated_seconds": 120.67901839812596,
+          "parallel_waves": 1,
+          "confidence": "medium",
+          "note": "Matches RLSelector/train.py.",
+          "estimated_human": "2m 00.7s"
+        },
+        {
+          "method": "RLSelector",
+          "stage": "topk_mask_export",
+          "ratio": 60,
+          "measured_unit_seconds": 0.001011062025402983,
+          "multiplier": 1,
+          "estimated_seconds": 0.001011062025402983,
+          "parallel_waves": 1,
+          "confidence": "high",
+          "note": "One target ratio per independent run.",
+          "estimated_human": "0.001s"
+        },
+        {
+          "method": "RLSelector",
+          "stage": "one_epoch_feature_warmup",
+          "ratio": 70,
+          "measured_unit_seconds": 0.05173110434164604,
+          "multiplier": 196,
+          "estimated_seconds": 10.139296450962624,
+          "parallel_waves": 1,
+          "confidence": "medium-high",
+          "note": "The script performs this additional full pass only in epoch 0 of each ratio run.",
+          "estimated_human": "10.139s"
+        },
+        {
+          "method": "RLSelector",
+          "stage": "classwise_distance_matrix_each_epoch",
+          "ratio": 70,
+          "measured_unit_seconds": 0.0007225789595395327,
+          "multiplier": 4000.0,
+          "estimated_seconds": 2.8903158381581306,
+          "parallel_waves": 1,
+          "confidence": "medium",
+          "note": "Measured on 5 full 500-sample classes and scaled to 100 classes.",
+          "estimated_human": "2.890s"
+        },
+        {
+          "method": "RLSelector",
+          "stage": "rl_guided_training",
+          "ratio": 70,
+          "measured_unit_seconds": 0.05490417033433914,
+          "multiplier": 39200,
+          "estimated_seconds": 2152.2434771060944,
+          "parallel_waves": 1,
+          "confidence": "medium-high",
+          "note": "Includes ResNet18 backward, mask reward, actor update, and critic update.",
+          "estimated_human": "35m 52.2s"
+        },
+        {
+          "method": "RLSelector",
+          "stage": "validation_each_epoch",
+          "ratio": 70,
+          "measured_unit_seconds": 0.015131631322825948,
+          "multiplier": 8000,
+          "estimated_seconds": 121.05305058260758,
+          "parallel_waves": 1,
+          "confidence": "medium",
+          "note": "Matches RLSelector/train.py.",
+          "estimated_human": "2m 01.1s"
+        },
+        {
+          "method": "RLSelector",
+          "stage": "topk_mask_export",
+          "ratio": 70,
+          "measured_unit_seconds": 0.0008302670127401749,
+          "multiplier": 1,
+          "estimated_seconds": 0.0008302670127401749,
+          "parallel_waves": 1,
+          "confidence": "high",
+          "note": "One target ratio per independent run.",
+          "estimated_human": "0.001s"
+        },
+        {
+          "method": "RLSelector",
+          "stage": "one_epoch_feature_warmup",
+          "ratio": 80,
+          "measured_unit_seconds": 0.05170564896737536,
+          "multiplier": 196,
+          "estimated_seconds": 10.13430719760557,
+          "parallel_waves": 1,
+          "confidence": "medium-high",
+          "note": "The script performs this additional full pass only in epoch 0 of each ratio run.",
+          "estimated_human": "10.134s"
+        },
+        {
+          "method": "RLSelector",
+          "stage": "classwise_distance_matrix_each_epoch",
+          "ratio": 80,
+          "measured_unit_seconds": 0.0007225789595395327,
+          "multiplier": 4000.0,
+          "estimated_seconds": 2.8903158381581306,
+          "parallel_waves": 1,
+          "confidence": "medium",
+          "note": "Measured on 5 full 500-sample classes and scaled to 100 classes.",
+          "estimated_human": "2.890s"
+        },
+        {
+          "method": "RLSelector",
+          "stage": "rl_guided_training",
+          "ratio": 80,
+          "measured_unit_seconds": 0.055053397392233215,
+          "multiplier": 39200,
+          "estimated_seconds": 2158.0931777755422,
+          "parallel_waves": 1,
+          "confidence": "medium-high",
+          "note": "Includes ResNet18 backward, mask reward, actor update, and critic update.",
+          "estimated_human": "35m 58.1s"
+        },
+        {
+          "method": "RLSelector",
+          "stage": "validation_each_epoch",
+          "ratio": 80,
+          "measured_unit_seconds": 0.015119433014964065,
+          "multiplier": 8000,
+          "estimated_seconds": 120.95546411971252,
+          "parallel_waves": 1,
+          "confidence": "medium",
+          "note": "Matches RLSelector/train.py.",
+          "estimated_human": "2m 01.0s"
+        },
+        {
+          "method": "RLSelector",
+          "stage": "topk_mask_export",
+          "ratio": 80,
+          "measured_unit_seconds": 0.0009145683919390043,
+          "multiplier": 1,
+          "estimated_seconds": 0.0009145683919390043,
+          "parallel_waves": 1,
+          "confidence": "high",
+          "note": "One target ratio per independent run.",
+          "estimated_human": "0.001s"
+        },
+        {
+          "method": "RLSelector",
+          "stage": "one_epoch_feature_warmup",
+          "ratio": 90,
+          "measured_unit_seconds": 0.051667237343887486,
+          "multiplier": 196,
+          "estimated_seconds": 10.126778519401947,
+          "parallel_waves": 1,
+          "confidence": "medium-high",
+          "note": "The script performs this additional full pass only in epoch 0 of each ratio run.",
+          "estimated_human": "10.127s"
+        },
+        {
+          "method": "RLSelector",
+          "stage": "classwise_distance_matrix_each_epoch",
+          "ratio": 90,
+          "measured_unit_seconds": 0.0007225789595395327,
+          "multiplier": 4000.0,
+          "estimated_seconds": 2.8903158381581306,
+          "parallel_waves": 1,
+          "confidence": "medium",
+          "note": "Measured on 5 full 500-sample classes and scaled to 100 classes.",
+          "estimated_human": "2.890s"
+        },
+        {
+          "method": "RLSelector",
+          "stage": "rl_guided_training",
+          "ratio": 90,
+          "measured_unit_seconds": 0.054951846366748214,
+          "multiplier": 39200,
+          "estimated_seconds": 2154.11237757653,
+          "parallel_waves": 1,
+          "confidence": "medium-high",
+          "note": "Includes ResNet18 backward, mask reward, actor update, and critic update.",
+          "estimated_human": "35m 54.1s"
+        },
+        {
+          "method": "RLSelector",
+          "stage": "validation_each_epoch",
+          "ratio": 90,
+          "measured_unit_seconds": 0.015179654971385995,
+          "multiplier": 8000,
+          "estimated_seconds": 121.43723977108796,
+          "parallel_waves": 1,
+          "confidence": "medium",
+          "note": "Matches RLSelector/train.py.",
+          "estimated_human": "2m 01.4s"
+        },
+        {
+          "method": "RLSelector",
+          "stage": "topk_mask_export",
+          "ratio": 90,
+          "measured_unit_seconds": 0.0009965199666718643,
+          "multiplier": 1,
+          "estimated_seconds": 0.0009965199666718643,
+          "parallel_waves": 1,
+          "confidence": "high",
+          "note": "One target ratio per independent run.",
+          "estimated_human": "0.001s"
+        }
+      ]
+    }
+  ]
+}
